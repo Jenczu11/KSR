@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSR", "KSR\KSR.csproj", "{92F41E0A-DF62-45A8-A718-21FE0FFD364E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|anycpu = Debug|anycpu
+		Release|anycpu = Release|anycpu
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Debug|anycpu.ActiveCfg = Debug|anycpu
+		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Debug|anycpu.Build.0 = Debug|anycpu
+		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Release|anycpu.ActiveCfg = Release|anycpu
+		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Release|anycpu.Build.0 = Release|anycpu
+	EndGlobalSection
+EndGlobal
