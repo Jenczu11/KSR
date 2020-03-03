@@ -21,7 +21,10 @@ namespace KSR
                 .Where(item => item.Tags[PLACES_TAG].Count == 1)
                 .Where(item => PLACES.Contains(item.Tags[PLACES_TAG][0]))
                 .ToList();
-            selected.ForEach(item => Console.WriteLine(string.Format("Title: {0}, DateLine: {1}, Place: {2}", item.Title, item.DateLine, item.Tags[PLACES_TAG][0])));
+            Console.WriteLine("Po filtrowaniu"); 
+            selected[0].Paragraphs[0].ForEach(word => Console.WriteLine(word));
+            Console.ReadLine();
+            // selected.ForEach(item => Console.WriteLine(string.Format("Title: {0}, DateLine: {1}, Place: {2}", item.Title, item.DateLine, item.Tags[PLACES_TAG][0])));
         }
     }
 }
