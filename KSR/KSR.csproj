@@ -61,6 +61,7 @@
     <Compile Include="Tools\Metrics\EuclidesMetric.cs" />
     <Compile Include="Tools\Metrics\ManhattanMetric.cs" />
     <Compile Include="Tools\Metrics\ChebyshevMatric.cs" />
+    <Compile Include="Tools\SimliarityFunctions\ISimiliarityFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
