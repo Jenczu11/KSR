@@ -75,6 +75,7 @@
     <Compile Include="Tools\Frequency\IFrequency.cs" />
     <Compile Include="Tools\Frequency\TFFrequency.cs" />
     <Compile Include="Tools\Frequency\IDFFrequency.cs" />
+    <Compile Include="Tools\Helpers\KeyWordsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
@@ -84,6 +85,7 @@
     <Folder Include="Tools\Classifier\" />
     <Folder Include="Tools\Metrics\" />
     <Folder Include="Tools\Frequency\" />
+    <Folder Include="Tools\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

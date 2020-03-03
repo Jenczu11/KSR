@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace KSR.Tools.Frequency
 {
@@ -15,7 +16,7 @@ namespace KSR.Tools.Frequency
             {
                 result.Add(item.Key, item.Value / words.Count);
             }
-            return result;
+            return result.OrderByDescending(item => item.Value).ToDictionary(item => item.Key, item => item.Value);
         }
     }
 }
