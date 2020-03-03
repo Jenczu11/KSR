@@ -57,12 +57,18 @@
     <Compile Include="Model\Article.cs" />
     <Compile Include="Tools\Readers\IReader.cs" />
     <Compile Include="Tools\Readers\ReutersReader.cs" />
+    <Compile Include="Tools\Metrics\IMetric.cs" />
+    <Compile Include="Tools\Metrics\EuclidesMetric.cs" />
+    <Compile Include="Tools\Metrics\ManhattanMetric.cs" />
+    <Compile Include="Tools\Metrics\ChebyshevMatric.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Tools\" />
     <Folder Include="Tools\Readers\" />
     <Folder Include="Data\" />
+    <Folder Include="Tools\Classifier\" />
+    <Folder Include="Tools\Metrics\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
