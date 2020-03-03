@@ -5,6 +5,6 @@ namespace KSR.Tools.Frequency
 {
     public interface IFrequency
     {
-        public static Dictionary<string, decimal> Calc(List<string> words);
+        public Dictionary<string, decimal> Calc(List<string> words);
     }
 }
