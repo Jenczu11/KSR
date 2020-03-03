@@ -4,6 +4,8 @@ using System.Linq;
 using KSR.Model;
 using System.Collections.Generic;
 using KSR.Tools.Filter;
+using KSR.Tools.Frequency;
+using KSR.Tools.Helpers;
 
 namespace KSR
 {
@@ -33,10 +35,13 @@ namespace KSR
             // Console.WriteLine("Po filtrowaniu");
             // Console.WriteLine(filteredArticles.GetArticleSingleParagraph(0, 1));
             // string ParagraphText = string.Join(" ", filteredArticles.GetArticleSingleParagraph(0, 1).ToArray());
-            filteredArticles.printArticle(0);
-            Console.WriteLine();
-            filteredArticles.printSingleParagraph(0,0);
+            // filteredArticles.printArticle(0);
+            // Console.WriteLine();
+            // filteredArticles.printSingleParagraph(0,0);
             // selected[0].Paragraphs[0].ForEach(word => Console.WriteLine(word));
+            Console.Write(filteredArticles.getListOfAllWords().Count);
+            var tf = new TFFrequency();
+            Console.Write(DictHelper.DictionaryToString(tf.Calc(filteredArticles.getListOfAllWords())));
             Console.ReadLine();
         }
     }
