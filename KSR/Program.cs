@@ -34,6 +34,8 @@ namespace KSR
             // Console.WriteLine(filteredArticles.GetArticleSingleParagraph(0, 1));
             // string ParagraphText = string.Join(" ", filteredArticles.GetArticleSingleParagraph(0, 1).ToArray());
             filteredArticles.printArticle(0);
+            Console.WriteLine();
+            filteredArticles.printSingleParagraph(0,0);
             // selected[0].Paragraphs[0].ForEach(word => Console.WriteLine(word));
             Console.ReadLine();
         }

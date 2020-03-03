@@ -48,7 +48,15 @@ namespace KSR.Tools.Filter
                     Console.Write(word);
                     Console.Write(" ");
                 }));
+        }
 
+        public void printSingleParagraph(int articleIndex, int paragraphIndex)
+        {
+            selectedArticles[articleIndex].Paragraphs[paragraphIndex].ForEach(word =>
+            {
+                Console.Write(word);
+                Console.Write(" ");
+            });
         }
         
     }
