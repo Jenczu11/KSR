@@ -50,6 +50,15 @@
     <Reference Include="NumSharp.Core">
       <HintPath>..\packages\NumSharp.0.20.5\lib\netstandard2.0\NumSharp.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="src">
+      <HintPath>..\packages\dotnet-stop-words.1.0.4\lib\netstandard2.0\src.dll</HintPath>
+    </Reference>
+    <Reference Include="Annytab.Stemmer">
+      <HintPath>..\packages\Annytab.Stemmer.1.2.4\lib\netstandard2.0\Annytab.Stemmer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

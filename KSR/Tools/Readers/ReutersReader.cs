@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Annytab.Stemmer;
 using HtmlAgilityPack;
 using KSR.Model;
+using StopWord;
 
 namespace KSR.Tools.Readers
 {
     public class ReutersReader : IReader
     {
+        private static Stemmer stemmer = new EnglishStemmer();
         private List<string> sources { get; set; }
         public ReutersReader()
         {
@@ -49,9 +52,11 @@ namespace KSR.Tools.Readers
                                 .Select(
                                     words => regex
                                         .Replace(words, " ")
-                                        .ToLower()
+                                        //.ToLower()
+                                        .RemoveStopWords("en") //Usign https://github.com/hklemp/dotnet-stop-words
                                         .Split(' ')
                                         .Where(item => item.Length > 2)
+                                        .Select(item => stemmer.GetSteamWord(item)) //Using https://github.com/annytab/a-stemmer
                                         .ToList()
                                     )
                                 .ToList(),
