@@ -82,6 +82,7 @@
     <Compile Include="Tools\Features\BinaryArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\KeyWordsArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\KeyWords20PercentArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsFirstParagraphArticleBodyFeature.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
