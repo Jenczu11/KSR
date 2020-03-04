@@ -78,6 +78,10 @@
     <Compile Include="Tools\Frequency\TFFrequency.cs" />
     <Compile Include="Tools\Frequency\IDFFrequency.cs" />
     <Compile Include="Tools\Helpers\KeyWordsHelper.cs" />
+    <Compile Include="Tools\Features\IFeature.cs" />
+    <Compile Include="Tools\Features\BinaryArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWords20PercentArticleBodyFeature.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
@@ -88,6 +92,7 @@
     <Folder Include="Tools\Metrics\" />
     <Folder Include="Tools\Frequency\" />
     <Folder Include="Tools\Helpers\" />
+    <Folder Include="Tools\Features\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
