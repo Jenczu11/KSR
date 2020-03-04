@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using KSR.Tools.Filter;
 using KSR.Tools.Frequency;
 using KSR.Tools.Helpers;
+using System.IO;
 
 namespace KSR
 {
@@ -28,10 +29,10 @@ namespace KSR
             //
             // selected.ForEach(item => Console.WriteLine(string.Format("Title: {0}, DateLine: {1}, Place: {2}", item.Title, item.DateLine, item.Tags[PLACES_TAG][0])));
             //
-           var reader = new ReutersReader();
-           var articles = reader.GetArticles();
-           
-           var filteredArticles = new FilteredArticles(articles);
+            var reader = new ReutersReader();
+            var articles = reader.GetArticles();
+
+            var filteredArticles = new FilteredArticles(articles);
             // Console.WriteLine("Po filtrowaniu");
             // Console.WriteLine(filteredArticles.GetArticleSingleParagraph(0, 1));
             // string ParagraphText = string.Join(" ", filteredArticles.GetArticleSingleParagraph(0, 1).ToArray());
@@ -41,7 +42,35 @@ namespace KSR
             // selected[0].Paragraphs[0].ForEach(word => Console.WriteLine(word));
             Console.Write(filteredArticles.getListOfAllWords().Count);
             var tf = new TFFrequency();
-            Console.Write(DictHelper.DictionaryToString(tf.Calc(filteredArticles.getListOfAllWords())));
+            //var KeyWords = KeyWordsHelper.GetKeyWords(filteredArticles.selectedArticles, 1, tf, PLACES_TAG);
+
+            var wordsInTags = new Dictionary<string, List<string>>();
+            foreach (var article in filteredArticles.selectedArticles)
+            {
+                var tag = article.Tags[PLACES_TAG][0];
+                if (!wordsInTags.ContainsKey(tag))
+                {
+                    wordsInTags.Add(tag, new List<string>());
+                }
+                article.Paragraphs.ForEach(words => wordsInTags[tag].AddRange(words));
+            }
+            var keys = wordsInTags.Keys;
+            // var result = new Dictionary<string, List<string>>();
+            //var resultFile = File.Open(@"Logs.csv", FileMode.OpenOrCreate);
+            var file = File.AppendText(@"Logs.csv");
+            foreach (var key in keys)
+            {
+                var wordsFrequency = tf.Calc(wordsInTags[key]);
+                foreach (var word in wordsFrequency)
+                {
+                    var line = string.Format("\"{0}\",\"{1}\",\"{2}\"{3}", key, word.Key, word.Value, Environment.NewLine);
+                    //Console.Write(line);
+                    file.Write(line);
+                }
+                //result.Add(key, wordsFrequency.Keys.Take(Convert.ToInt32(wordsFrequency.Count * 1)).ToList());
+            }
+            file.Close();
+            //Console.Write(DictHelper.DictionaryToString(tf.Calc(filteredArticles.getListOfAllWords())));
             Console.ReadLine();
         }
     }

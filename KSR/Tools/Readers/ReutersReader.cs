@@ -17,7 +17,7 @@ namespace KSR.Tools.Readers
         public ReutersReader()
         {
             sources = new List<string>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 21; i++)
             {
                 sources.Add(string.Format(@"../../Data/reut2-{0:000}.sgm", i));
             }
@@ -26,6 +26,9 @@ namespace KSR.Tools.Readers
         public IEnumerable<Article> GetArticles()
         {
             var regex = new Regex("[^a-zA-Z]");
+#if DEBUG
+            int count = 0;
+#endif
             foreach (var item in sources)
             {
                 var raw = File.ReadAllText(item);
@@ -41,6 +44,13 @@ namespace KSR.Tools.Readers
                     }
                     if (body != null && tags.Count > 0)
                     {
+#if DEBUG
+                        if (count % 100 == 0)
+                        {
+                            Console.WriteLine("Article " + count);
+                        }
+                        count++;
+#endif
                         yield return new Article()
                         {
                             Title = article.Descendants("TITLE").First().InnerText.Replace("&lt;", "<"),
