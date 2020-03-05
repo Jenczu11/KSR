@@ -10,13 +10,13 @@ namespace KSR.Tools.SimliarityFunctions
             var swl = secondWord.Length;
             var max = Math.Max(firstWord.Length, secondWord.Length);
             var fractional = 2 / (Math.Pow(max, 2) + max);
-            if(fwl < swl)
+            if (fwl < swl)
             {
                 var temp = firstWord;
                 firstWord = secondWord;
-                secondWord = firstWord;
+                secondWord = temp;
             }
-            for(int i = 0; i < fwl; i++)
+            for (int i = 0; i < fwl; i++)
             {
                 for (int j = 0; j < fwl - i; j++)
                 {
