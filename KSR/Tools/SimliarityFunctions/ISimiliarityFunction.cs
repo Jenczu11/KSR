@@ -2,6 +2,6 @@
 {
     public interface ISimiliarityFunction
     { 
-        decimal CalculateSimilairty(string firstWord, string secondWord);
+        decimal CalculateSimilarity(string firstWord, string secondWord);
     }
 }

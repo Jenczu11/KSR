@@ -34,15 +34,15 @@
       <HintPath>..\packages\HtmlAgilityPack.1.11.21\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers">
-      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics.Vectors">
-      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory">
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
@@ -51,13 +51,27 @@
       <HintPath>..\packages\NumSharp.0.20.5\lib\netstandard2.0\NumSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="src">
       <HintPath>..\packages\dotnet-stop-words.1.0.4\lib\netstandard2.0\src.dll</HintPath>
     </Reference>
     <Reference Include="Annytab.Stemmer">
       <HintPath>..\packages\Annytab.Stemmer.1.2.4\lib\netstandard2.0\Annytab.Stemmer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="Fastenshtein">
+      <HintPath>..\packages\Fastenshtein.1.0.0.5\lib\net40-client\Fastenshtein.dll</HintPath>
+    </Reference>
+    <Reference Include="UnidecodeSharpFork">
+      <HintPath>..\packages\UnidecodeSharpFork.1.0.0\lib\UnidecodeSharpFork.dll</HintPath>
+    </Reference>
+    <Reference Include="TwinFinder">
+      <HintPath>..\packages\TwinFinder.Nuget.1.0.0\lib\TwinFinder.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +97,9 @@
     <Compile Include="Tools\Features\KeyWordsArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\KeyWords20PercentArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\KeyWordsFirstParagraphArticleBodyFeature.cs" />
+    <Compile Include="Tools\SimliarityFunctions\LevenshteinFunction.cs" />
+    <Compile Include="Tools\SimliarityFunctions\NGramFunction.cs" />
+    <Compile Include="Tools\SimliarityFunctions\NiewiadomskiFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />

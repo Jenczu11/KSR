@@ -3,10 +3,12 @@
     public class BinaryFunction : ISimiliarityFunction
     {
         // If first == second return true
-        public decimal CalculateSimilairty(string firstWord, string secondWord)
+        public decimal CalculateSimilarity(string firstWord, string secondWord)
         {
             if (firstWord == secondWord)
+            {
                 return 1;
+            }
             return 0;
         }
 
