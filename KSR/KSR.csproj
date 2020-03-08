@@ -103,6 +103,7 @@
     <Compile Include="Tools\Frequency\TDFrequency.cs" />
     <Compile Include="Tools\SimliarityFunctions\JaccardFunction.cs" />
     <Compile Include="Tools\SimliarityFunctions\LCSFunction.cs" />
+    <Compile Include="Tools\Features\SimilarityBodyFeature.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
