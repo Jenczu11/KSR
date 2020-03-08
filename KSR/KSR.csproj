@@ -87,7 +87,7 @@
     <Compile Include="Tools\Metrics\ManhattanMetric.cs" />
     <Compile Include="Tools\Metrics\ChebyshevMatric.cs" />
     <Compile Include="Tools\SimliarityFunctions\BinaryFunction.cs" />
-    <Compile Include="Tools\SimliarityFunctions\ISimiliarityFunction.cs" />
+    <Compile Include="Tools\SimliarityFunctions\ISimilarityFunction.cs" />
     <Compile Include="Tools\Frequency\IFrequency.cs" />
     <Compile Include="Tools\Frequency\TFFrequency.cs" />
     <Compile Include="Tools\Frequency\IDFFrequency.cs" />
@@ -100,6 +100,9 @@
     <Compile Include="Tools\SimliarityFunctions\LevenshteinFunction.cs" />
     <Compile Include="Tools\SimliarityFunctions\NGramFunction.cs" />
     <Compile Include="Tools\SimliarityFunctions\NiewiadomskiFunction.cs" />
+    <Compile Include="Tools\Frequency\TDFrequency.cs" />
+    <Compile Include="Tools\SimliarityFunctions\JaccardFunction.cs" />
+    <Compile Include="Tools\SimliarityFunctions\LCSFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />

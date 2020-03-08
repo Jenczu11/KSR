@@ -10,18 +10,19 @@ namespace KSR.Tools.Helpers
     {
         public static Dictionary<string, List<string>> GetKeyWords(List<Article> articles, decimal percentOfWords, IFrequency frequency, string category)
         {
-            var wordsInTags = new Dictionary<string, List<string>>();
+            var wordsInTags = new Dictionary<string, List<Article>>();
+            var result = new Dictionary<string, List<string>>();
             foreach (var article in articles)
             {
                 var tag = article.Tags[category][0];
                 if (!wordsInTags.ContainsKey(tag))
                 {
-                    wordsInTags.Add(tag, new List<string>());
+                    wordsInTags.Add(tag, new List<Article>());
                 }
-                article.Paragraphs.ForEach(words => wordsInTags[tag].AddRange(words));
+                wordsInTags[tag].Add(article);
             }
             var keys = wordsInTags.Keys;
-            var result = new Dictionary<string, List<string>>();
+
             foreach (var key in keys)
             {
                 var wordsFrequency = frequency.Calc(wordsInTags[key]);

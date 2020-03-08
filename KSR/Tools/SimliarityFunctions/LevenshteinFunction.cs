@@ -1,7 +1,7 @@
 ﻿using System;
 namespace KSR.Tools.SimliarityFunctions
 {
-    public class LevenshteinFunction : ISimiliarityFunction
+    public class LevenshteinFunction : ISimilarityFunction
     {
         public decimal CalculateSimilarity(string firstWord, string secondWord)
         {

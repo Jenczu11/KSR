@@ -29,7 +29,7 @@ namespace KSR
             //
             // selected.ForEach(item => Console.WriteLine(string.Format("Title: {0}, DateLine: {1}, Place: {2}", item.Title, item.DateLine, item.Tags[PLACES_TAG][0])));
             //
-            var reader = new ReutersReader();
+            /*var reader = new ReutersReader();
             var articles = reader.GetArticles();
 
             var filteredArticles = new FilteredArticles(articles);
@@ -71,7 +71,7 @@ namespace KSR
             }
             file.Close();
             //Console.Write(DictHelper.DictionaryToString(tf.Calc(filteredArticles.getListOfAllWords())));
-            Console.ReadLine();
+            Console.ReadLine();*/
         }
     }
 }

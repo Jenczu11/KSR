@@ -1,7 +1,7 @@
 ﻿using System;
 namespace KSR.Tools.SimliarityFunctions
 {
-    public class NiewiadomskiFunction : ISimiliarityFunction
+    public class NiewiadomskiFunction : ISimilarityFunction
     {
         public decimal CalculateSimilarity(string firstWord, string secondWord)
         {
