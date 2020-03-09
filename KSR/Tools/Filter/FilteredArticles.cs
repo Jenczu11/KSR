@@ -12,7 +12,7 @@ namespace KSR.Tools.Filter
             {"west-germany", "usa", "france", "uk", "canada", "japan"};
 
         public const string PLACES_TAG = "places";
-        public List<Article> selectedArticles;
+        public List<Article> selectedArticles { get; set; }
 
         public FilteredArticles(IEnumerable<Article> articles)
         {
@@ -44,7 +44,7 @@ namespace KSR.Tools.Filter
         }
 
         public void printArticle(int articleIndex)
-        {   
+        {
             selectedArticles[articleIndex].Paragraphs
                 .ForEach(paragraph => paragraph.ForEach(word =>
                 {
@@ -65,7 +65,7 @@ namespace KSR.Tools.Filter
         public List<string> getListOfAllWords()
         {
             var listOfWords = new List<string>();
-            selectedArticles.ForEach( a => a.Paragraphs.ForEach(p => p.ForEach(w => listOfWords.Add(w))));
+            selectedArticles.ForEach(a => a.Paragraphs.ForEach(p => p.ForEach(w => listOfWords.Add(w))));
             return listOfWords;
         }
     }

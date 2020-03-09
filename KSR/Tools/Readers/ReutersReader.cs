@@ -14,10 +14,11 @@ namespace KSR.Tools.Readers
     {
         private static Stemmer stemmer = new EnglishStemmer();
         private List<string> sources { get; set; }
+        public int filesCount { get; set; } = 21;
         public ReutersReader()
         {
             sources = new List<string>();
-            for (int i = 0; i < 21; i++)
+            for (int i = 0; i < filesCount; i++)
             {
                 sources.Add(string.Format(@"../../Data/reut2-{0:000}.sgm", i));
             }
