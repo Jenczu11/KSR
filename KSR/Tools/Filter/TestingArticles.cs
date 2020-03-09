@@ -7,16 +7,16 @@ namespace KSR.Tools.Filter
 {
     public class TestingArticles
     {
-        private List<Article> testingArticles { get; set; }
+        private FilteredArticles testingArticles { get; set; }
         private int percentage;
         public int Count { get; set; }
         public TestingArticles(int percentage,FilteredArticles articles)
         {
-            testingArticles = new List<Article>();
+            testingArticles = new FilteredArticles();
             int temp = (int)Math.Floor(articles.Count()*(1-(percentage/100.0)));
             for (int i = temp; i < articles.Count(); i++)
             {
-                testingArticles.Add(articles.getArticle(i));
+                testingArticles.selectedArticles.Add(articles.getArticle(i));
             }
 
             Count = articles.Count()-temp;

@@ -23,6 +23,11 @@ namespace KSR.Tools.Filter
                 .ToList();
         }
 
+        public FilteredArticles()
+        {
+            selectedArticles = new List<Article>();
+        }
+
         public Article getArticle(int index)
         {
             return selectedArticles[index];
