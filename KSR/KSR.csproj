@@ -86,6 +86,8 @@
     <Compile Include="Tools\Metrics\EuclidesMetric.cs" />
     <Compile Include="Tools\Metrics\ManhattanMetric.cs" />
     <Compile Include="Tools\Metrics\ChebyshevMatric.cs" />
+    <Compile Include="Tools\Serializer\ArticleSerializer.cs" />
+    <Compile Include="Tools\Serializer\FilteredSerializer.cs" />
     <Compile Include="Tools\SimliarityFunctions\BinaryFunction.cs" />
     <Compile Include="Tools\SimliarityFunctions\ISimilarityFunction.cs" />
     <Compile Include="Tools\Frequency\IFrequency.cs" />

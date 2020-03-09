@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using KSR.Tools.Readers;
 using System.Linq;
 using KSR.Model;
@@ -7,20 +8,51 @@ using KSR.Tools.Filter;
 using KSR.Tools.Frequency;
 using KSR.Tools.Helpers;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using KSR.Tools.Serializer;
+using Newtonsoft.Json;
 
 namespace KSR
 {
     class Program
     {
         public static List<string> PLACES = new List<string>() { "west-germany", "usa", "france", "uk", "canada", "japan" };
+        private static IEnumerable<Article> articles;     // Musiałem dodać jako pole, jak masz pomysł jak wykonać podeślij ;p
 
         public const string PLACES_TAG = "places";
 
         public static void Main(string[] args)
         {
+            
+            string articlesDataTxt = "data.txt";
+            Console.WriteLine(File.Exists(articlesDataTxt) ? "File with articles exists." : "File does not exist.");
+            if (File.Exists(articlesDataTxt))
+            {
+                articles = ArticleSerializer.deserialize();
+                Console.WriteLine(string.Format("Deserialized articles, number of articles: {0}", articles.Count()));
+            }
+            else
+            {
+                var reader = new ReutersReader();
+                articles = reader.GetArticles();
+                ArticleSerializer.serialize(articles);
+            }
+            var filteredArticles = new FilteredArticles(articles);
+            Console.WriteLine(string.Format("Filtered articles, number of filtered articles: {0}",filteredArticles.Count()));
+            
 
+        
             // var reader = new ReutersReader();
             // var articles = reader.GetArticles();
+            // Console.WriteLine(articles.Count());
+            // var articles = ArticleSerializer.deserialize();
+            // var filteredArticles = new FilteredArticles(articles);
+            // string input = "";
+            // Console.WriteLine(art.Count());
+
+            // var filteredArticles = new FilteredArticles(la._articles);
+            // Console.WriteLine(filteredArticles.Count());
             // var selected = articles
             //     .Where(item => item.Tags.ContainsKey(PLACES_TAG))
             //     .Where(item => item.Tags[PLACES_TAG].Count == 1)
