@@ -6,6 +6,6 @@ namespace KSR.Tools.Readers
 {
     public interface IReader
     {
-        public IEnumerable<Article> GetArticles();
+        IEnumerable<Article> GetArticles();
     }
 }

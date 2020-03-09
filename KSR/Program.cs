@@ -41,8 +41,6 @@ namespace KSR
             var filteredArticles = new FilteredArticles(articles);
             Console.WriteLine(string.Format("Filtered articles, number of filtered articles: {0}",filteredArticles.Count()));
             
-
-        
             // var reader = new ReutersReader();
             // var articles = reader.GetArticles();
             // Console.WriteLine(articles.Count());
@@ -53,6 +51,7 @@ namespace KSR
 
             // var filteredArticles = new FilteredArticles(la._articles);
             // Console.WriteLine(filteredArticles.Count());
+
             // var selected = articles
             //     .Where(item => item.Tags.ContainsKey(PLACES_TAG))
             //     .Where(item => item.Tags[PLACES_TAG].Count == 1)
@@ -61,11 +60,15 @@ namespace KSR
             //
             // selected.ForEach(item => Console.WriteLine(string.Format("Title: {0}, DateLine: {1}, Place: {2}", item.Title, item.DateLine, item.Tags[PLACES_TAG][0])));
             //
-            /*var reader = new ReutersReader();
+
+
+            var reader = new ReutersReader();
             var articles = reader.GetArticles();
 
             var filteredArticles = new FilteredArticles(articles);
-            // Console.WriteLine("Po filtrowaniu");
+            Console.WriteLine(filteredArticles.Count());
+            Console.ReadLine();
+            /*// Console.WriteLine("Po filtrowaniu");
             // Console.WriteLine(filteredArticles.GetArticleSingleParagraph(0, 1));
             // string ParagraphText = string.Join(" ", filteredArticles.GetArticleSingleParagraph(0, 1).ToArray());
             // filteredArticles.printArticle(0);
