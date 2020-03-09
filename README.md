@@ -35,6 +35,18 @@
     * N-Gramm Niewiadomskiego
     * Procent słów kluczowych
     > To wszystko można x2 dodająć np.: w 30% pierwszych procentach tekstu itp.
+    
+    Wybrane przez nas
+    * Binarna - identyczne z szablonem
+    * Ilość słów kluczowych w 20% tekstu
+    * Ilość słow kluczowych w całym tekście
+    * Ilość słów kluczowych w 1 paragrafie
+    * Wartość miary binarnej w tekście
+    * Dystans Levenshteina dla tekstu
+    * Dystans N-gram dla tekstu
+    * Miara N-gram Niewiadomskiego dla tekstu
+    * Miara Jaccarda dal tekstu
+    * Miara LCS dla tekstu
 
 * Metryki do wyboru
     * Eukildesa
