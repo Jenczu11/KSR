@@ -10,12 +10,12 @@ namespace KSR.Tools.Serializer
         public static void serialize(IEnumerable<Article> articles)
         {
             string output = JsonConvert.SerializeObject(articles);
-            File.WriteAllText("data.txt",output);
+            File.WriteAllText(Settings.articleSerializerPath,output);
         }
 
         public static IEnumerable<Article> deserialize()
         {
-            string input = File.ReadAllText("data.txt");
+            string input = File.ReadAllText(Settings.articleSerializerPath);
             return JsonConvert.DeserializeObject<IEnumerable<Article>>(input);
         }
     }

@@ -11,12 +11,12 @@ namespace KSR.Tools.Serializer
         public static void serialize(FilteredArticles filteredArticles)
         {
             string output = JsonConvert.SerializeObject(filteredArticles);
-            File.WriteAllText("dataFiltered.txt",output);
+            File.WriteAllText(Settings.filteredArticleSerializerPath,output);
         }
 
         public static FilteredArticles deserialize()
         {
-            string input = File.ReadAllText("dataFiltered.txt");
+            string input = File.ReadAllText(Settings.filteredArticleSerializerPath);
             return JsonConvert.DeserializeObject<FilteredArticles>(input);
         }
     }
