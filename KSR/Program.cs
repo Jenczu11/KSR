@@ -62,12 +62,12 @@ namespace KSR
             //
 
 
-            var reader = new ReutersReader();
-            var articles = reader.GetArticles();
+            // var reader = new ReutersReader();
+            // var articles = reader.GetArticles();
 
-            var filteredArticles = new FilteredArticles(articles);
-            Console.WriteLine(filteredArticles.Count());
-            Console.ReadLine();
+            // var filteredArticles = new FilteredArticles(articles);
+            // Console.WriteLine(filteredArticles.Count());
+            // Console.ReadLine();
             /*// Console.WriteLine("Po filtrowaniu");
             // Console.WriteLine(filteredArticles.GetArticleSingleParagraph(0, 1));
             // string ParagraphText = string.Join(" ", filteredArticles.GetArticleSingleParagraph(0, 1).ToArray());
