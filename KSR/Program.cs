@@ -29,14 +29,14 @@ namespace KSR
             Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
             if (Directory.Exists(Settings.DirectoryForResults))
             {
-             //TODO na resultaty coś i trzeba wynieść do innej klasy (moze jakis setup)   
+                //TODO na resultaty coś i trzeba wynieść do innej klasy (moze jakis setup)   
             }
             else
             {
                 Console.WriteLine("Creating directory....");
                 Directory.CreateDirectory(Settings.DirectoryForResults);
             }
-            
+
             Console.WriteLine(File.Exists(Settings.articleSerializerPath) ? "File with articles exists." : "File does not exist.");
             if (File.Exists(Settings.articleSerializerPath))
             {
@@ -48,18 +48,18 @@ namespace KSR
                 var reader = new ReutersReader();
                 articles = reader.GetArticles();
                 ArticleSerializer.serialize(articles);
-                Console.WriteLine(string.Format("Serialized articles to {0}",Settings.articleSerializerPath));
+                Console.WriteLine(string.Format("Serialized articles to {0}", Settings.articleSerializerPath));
             }
             var filteredArticles = new FilteredArticles(articles);
-            Console.WriteLine(string.Format("Filtered articles, number of filtered articles: {0}",filteredArticles.Count()));
-            
-            LearningArticles la = new LearningArticles(Settings.learningPercentage,filteredArticles);
-            TestingArticles ta = new TestingArticles(Settings.testingPercentage,filteredArticles);
+            Console.WriteLine(string.Format("Filtered articles, number of filtered articles: {0}", filteredArticles.Count()));
+
+            LearningArticles la = new LearningArticles(Settings.learningPercentage, filteredArticles);
+            TestingArticles ta = new TestingArticles(Settings.testingPercentage, filteredArticles);
             la.PrintNumberOfArticles();
             ta.PrintNumberOfArticles();
-            Console.WriteLine(la.Count+ta.Count);
-            
-            
+            Console.WriteLine(la.Count + ta.Count);
+
+
             // var reader = new ReutersReader();
             // var articles = reader.GetArticles();
             // Console.WriteLine(articles.Count());
