@@ -66,8 +66,9 @@ namespace KSR.Tools.Readers
                                         //.ToLower()
                                         .RemoveStopWords("en") //Usign https://github.com/hklemp/dotnet-stop-words
                                         .Split(' ')
-                                        //.Where(item => item.Length > 2)
+                                        .Where(item => item.Length > 2)
                                         .Select(item => stemmer.GetSteamWord(item)) //Using https://github.com/annytab/a-stemmer
+                                        .Where(item => item.Length > 0)
                                         .ToList()
                                     )
                                 .ToList(),

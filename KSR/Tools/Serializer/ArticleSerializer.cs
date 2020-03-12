@@ -13,10 +13,10 @@ namespace KSR.Tools.Serializer
             File.WriteAllText(Settings.articleSerializerPath,output);
         }
 
-        public static IEnumerable<Article> deserialize()
+        public static List<Article> deserialize()
         {
             string input = File.ReadAllText(Settings.articleSerializerPath);
-            return JsonConvert.DeserializeObject<IEnumerable<Article>>(input);
+            return JsonConvert.DeserializeObject<List<Article>>(input);
         }
     }
 }

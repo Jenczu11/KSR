@@ -22,7 +22,7 @@ namespace KSR
     class Program
     {
         public static List<string> PLACES = new List<string>() { "west-germany", "usa", "france", "uk", "canada", "japan" };
-        private static IEnumerable<Article> articles;     // Musiałem dodać jako pole, jak masz pomysł jak wykonać podeślij ;p
+        private static List<Article> articles;     // Musiałem dodać jako pole, jak masz pomysł jak wykonać podeślij ;p
 
         public const string PLACES_TAG = "places";
 
@@ -49,7 +49,7 @@ namespace KSR
             else
             {
                 var reader = new ReutersReader();
-                articles = reader.GetArticles();
+                articles = reader.GetArticles().ToList();
                 foreach (var article in articles)
                 {
                     var words = new List<string>();

@@ -9,7 +9,7 @@ namespace KSR.Tools.Filter
     public class FilteredArticles
     {
         public static List<string> PLACES = new List<string>()
-            {"west-germany", "usa", "france", "uk", "canada", "japan"};
+            {"west-germany",  "france", "uk", "canada", "japan"};
 
         public const string PLACES_TAG = "places";
         public List<Article> selectedArticles { get; set; }

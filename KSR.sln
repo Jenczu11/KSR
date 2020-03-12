@@ -1,6 +1,7 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSR", "KSR\KSR.csproj", "{92F41E0A-DF62-45A8-A718-21FE0FFD364E}"
 EndProject
 Global
@@ -9,9 +10,15 @@ Global
 		Release|anycpu = Release|anycpu
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Debug|anycpu.ActiveCfg = Debug|anycpu
-		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Debug|anycpu.Build.0 = Debug|anycpu
-		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Release|anycpu.ActiveCfg = Release|anycpu
-		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Release|anycpu.Build.0 = Release|anycpu
+		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{92F41E0A-DF62-45A8-A718-21FE0FFD364E}.Release|anycpu.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {403EDA97-B9F9-45CE-9D0D-536C90288F17}
 	EndGlobalSection
 EndGlobal
