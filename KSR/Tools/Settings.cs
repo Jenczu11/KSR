@@ -1,4 +1,8 @@
-﻿namespace KSR.Tools
+﻿using System.Collections.Generic;
+using KSR.Tools.Features;
+using KSR.Tools.SimliarityFunctions;
+
+namespace KSR.Tools
 {
     public static class Settings
     {
@@ -7,5 +11,19 @@
         public static string articleSerializerPath = "data.txt";
         public static string filteredArticleSerializerPath = "dataFiltered.txt";
         public static string DirectoryForResults = "results";
+        public static Dictionary<IFeature, bool> featuresSettings = new Dictionary<IFeature, bool>()
+        {
+            {new BinaryArticleBodyFeature(), true },
+            {new KeyWords20PercentArticleBodyFeature(), true },
+            {new KeyWordsArticleBodyFeature(), true },
+            {new KeyWordsFirstParagraphArticleBodyFeature(), true },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new BinaryFunction()}, true },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new JaccardFunction()}, false },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new LCSFunction()}, false },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new LevenshteinFunction()}, false },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new NGramFunction()}, true },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new NiewiadomskiFunction()}, false },
+
+        };
     }
 }

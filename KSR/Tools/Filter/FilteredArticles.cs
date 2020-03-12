@@ -21,6 +21,7 @@ namespace KSR.Tools.Filter
                 .Where(item => item.Tags[PLACES_TAG].Count == 1)
                 .Where(item => PLACES.Contains(item.Tags[PLACES_TAG][0]))
                 .ToList();
+            selectedArticles.ForEach(item => item.Label = item.Tags[PLACES_TAG][0]);
         }
 
         public FilteredArticles()

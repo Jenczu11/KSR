@@ -55,23 +55,24 @@ namespace KSR.Tools.Readers
                         yield return new Article()
                         {
                             Title = article.Descendants("TITLE").First().InnerText.Replace("&lt;", "<"),
-                            DateLine = article.Descendants("DATELINE").First().InnerText,
+                            //DateLine = article.Descendants("DATELINE").First().InnerText,
                             Paragraphs = body
                                 .InnerText
                                 .Split(new string[] { "    " }, StringSplitOptions.RemoveEmptyEntries)
-                                .ToList()
+                                .ToArray()
                                 .Select(
                                     words => regex
                                         .Replace(words, " ")
                                         //.ToLower()
                                         .RemoveStopWords("en") //Usign https://github.com/hklemp/dotnet-stop-words
                                         .Split(' ')
-                                        .Where(item => item.Length > 2)
+                                        //.Where(item => item.Length > 2)
                                         .Select(item => stemmer.GetSteamWord(item)) //Using https://github.com/annytab/a-stemmer
                                         .ToList()
                                     )
                                 .ToList(),
-                            Tags = tags
+                            Tags = tags,
+                            AllWords = new List<string>().ToArray()
                         };
                     }
                 }

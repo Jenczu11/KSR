@@ -14,6 +14,8 @@ using KSR.Tools;
 using KSR.Tools.Serializer;
 using Newtonsoft.Json;
 using TwinFinder.Base.Extensions;
+using KSR.Tools.Classifier;
+using KSR.Tools.Metrics;
 
 namespace KSR
 {
@@ -26,6 +28,7 @@ namespace KSR
 
         public static void Main(string[] args)
         {
+            Console.WriteLine(DateTime.Now);
             Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
             if (Directory.Exists(Settings.DirectoryForResults))
             {
@@ -47,18 +50,76 @@ namespace KSR
             {
                 var reader = new ReutersReader();
                 articles = reader.GetArticles();
+                foreach (var article in articles)
+                {
+                    var words = new List<string>();
+                    article.Paragraphs.ForEach(item => words.AddRange(item));
+                    article.AllWords = words.ToArray();
+                }
                 ArticleSerializer.serialize(articles);
                 Console.WriteLine(string.Format("Serialized articles to {0}", Settings.articleSerializerPath));
             }
             var filteredArticles = new FilteredArticles(articles);
             Console.WriteLine(string.Format("Filtered articles, number of filtered articles: {0}", filteredArticles.Count()));
 
-            LearningArticles la = new LearningArticles(Settings.learningPercentage, filteredArticles);
-            TestingArticles ta = new TestingArticles(Settings.testingPercentage, filteredArticles);
+            LearningArticles la = new LearningArticles(Settings.learningPercentage, filteredArticles.selectedArticles);
+            TestingArticles ta = new TestingArticles(Settings.testingPercentage, filteredArticles.selectedArticles);
             la.PrintNumberOfArticles();
             ta.PrintNumberOfArticles();
             Console.WriteLine(la.Count + ta.Count);
 
+            Console.WriteLine(string.Format("Extrace keywords start, Time = {0}", DateTime.Now));
+            var keyWords = KeyWordsHelper.GetKeyWords(la.articles, 15, new TDFrequency(), PLACES_TAG, true);
+            Console.WriteLine(string.Format("Extrace keywords end, Time = {0}", DateTime.Now));
+            keyWords.ForEach(item => Console.WriteLine(item));
+
+            var features = Settings.featuresSettings
+                            .Where(item => item.Value)
+                            .Select(item => item.Key)
+                            .ToList();
+            Console.WriteLine(string.Format("Start learnig extraction, Time = {0}", DateTime.Now));
+            la.articles.ForEach(item => FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords));
+            Console.WriteLine(string.Format("Learnig extracted, Time = {0}", DateTime.Now));
+            Console.WriteLine(string.Format("Start training extraction, Time = {0}", DateTime.Now));
+            ta.articles.ForEach(item => FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords));
+            Console.WriteLine(string.Format("Training extracted, Time = {0}", DateTime.Now));
+            Console.WriteLine("Start clasify");
+            var classifier = new KNNClassifier();
+            var metric = new EuclidesMetric();
+
+
+            var result = new Dictionary<string, Dictionary<string, int>>();
+            foreach (var item in PLACES)
+            {
+                result.Add(item, new Dictionary<string, int>());
+                foreach (var item2 in PLACES)
+                {
+                    result[item].Add(item2, 0);
+                }
+            }
+
+            var positive = 0m;
+            var negative = 0m;
+
+            foreach (var item in ta.articles)
+            {
+                item.GuessedLabel = classifier.Classify(la.articles, item, 5, metric);
+                result[item.Label][item.GuessedLabel]++;
+                if (item.Label == item.GuessedLabel)
+                {
+                    positive++;
+                }
+                else
+                {
+                    negative++;
+                }
+                Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2}", positive, negative, positive / (positive + negative)));
+            }
+
+
+
+
+            Console.ReadLine();
 
             // var reader = new ReutersReader();
             // var articles = reader.GetArticles();

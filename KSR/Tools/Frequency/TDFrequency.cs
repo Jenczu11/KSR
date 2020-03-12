@@ -12,7 +12,7 @@ namespace KSR.Tools.Frequency
             var result = new Dictionary<string, decimal>();
             foreach (var article in articles)
             {
-                var words = article.GetAllWords();
+                var words = article.AllWords;
                 var temp = new List<string>();
                 foreach (var word in words)
                 {

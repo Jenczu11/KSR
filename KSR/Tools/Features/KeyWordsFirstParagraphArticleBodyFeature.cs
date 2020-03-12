@@ -7,7 +7,9 @@ namespace KSR.Tools.Features
 {
     public class KeyWordsFirstParagraphArticleBodyFeature : IFeature
     {
-        public decimal Calc(Article article, List<string> keyWords, ISimilarityFunction similarityFunction)
+        public ISimilarityFunction SimilarityFunction { get; set; }
+
+        public decimal Calc(Article article, List<string> keyWords)
         {
             var count = 0;
             var words = article.Paragraphs[0];

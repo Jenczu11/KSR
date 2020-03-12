@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using KSR.Model;
 using KSR.Tools.SimliarityFunctions;
 
@@ -7,11 +8,13 @@ namespace KSR.Tools.Features
 {
     public class BinaryArticleBodyFeature : IFeature
     {
-        public decimal Calc(Article article, List<string> keyWords, ISimilarityFunction similarityFunctions)
+        public ISimilarityFunction SimilarityFunction { get; set; }
+
+        public decimal Calc(Article article, List<string> keyWords)
         {
             var count = 0;
             var limit = keyWords.Count;
-            var words = article.GetAllWords();
+            var words = article.AllWords;
             foreach (var item in keyWords)
             {
                 if (words.Contains(item))

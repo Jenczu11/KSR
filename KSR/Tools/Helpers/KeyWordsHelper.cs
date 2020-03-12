@@ -8,8 +8,8 @@ namespace KSR.Tools.Helpers
 {
     public class KeyWordsHelper
     {
-        public static Dictionary<string, List<string>> GetKeyWords(List<Article> articles, decimal percentOfWords, IFrequency frequency, string category)
-        {
+        public static List<string> GetKeyWords(List<Article> articles, decimal percentOfWords, IFrequency frequency, string category, bool number = false)
+        {/*
             var wordsInTags = new Dictionary<string, List<Article>>();
             var result = new Dictionary<string, List<string>>();
             foreach (var article in articles)
@@ -29,6 +29,16 @@ namespace KSR.Tools.Helpers
                 result.Add(key, wordsFrequency.Keys.Take(Convert.ToInt32(wordsFrequency.Count * percentOfWords)).ToList());
             }
             return result;
+            */
+            var wordsFrequency = frequency.Calc(articles);
+            if (!number)
+            {
+                return wordsFrequency.Keys.Take(Convert.ToInt32(wordsFrequency.Count * percentOfWords)).ToList();
+            }
+            else
+            {
+                return wordsFrequency.Keys.Take(Convert.ToInt32(percentOfWords)).ToList();
+            }
         }
     }
 }

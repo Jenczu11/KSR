@@ -7,13 +7,18 @@ namespace KSR.Tools.Features
 {
     public class SimilarityBodyFeature : IFeature
     {
-        public decimal Calc(Article article, List<string> keyWords, ISimilarityFunction similarityFunction)
+        public ISimilarityFunction SimilarityFunction { get; set; }
+
+        public decimal Calc(Article article, List<string> keyWords)
         {
             var count = 0m;
-            var words = article.GetAllWords();
+            var words = article.AllWords;
             foreach (var word in keyWords)
             {
-                words.ForEach(item => count += similarityFunction.CalculateSimilarity(item, word));
+                foreach (var item in words)
+                {
+                    count += SimilarityFunction.CalculateSimilarity(item, word);
+                }
             }
             return count;
         }

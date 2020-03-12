@@ -109,6 +109,9 @@
     <Compile Include="Tools\SimliarityFunctions\JaccardFunction.cs" />
     <Compile Include="Tools\SimliarityFunctions\LCSFunction.cs" />
     <Compile Include="Tools\Features\SimilarityBodyFeature.cs" />
+    <Compile Include="Tools\Classifier\KNNClassifier.cs" />
+    <Compile Include="Tools\Classifier\IClassifier.cs" />
+    <Compile Include="Tools\Helpers\FeatureExtractorHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
