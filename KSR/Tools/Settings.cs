@@ -17,12 +17,12 @@ namespace KSR.Tools
             {new KeyWords20PercentArticleBodyFeature(), false },
             {new KeyWordsArticleBodyFeature(), false },
             {new KeyWordsFirstParagraphArticleBodyFeature(), false },
-            {new SimliarityFirstParagraph(){ SimilarityFunction = new BinaryFunction()}, true },
-            {new SimliarityFirstParagraph(){ SimilarityFunction = new JaccardFunction()}, false },
-            {new SimliarityFirstParagraph(){ SimilarityFunction = new LCSFunction()}, false },
-            {new SimliarityFirstParagraph(){ SimilarityFunction = new LevenshteinFunction()}, false },
-            {new SimliarityFirstParagraph(){ SimilarityFunction = new NGramFunction()}, true },
-            {new SimliarityFirstParagraph(){ SimilarityFunction = new NiewiadomskiFunction()}, true },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new BinaryFunction()}, true },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new JaccardFunction()}, false },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new LCSFunction()}, false },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new LevenshteinFunction()}, false },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new NGramFunction()}, true },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new NiewiadomskiFunction()}, true },
 
         };
         public static int keyWords = 20;
