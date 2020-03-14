@@ -13,7 +13,7 @@ namespace KSR.Tools
         public static string DirectoryForResults = "results";
         public static Dictionary<IFeature, bool> featuresSettings = new Dictionary<IFeature, bool>()
         {
-            {new BinaryArticleBodyFeature(), true },
+            {new BinaryArticleBodyFeature(), false },
             {new KeyWords20PercentArticleBodyFeature(), true },
             {new KeyWordsArticleBodyFeature(), true },
             {new KeyWordsFirstParagraphArticleBodyFeature(), true },
@@ -22,8 +22,10 @@ namespace KSR.Tools
             {new SimilarityBodyFeature(){ SimilarityFunction = new LCSFunction()}, false },
             {new SimilarityBodyFeature(){ SimilarityFunction = new LevenshteinFunction()}, false },
             {new SimilarityBodyFeature(){ SimilarityFunction = new NGramFunction()}, true },
-            {new SimilarityBodyFeature(){ SimilarityFunction = new NiewiadomskiFunction()}, false },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new NiewiadomskiFunction()}, true },
 
         };
+        public static int keyWords = 20;
+        public static string stoplistfile = @"../../Data/stoplist.txt";
     }
 }

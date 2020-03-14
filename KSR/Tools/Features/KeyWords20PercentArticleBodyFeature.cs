@@ -10,7 +10,7 @@ namespace KSR.Tools.Features
     {
         public ISimilarityFunction SimilarityFunction { get; set; }
 
-        public decimal Calc(Article article, List<string> keyWords)
+        public double Calc(Article article, List<string> keyWords)
         {
             var count = 0;
             var words = article.AllWords;

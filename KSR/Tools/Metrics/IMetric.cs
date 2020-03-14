@@ -6,6 +6,7 @@ namespace KSR.Tools.Metrics
 {
     public interface IMetric
     {
-        decimal GetDistance(NDArray lhs, NDArray rhs);
+        double GetDistance(NDArray lhs, NDArray rhs);
+        double GetDistance(double[] lhs, double[] rhs);
     }
 }

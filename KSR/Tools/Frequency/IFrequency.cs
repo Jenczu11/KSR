@@ -6,6 +6,6 @@ namespace KSR.Tools.Frequency
 {
     public interface IFrequency
     {
-        Dictionary<string, decimal> Calc(List<Article> articles);
+        Dictionary<string, double> Calc(List<Article> articles);
     }
 }

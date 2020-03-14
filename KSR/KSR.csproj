@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -82,6 +82,7 @@
     <Compile Include="Tools\Filter\LearningArticles.cs" />
     <Compile Include="Tools\Filter\TestingArticles.cs" />
     <Compile Include="Tools\Helpers\DictHelper.cs" />
+    <Compile Include="Tools\Helpers\StopListHelper.cs" />
     <Compile Include="Tools\Readers\IReader.cs" />
     <Compile Include="Tools\Readers\ReutersReader.cs" />
     <Compile Include="Tools\Metrics\IMetric.cs" />
@@ -114,15 +115,7 @@
     <Compile Include="Tools\Helpers\FeatureExtractorHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Tools\" />
-    <Folder Include="Tools\Readers\" />
-    <Folder Include="Data\" />
-    <Folder Include="Tools\Classifier\" />
-    <Folder Include="Tools\Metrics\" />
-    <Folder Include="Tools\Frequency\" />
-    <Folder Include="Tools\Helpers\" />
-    <Folder Include="Tools\Features\" />
+    <Content Include="Data\stoplist.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

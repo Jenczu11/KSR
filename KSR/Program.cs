@@ -28,6 +28,7 @@ namespace KSR
 
         public static void Main(string[] args)
         {
+            StopListHelper.LoadStopWords();
             Console.WriteLine(DateTime.Now);
             Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
             if (Directory.Exists(Settings.DirectoryForResults))
@@ -69,7 +70,7 @@ namespace KSR
             Console.WriteLine(la.Count + ta.Count);
 
             Console.WriteLine(string.Format("Extrace keywords start, Time = {0}", DateTime.Now));
-            var keyWords = KeyWordsHelper.GetKeyWords(la.articles, 15, new TDFrequency(), PLACES_TAG, true);
+            var keyWords = KeyWordsHelper.GetKeyWords(la.articles, 20, new TDFrequency(), PLACES_TAG, true);
             Console.WriteLine(string.Format("Extrace keywords end, Time = {0}", DateTime.Now));
             keyWords.ForEach(item => Console.WriteLine(item));
 
@@ -78,10 +79,27 @@ namespace KSR
                             .Select(item => item.Key)
                             .ToList();
             Console.WriteLine(string.Format("Start learnig extraction, Time = {0}", DateTime.Now));
-            la.articles.ForEach(item => FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords));
+            int count = 0;
+            la.articles.ForEach(item =>
+            {
+                count++;
+                FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
+                if (count % 100 == 0)
+                {
+                    Console.WriteLine(string.Format("Articles extracted {0}, Time = {1}", count, DateTime.Now));
+                }
+            });
             Console.WriteLine(string.Format("Learnig extracted, Time = {0}", DateTime.Now));
             Console.WriteLine(string.Format("Start training extraction, Time = {0}", DateTime.Now));
-            ta.articles.ForEach(item => FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords));
+            count = 0;
+            ta.articles.ForEach(item => {
+                count++;
+                FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
+                if (count % 100 == 0)
+                {
+                    Console.WriteLine(string.Format("Articles extracted {0}, Time = {1}", count, DateTime.Now));
+                }
+            });
             Console.WriteLine(string.Format("Training extracted, Time = {0}", DateTime.Now));
             Console.WriteLine("Start clasify");
             var classifier = new KNNClassifier();
@@ -113,11 +131,14 @@ namespace KSR
                 {
                     negative++;
                 }
-                Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2}", positive, negative, positive / (positive + negative)));
+                if ((positive + negative) % 100 == 0)
+                {
+                    Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
+                }
             }
 
-
-
+            Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
+            Console.WriteLine("Finish");
 
             Console.ReadLine();
 

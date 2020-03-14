@@ -8,10 +8,10 @@ namespace KSR.Tools.Frequency
     public class IDFFrequency : IFrequency
     {
 
-        public Dictionary<string, decimal> Calc(List<Article> articles)
+        public Dictionary<string, double> Calc(List<Article> articles)
         {
             /*var count = words.Count;
-            var result = new Dictionary<string, decimal>();
+            var result = new Dictionary<string, double>();
             var tfDict = new TFFrequency().Calc(words);
             foreach (var item in tfDict)
             {

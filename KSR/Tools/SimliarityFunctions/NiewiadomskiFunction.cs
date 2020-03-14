@@ -3,9 +3,9 @@ namespace KSR.Tools.SimliarityFunctions
 {
     public class NiewiadomskiFunction : ISimilarityFunction
     {
-        public decimal CalculateSimilarity(string firstWord, string secondWord)
+        public double CalculateSimilarity(string firstWord, string secondWord)
         {
-            var result = 0m;
+            var result = 0d;
             var fwl = firstWord.Length;
             var swl = secondWord.Length;
             var max = Math.Max(firstWord.Length, secondWord.Length);
@@ -27,7 +27,7 @@ namespace KSR.Tools.SimliarityFunctions
                 }
             }
 
-            return result * Convert.ToDecimal(fractional);
+            return result * fractional;
         }
     }
 }

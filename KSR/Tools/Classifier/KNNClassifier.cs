@@ -10,8 +10,35 @@ namespace KSR.Tools.Classifier
     {
         public string Classify(List<Article> reference, Article article, int k, IMetric metric)
         {
-            List<Article> knn = reference.OrderBy(item => metric.GetDistance(item.Features, article.Features)).ToList();
-            return knn.Take(k).GroupBy(item => item.Label).OrderBy(item => item.Count()).Last().Key;
+            //var result = reference.Select(item => metric.GetDistance)
+            var elements = new Dictionary<Article, double>();
+            foreach (var item in reference)
+            {
+                elements.Add(item, metric.GetDistance(item.FeaturesD, article.FeaturesD));
+            }
+            var sorted = elements.OrderBy(item => item.Value).Take(k).ToDictionary(item => item.Key, item => item.Value);
+            var min = sorted.ElementAt(0);
+            var result = sorted.GroupBy(item => item.Key.Label).ToDictionary(item => item.Key, item => item.Count());
+            var count = result.OrderBy(item => item.Value).Last().Value;
+            var labels = (from item in result
+                          where item.Value == count
+                          select item).ToDictionary(item => item.Key, item => item.Value);
+            if (labels.Count() > 1)
+            {
+                if (labels.ContainsKey(min.Key.Label))
+                {
+                    return min.Key.Label;
+                }
+                else
+                {
+                    return labels.ElementAt(0).Key;
+                }
+
+            }
+            else
+            {
+                return labels.ElementAt(0).Key;
+            }
         }
     }
 }

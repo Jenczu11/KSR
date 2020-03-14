@@ -13,6 +13,7 @@ namespace KSR.Model
         public string Label { get; set; }
         public string GuessedLabel { get; set; }
         public NDArray Features { get; set; }
+        public double[] FeaturesD { get; set; }
     }
 
 }

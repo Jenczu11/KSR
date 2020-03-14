@@ -8,7 +8,7 @@ namespace KSR.Tools.Helpers
 {
     public class KeyWordsHelper
     {
-        public static List<string> GetKeyWords(List<Article> articles, decimal percentOfWords, IFrequency frequency, string category, bool number = false)
+        public static List<string> GetKeyWords(List<Article> articles, double percentOfWords, IFrequency frequency, string category, bool number = false)
         {/*
             var wordsInTags = new Dictionary<string, List<Article>>();
             var result = new Dictionary<string, List<string>>();

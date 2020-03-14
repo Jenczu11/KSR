@@ -8,6 +8,6 @@ namespace KSR.Tools.Features
     public interface IFeature
     {
         ISimilarityFunction SimilarityFunction { get; set; }
-        decimal Calc(Article article, List<string> keyWords);
+        double Calc(Article article, List<string> keyWords);
     }
 }

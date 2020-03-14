@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Annytab.Stemmer;
 using HtmlAgilityPack;
 using KSR.Model;
+using KSR.Tools.Helpers;
 using StopWord;
 
 namespace KSR.Tools.Readers
@@ -63,10 +64,11 @@ namespace KSR.Tools.Readers
                                 .Select(
                                     words => regex
                                         .Replace(words, " ")
-                                        //.ToLower()
+                                        .ToLower()
                                         .RemoveStopWords("en") //Usign https://github.com/hklemp/dotnet-stop-words
-                                        .Split(' ')
+                                        .Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)
                                         .Where(item => item.Length > 2)
+                                        .Where(item => StopListHelper.StopWord(item))
                                         .Select(item => stemmer.GetSteamWord(item)) //Using https://github.com/annytab/a-stemmer
                                         .Where(item => item.Length > 0)
                                         .ToList()

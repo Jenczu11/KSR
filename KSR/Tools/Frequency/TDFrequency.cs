@@ -7,9 +7,9 @@ namespace KSR.Tools.Frequency
 {
     public class TDFrequency : IFrequency
     {
-        public Dictionary<string, decimal> Calc(List<Article> articles)
+        public Dictionary<string, double> Calc(List<Article> articles)
         {
-            var result = new Dictionary<string, decimal>();
+            var result = new Dictionary<string, double>();
             foreach (var article in articles)
             {
                 var words = article.AllWords;
