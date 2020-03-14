@@ -13,7 +13,7 @@ namespace KSR.Tools
         public static string DirectoryForResults = "results";
         public static Dictionary<IFeature, bool> featuresSettings = new Dictionary<IFeature, bool>()
         {
-            {new BinaryArticleBodyFeature(), false },
+            {new BinaryArticleBodyFeature(), true },
             {new KeyWords20PercentArticleBodyFeature(), true },
             {new KeyWordsArticleBodyFeature(), true },
             {new KeyWordsFirstParagraphArticleBodyFeature(), true },
@@ -21,8 +21,8 @@ namespace KSR.Tools
             {new SimilarityBodyFeature(){ SimilarityFunction = new JaccardFunction()}, false },
             {new SimilarityBodyFeature(){ SimilarityFunction = new LCSFunction()}, false },
             {new SimilarityBodyFeature(){ SimilarityFunction = new LevenshteinFunction()}, false },
-            {new SimilarityBodyFeature(){ SimilarityFunction = new NGramFunction()}, true },
-            {new SimilarityBodyFeature(){ SimilarityFunction = new NiewiadomskiFunction()}, true },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new NGramFunction()}, false },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new NiewiadomskiFunction()}, false },
 
         };
         public static int keyWords = 20;

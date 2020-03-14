@@ -71,9 +71,15 @@ namespace KSR
 
             Console.WriteLine(string.Format("Extrace keywords start, Time = {0}", DateTime.Now));
             var keyWords = KeyWordsHelper.GetKeyWords(la.articles, 20, new TDFrequency(), PLACES_TAG, true);
+            var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(la.articles, 20, new TDFrequency(), PLACES_TAG, true);
             Console.WriteLine(string.Format("Extrace keywords end, Time = {0}", DateTime.Now));
             keyWords.ForEach(item => Console.WriteLine(item));
-
+            foreach(var keyWord in keyWordsDict)
+            {
+                Console.WriteLine(keyWord.Key);
+                keyWord.Value.ForEach(item => Console.Write(item + " "));
+                Console.WriteLine();
+            }
             var features = Settings.featuresSettings
                             .Where(item => item.Value)
                             .Select(item => item.Key)
@@ -83,7 +89,7 @@ namespace KSR
             la.articles.ForEach(item =>
             {
                 count++;
-                FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
+                FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
                 if (count % 100 == 0)
                 {
                     Console.WriteLine(string.Format("Articles extracted {0}, Time = {1}", count, DateTime.Now));
@@ -94,7 +100,7 @@ namespace KSR
             count = 0;
             ta.articles.ForEach(item => {
                 count++;
-                FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
+                FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
                 if (count % 100 == 0)
                 {
                     Console.WriteLine(string.Format("Articles extracted {0}, Time = {1}", count, DateTime.Now));

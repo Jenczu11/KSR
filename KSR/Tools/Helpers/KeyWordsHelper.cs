@@ -9,7 +9,19 @@ namespace KSR.Tools.Helpers
     public class KeyWordsHelper
     {
         public static List<string> GetKeyWords(List<Article> articles, double percentOfWords, IFrequency frequency, string category, bool number = false)
-        {/*
+        {
+            var wordsFrequency = frequency.Calc(articles);
+            if (!number)
+            {
+                return wordsFrequency.Keys.Take(Convert.ToInt32(wordsFrequency.Count * percentOfWords)).ToList();
+            }
+            else
+            {
+                return wordsFrequency.Keys.Take(Convert.ToInt32(percentOfWords)).ToList();
+            }
+        }
+        public static Dictionary<string, List<string>> GetKeyWordsDict(List<Article> articles, double percentOfWords, IFrequency frequency, string category, bool number = false)
+        {
             var wordsInTags = new Dictionary<string, List<Article>>();
             var result = new Dictionary<string, List<string>>();
             foreach (var article in articles)
@@ -26,19 +38,17 @@ namespace KSR.Tools.Helpers
             foreach (var key in keys)
             {
                 var wordsFrequency = frequency.Calc(wordsInTags[key]);
-                result.Add(key, wordsFrequency.Keys.Take(Convert.ToInt32(wordsFrequency.Count * percentOfWords)).ToList());
+                if (!number)
+                {
+                    result.Add(key, wordsFrequency.Keys.Take(Convert.ToInt32(wordsFrequency.Count * percentOfWords)).ToList());
+                }
+                else
+                {
+                    result.Add(key, wordsFrequency.Keys.Take(Convert.ToInt32(percentOfWords)).ToList());
+                }
+
             }
             return result;
-            */
-            var wordsFrequency = frequency.Calc(articles);
-            if (!number)
-            {
-                return wordsFrequency.Keys.Take(Convert.ToInt32(wordsFrequency.Count * percentOfWords)).ToList();
-            }
-            else
-            {
-                return wordsFrequency.Keys.Take(Convert.ToInt32(percentOfWords)).ToList();
-            }
         }
     }
 }
