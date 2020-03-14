@@ -109,7 +109,7 @@ namespace KSR
             Console.WriteLine(string.Format("Training extracted, Time = {0}", DateTime.Now));
             Console.WriteLine("Start clasify");
             var classifier = new KNNClassifier();
-            var metric = new EuclidesMetric();
+            var metric = new ManhattanMetric();
 
 
             var result = new Dictionary<string, Dictionary<string, int>>();
@@ -127,7 +127,7 @@ namespace KSR
 
             foreach (var item in ta.articles)
             {
-                item.GuessedLabel = classifier.Classify(la.articles, item, 5, metric);
+                item.GuessedLabel = classifier.Classify(la.articles, item, 15, metric);
                 result[item.Label][item.GuessedLabel]++;
                 if (item.Label == item.GuessedLabel)
                 {

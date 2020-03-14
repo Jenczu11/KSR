@@ -78,6 +78,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Article.cs" />
+    <Compile Include="Tools\Features\SimliarityFirstParagraph.cs" />
     <Compile Include="Tools\Filter\FilteredArticles.cs" />
     <Compile Include="Tools\Filter\LearningArticles.cs" />
     <Compile Include="Tools\Filter\TestingArticles.cs" />
