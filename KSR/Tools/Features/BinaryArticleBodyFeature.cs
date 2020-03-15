@@ -24,5 +24,11 @@ namespace KSR.Tools.Features
             }
             return limit == count ? 100 : 0;
         }
+
+        public override string ToString()
+        {
+            return "BinaryArticleBodyFeature";
+        }
+        
     }
 }

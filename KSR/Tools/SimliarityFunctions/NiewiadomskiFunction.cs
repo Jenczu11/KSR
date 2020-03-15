@@ -29,5 +29,10 @@ namespace KSR.Tools.SimliarityFunctions
 
             return result * fractional;
         }
+
+        public override string ToString()
+        {
+            return "Niewiadomski Function";
+        }
     }
 }

@@ -24,5 +24,10 @@ namespace KSR.Tools.Features
             }
             return count;
         }
+
+        public override string ToString()
+        {
+            return "KeyWords20PercentArticleBodyFeature";
+        }
     }
 }

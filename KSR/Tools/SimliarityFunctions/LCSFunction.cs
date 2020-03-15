@@ -14,7 +14,7 @@ namespace KSR.Tools.SimliarityFunctions
 
         public override string ToString()
         {
-            return "Binary Function";
+            return "LCS Function";
         }
 
     }
