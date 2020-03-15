@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using TwinFinder.Base.Extensions;
 using KSR.Tools.Classifier;
 using KSR.Tools.Metrics;
+using NDesk.Options;
 
 namespace KSR
 {
@@ -29,8 +30,11 @@ namespace KSR
         public static void Main(string[] args)
         {
             StopListHelper.LoadStopWords();
-            ArgsParser argsParser = new ArgsParser(args);
-            argsParser.setSettings();
+            // ArgsParser argsParser = new ArgsParser(args);
+            // argsParser.setSettings();
+
+            new argsParser(args);
+            
             Console.WriteLine(DateTime.Now);
             Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
             if (Directory.Exists(Settings.DirectoryForResults))
@@ -72,8 +76,8 @@ namespace KSR
             Console.WriteLine(la.Count + ta.Count);
 
             Console.WriteLine(string.Format("Extrace keywords start, Time = {0}", DateTime.Now));
-            var keyWords = KeyWordsHelper.GetKeyWords(la.articles, 20, new TDFrequency(), PLACES_TAG, true);
-            var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(la.articles, 20, new TDFrequency(), PLACES_TAG, true);
+            var keyWords = KeyWordsHelper.GetKeyWords(la.articles, 20, Settings.keyWordsExtractor, PLACES_TAG, true);
+            var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(la.articles, 20, Settings.keyWordsExtractor, PLACES_TAG, true);
             Console.WriteLine(string.Format("Extrace keywords end, Time = {0}", DateTime.Now));
             keyWords.ForEach(item => Console.WriteLine(item));
             foreach(var keyWord in keyWordsDict)
@@ -129,7 +133,7 @@ namespace KSR
 
             foreach (var item in ta.articles)
             {
-                item.GuessedLabel = classifier.Classify(la.articles, item, 15, metric);
+                item.GuessedLabel = classifier.Classify(la.articles, item, Settings.kNNNeighbours, metric);
                 result[item.Label][item.GuessedLabel]++;
                 if (item.Label == item.GuessedLabel)
                 {
