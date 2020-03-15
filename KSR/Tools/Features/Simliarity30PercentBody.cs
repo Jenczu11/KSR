@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using KSR.Model;
 using KSR.Tools.SimliarityFunctions;
-using NumSharp.Utilities;
+
 
 namespace KSR.Tools.Features
 {
@@ -14,8 +14,14 @@ namespace KSR.Tools.Features
         public double Calc(Article article, List<string> keyWords)
         {
             var count = 0d;
+            List<string> w1 = new List<string>(); 
+            for (int i = 0; i < Convert.ToInt32(Math.Floor(article.AllWords.Length * 0.30)); i++)
+            {
+                w1.Add(article.AllWords[i]);
+            }
+            // var words = article.AllWords.Take(Convert.ToInt32(Math.Floor(article.AllWords.Length * 0.30))).ToArray();
+            var words = w1.ToArray();
 
-            var words = article.AllWords.Take(Convert.ToInt32(Math.Floor(article.AllWords.Length*0.3))).ToArray();
             foreach (var word in keyWords)
             {
                 foreach (var item in words)

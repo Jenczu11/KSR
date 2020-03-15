@@ -29,6 +29,8 @@ namespace KSR
         public static void Main(string[] args)
         {
             StopListHelper.LoadStopWords();
+            ArgsParser argsParser = new ArgsParser(args);
+            argsParser.setSettings();
             Console.WriteLine(DateTime.Now);
             Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
             if (Directory.Exists(Settings.DirectoryForResults))

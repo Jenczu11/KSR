@@ -21,7 +21,7 @@ namespace KSR.Tools
             {new Simliarity30PercentBody(){ SimilarityFunction = new JaccardFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new LCSFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new LevenshteinFunction()}, false },
-            {new Simliarity30PercentBody(){ SimilarityFunction = new NGramFunction()}, true },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new NGramFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new NiewiadomskiFunction()}, true },
 
         };
