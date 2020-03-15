@@ -9,5 +9,6 @@ namespace KSR.Tools.Features
     {
         ISimilarityFunction SimilarityFunction { get; set; }
         double Calc(Article article, List<string> keyWords);
+        
     }
 }
