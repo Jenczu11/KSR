@@ -39,9 +39,14 @@ namespace KSR.Tools
             Console.WriteLine("{");
             foreach (var fe in Settings.featuresSettings)
             {
+                var t = fe.Key.ToString();
                 if(fe.Key.ToString() == "SimilarityBodyFeature")
-                      Console.WriteLine(string.Format("{0},",fe.Key.SimilarityFunction));
-                  else
+                      Console.WriteLine(string.Format("SimilarityBodyFeature -> {0},",fe.Key.SimilarityFunction));
+                else if(fe.Key.ToString() == "Simliarity30PercentBody")
+                    Console.WriteLine(string.Format("Simliarity30PercentBody -> {0},",fe.Key.SimilarityFunction));
+                else if(fe.Key.ToString() == "SimliarityFirstParagraph")
+                    Console.WriteLine(string.Format("SimliarityFirstParagraph -> {0},",fe.Key.SimilarityFunction));
+                else
                       Console.WriteLine(string.Format("{0},",fe.Key));
             }
             Console.WriteLine("}");

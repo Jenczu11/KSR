@@ -57,7 +57,7 @@ namespace KSR.Tools
                     {
                         if (v.Length == 6)
                         {
-                            options.Add("f4", v);
+                            options.Add("f3", v);
                         }
                         else
                         {

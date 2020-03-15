@@ -9,7 +9,6 @@ namespace KSR.Tools.Features
 {
     public class Simliarity30PercentBody : IFeature
     {
-        private IFeature _featureImplementation;
         public ISimilarityFunction SimilarityFunction { get; set; }
 
         public double Calc(Article article, List<string> keyWords)
