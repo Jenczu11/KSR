@@ -85,6 +85,10 @@
     <Compile Include="Tools\argsParser.cs" />
     <Compile Include="Tools\Features\Simliarity30PercentBody.cs" />
     <Compile Include="Tools\Features\SimliarityFirstParagraph.cs" />
+    <Compile Include="Tools\Features\Words\LongWords.cs" />
+    <Compile Include="Tools\Features\Words\ShortWords.cs" />
+    <Compile Include="Tools\Features\Words\UniqueWordsCounter.cs" />
+    <Compile Include="Tools\Features\Words\WordsCounter.cs" />
     <Compile Include="Tools\Filter\FilteredArticles.cs" />
     <Compile Include="Tools\Filter\LearningArticles.cs" />
     <Compile Include="Tools\Filter\TestingArticles.cs" />

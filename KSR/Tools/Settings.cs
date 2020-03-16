@@ -22,6 +22,8 @@ namespace KSR.Tools
             {new KeyWordsFirstParagraphArticleBodyFeature(), false },
             {new WordsCounter(), true },
             {new UniqueWordsCounter(), true },
+            {new ShortWords(), true },
+            {new LongWords(), true },
             {new Simliarity30PercentBody(){ SimilarityFunction = new BinaryFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new JaccardFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new LCSFunction()}, false },

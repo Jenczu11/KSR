@@ -149,6 +149,22 @@ namespace KSR
                 }
             }
 
+            Console.Write("         ");
+            foreach (var VARIABLE in result)
+            {
+                Console.Write(VARIABLE.Key.ToString());
+                Console.Write("    ");
+            }
+            Console.WriteLine();
+            foreach (var a in result)
+            {   Console.Write(a.Key.ToString()); Console.Write("        ");
+                foreach (var b in a.Value)
+                {
+                    Console.Write(b.Value); Console.Write("            ");
+                }
+                Console.WriteLine();
+            }
+
             Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
             Console.WriteLine("Finish");
 
