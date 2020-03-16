@@ -16,17 +16,19 @@ namespace KSR.Tools
         public static string DirectoryForResults = "results";
         public static Dictionary<IFeature, bool> featuresSettings = new Dictionary<IFeature, bool>()
         {
-            {new BinaryArticleBodyFeature(), true },
+            {new BinaryArticleBodyFeature(), false },
             {new KeyWords20PercentArticleBodyFeature(), false },
             {new KeyWordsArticleBodyFeature(), false },
             {new KeyWordsFirstParagraphArticleBodyFeature(), false },
-            {new Simliarity30PercentBody(){ SimilarityFunction = new BinaryFunction()}, true },
+            {new WordsCounter(), true },
+            {new UniqueWordsCounter(), true },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new BinaryFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new JaccardFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new LCSFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new LevenshteinFunction()}, false },
-            {new Simliarity30PercentBody(){ SimilarityFunction = new NGramFunction()}, true },
+            {new Simliarity30PercentBody(){ SimilarityFunction = new NGramFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new NiewiadomskiFunction()}, false },
-            {new SimilarityBodyFeature(){ SimilarityFunction = new NGramFunction()}, true },
+            {new SimilarityBodyFeature(){ SimilarityFunction = new NGramFunction()}, false },
         };
         public static int keyWords = 20;
         public static string stoplistfile = @"../../Data/stoplist.txt";
@@ -40,13 +42,13 @@ namespace KSR.Tools
             foreach (var fe in Settings.featuresSettings)
             {
                 var t = fe.Key.ToString();
-                if(fe.Key.ToString() == "SimilarityBodyFeature")
+                if(fe.Key.ToString() == "SimilarityBodyFeature" && fe.Value==true)
                       Console.WriteLine(string.Format("SimilarityBodyFeature -> {0},",fe.Key.SimilarityFunction));
-                else if(fe.Key.ToString() == "Simliarity30PercentBody")
+                else if(fe.Key.ToString() == "Simliarity30PercentBody" && fe.Value==true)
                     Console.WriteLine(string.Format("Simliarity30PercentBody -> {0},",fe.Key.SimilarityFunction));
-                else if(fe.Key.ToString() == "SimliarityFirstParagraph")
+                else if(fe.Key.ToString() == "SimliarityFirstParagraph"  && fe.Value==true)
                     Console.WriteLine(string.Format("SimliarityFirstParagraph -> {0},",fe.Key.SimilarityFunction));
-                else
+                else if(fe.Value)
                       Console.WriteLine(string.Format("{0},",fe.Key));
             }
             Console.WriteLine("}");
