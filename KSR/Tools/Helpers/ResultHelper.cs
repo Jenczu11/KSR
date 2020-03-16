@@ -60,7 +60,7 @@ namespace KSR.Tools.Helpers
         {
             var sb = new System.Text.StringBuilder();
             var tabularCount = result.Count + 1;
-            sb.Append("\\begin{table}[]\n");
+            sb.Append("\\begin{table}[htb]\n");
             sb.Append("\\begin{tabular}{");
             for (int i = 0; i < tabularCount; i++)
             {
