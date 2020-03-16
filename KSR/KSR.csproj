@@ -93,6 +93,7 @@
     <Compile Include="Tools\Filter\LearningArticles.cs" />
     <Compile Include="Tools\Filter\TestingArticles.cs" />
     <Compile Include="Tools\Helpers\DictHelper.cs" />
+    <Compile Include="Tools\Helpers\ResultHelper.cs" />
     <Compile Include="Tools\Helpers\StopListHelper.cs" />
     <Compile Include="Tools\Readers\IReader.cs" />
     <Compile Include="Tools\Readers\ReutersReader.cs" />

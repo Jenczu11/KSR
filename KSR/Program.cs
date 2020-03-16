@@ -167,7 +167,11 @@ namespace KSR
 
             Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
             Console.WriteLine("Finish");
-
+            
+            var rh = new ResultHelper(result);
+            rh.Print();
+            rh.PrintToCSV();
+            rh.PrintToLaTeX();
             Console.ReadLine();
 
             // var reader = new ReutersReader();
