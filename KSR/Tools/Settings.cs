@@ -8,8 +8,8 @@ namespace KSR.Tools
 {
     public static class Settings
     {
-        public static int testingPercentage = 40;
-        public static int learningPercentage = 60;
+        public static int testingPercentage = 10;
+        public static int learningPercentage = 10;
         public static int kNNNeighbours = 15;
         public static string articleSerializerPath = "data.txt";
         public static string filteredArticleSerializerPath = "dataFiltered.txt";
@@ -22,6 +22,8 @@ namespace KSR.Tools
             {new KeyWordsFirstParagraphArticleBodyFeature(), false },
             {new WordsCounter(), true },
             {new UniqueWordsCounter(), true },
+            {new ShortWords(), true },
+            {new LongWords(), true },
             {new Simliarity30PercentBody(){ SimilarityFunction = new BinaryFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new JaccardFunction()}, false },
             {new Simliarity30PercentBody(){ SimilarityFunction = new LCSFunction()}, false },

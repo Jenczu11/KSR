@@ -11,10 +11,6 @@ namespace KSR.Tools.Features
         public ISimilarityFunction SimilarityFunction { get; set; }
         public double Calc(Article article, List<string> keyWords)
         {
-            article.AllWords.ForEach(w =>
-            {
-                Console.Write(w); Console.Write(" ");
-            } ); Console.WriteLine();
             return article.AllWords.Length;
         }
     }
