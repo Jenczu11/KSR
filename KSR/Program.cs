@@ -35,7 +35,7 @@ namespace KSR
             // argsParser.setSettings();
 
             new argsParser(args);
-            
+
             Console.WriteLine(DateTime.Now);
             Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
             if (Directory.Exists(Settings.DirectoryForResults))
@@ -77,11 +77,11 @@ namespace KSR
             Console.WriteLine(la.Count + ta.Count);
 
             Console.WriteLine(string.Format("Extrace keywords start, Time = {0}", DateTime.Now));
-            var keyWords = KeyWordsHelper.GetKeyWords(la.articles, 20, Settings.keyWordsExtractor, PLACES_TAG, true);
-            var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(la.articles, 20, Settings.keyWordsExtractor, PLACES_TAG, true);
+            var keyWords = KeyWordsHelper.GetKeyWords(filteredArticles.selectedArticles, 20, Settings.keyWordsExtractor, PLACES_TAG, true);
+            var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(filteredArticles.selectedArticles, 20, Settings.keyWordsExtractor, PLACES_TAG, true);
             Console.WriteLine(string.Format("Extrace keywords end, Time = {0}", DateTime.Now));
             keyWords.ForEach(item => Console.WriteLine(item));
-            foreach(var keyWord in keyWordsDict)
+            foreach (var keyWord in keyWordsDict)
             {
                 Console.WriteLine(keyWord.Key);
                 keyWord.Value.ForEach(item => Console.Write(item + " "));
@@ -105,7 +105,8 @@ namespace KSR
             Console.WriteLine(string.Format("Learnig extracted, Time = {0}", DateTime.Now));
             Console.WriteLine(string.Format("Start training extraction, Time = {0}", DateTime.Now));
             count = 0;
-            ta.articles.ForEach(item => {
+            ta.articles.ForEach(item =>
+            {
                 count++;
                 FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
                 if (count % 100 == 0)
@@ -158,7 +159,8 @@ namespace KSR
             }
             Console.WriteLine();
             foreach (var a in result)
-            {   Console.Write(a.Key.ToString()); Console.Write("        ");
+            {
+                Console.Write(a.Key.ToString()); Console.Write("        ");
                 foreach (var b in a.Value)
                 {
                     Console.Write(b.Value); Console.Write("            ");
@@ -168,7 +170,7 @@ namespace KSR
 
             Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
             Console.WriteLine("Finish");
-            
+
             var rh = new ResultHelper(result);
             rh.Print();
             rh.PrintToCSV();

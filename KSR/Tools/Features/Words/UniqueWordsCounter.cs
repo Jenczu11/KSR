@@ -11,10 +11,12 @@ namespace KSR.Tools.Features
         {
             var uniqueWords = new List<string>();
 
-            foreach(var word in article.AllWords)
+            foreach (var word in article.AllWords)
             {
                 if (!uniqueWords.Contains(word.ToLower()))
+                {
                     uniqueWords.Add(word.ToLower());
+                }
             }
 
             return uniqueWords.Count;

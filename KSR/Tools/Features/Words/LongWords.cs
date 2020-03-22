@@ -6,7 +6,7 @@ using KSR.Tools.SimliarityFunctions;
 namespace KSR.Tools.Features
 {
     public class LongWords : IFeature
-    
+
     {
         public ISimilarityFunction SimilarityFunction { get; set; }
         public double Calc(Article article, List<string> keyWords)
