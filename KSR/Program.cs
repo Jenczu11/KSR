@@ -192,6 +192,7 @@ namespace KSR
             Console.WriteLine("Finish");
 
             var rh = new ResultHelper(result);
+            rh.CalculateResults();
             rh.Print();
             rh.PrintToCSV();
             rh.PrintToLaTeX();

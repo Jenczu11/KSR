@@ -27,7 +27,7 @@ namespace KSR.Tools
                     "f1|feature1=", "True/False for first feature set",
                     v =>
                     {
-                        if (v.Length == 4)
+                        if (v.Length == 5)
                         {
                             options.Add("f1", v);
                         }
@@ -69,13 +69,27 @@ namespace KSR.Tools
                     "f4|feature4=", "True/False for fourth feature set",
                     v =>
                     {
-                        if (v.Length == 6)
+                        if (v.Length == 4)
                         {
                             options.Add("f4", v);
                         }
                         else
                         {
                             throw new OptionException("Feature set 4 is not equal to 6 values", "-f4");
+                        }
+                    }
+                },
+                {
+                    "f5|feature5=", "True/False for fifth feature set",
+                    v =>
+                    {
+                        if (v.Length == 6)
+                        {
+                            options.Add("f5", v);
+                        }
+                        else
+                        {
+                            throw new OptionException("Feature set 5 is not equal to 6 values", "-f4");
                         }
                     }
                 },
@@ -132,10 +146,10 @@ namespace KSR.Tools
                     v => show_help = v != null
                 },
             };
-            
+
 
             #endregion
-            
+
             List<string> extra;
             try
             {
@@ -167,10 +181,12 @@ namespace KSR.Tools
                 if (options.Keys.Contains("f1"))
                     setSettingsFirstArgument();
                 if (options.Keys.Contains("f2"))
-                    setSettingsSimilarityBodyFeature();
+                    setSettingsFirst();
                 if (options.Keys.Contains("f3"))
-                    setSettingsFirstParagraph();
+                    setSettingsLast();
                 if (options.Keys.Contains("f4"))
+                    setSettingsWords();
+                if (options.Keys.Contains("f5"))
                     setSettings30PercentBody();
                 // Set keywordExtractor
                 if (options.Keys.Contains("kwe"))
@@ -179,7 +195,7 @@ namespace KSR.Tools
 
             Settings.printCurrentSettings();
         }
-        
+
         static void ShowHelp(OptionSet p)
         {
             Console.WriteLine("Usage: KSR.exe [OPTIONS]+ ");
@@ -222,14 +238,14 @@ namespace KSR.Tools
 
             if (sw[1] == 't' || sw[1] == 'T')
             {
-                Debug("Added KeyWords20PercentArticleBodyFeature");
-                Settings.featuresSettings.Add(new KeyWordsInNPercentArticleBodyFeature(), true);
+                Debug("Added KeyWordsArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsArticleBodyFeature(), true);
             }
 
             if (sw[2] == 't' || sw[2] == 'T')
             {
-                Debug("Added KeyWordsArticleBodyFeature");
-                Settings.featuresSettings.Add(new BinaryArticleBodyFeature(), true);
+                Debug("Added KeyWordsPercentageArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsPercentageArticleBodyFeature(), true);
             }
 
             if (sw[3] == 't' || sw[3] == 'T')
@@ -237,6 +253,85 @@ namespace KSR.Tools
                 Debug("Added KeyWordsFirstParagraphArticleBodyFeature");
                 Settings.featuresSettings.Add(new KeyWordsFirstParagraphArticleBodyFeature(), true);
             }
+            if (sw[4] == 't' || sw[4] == 'T')
+            {
+                Debug("Added KeyWordsLastParagraphArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsLastParagraphArticleBodyFeature(), true);
+            }
+        }
+
+        public void setSettingsFirst()
+        {
+            Console.WriteLine("setSettingsFirst");
+            var sw = options["f2"].ToCharArray();
+            if (sw[0] == 't' || sw[0] == 'T')
+            {
+                Debug("Added KeyWordsIn10PercentArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNPercentArticleBodyFeature() { N = 10 }, true);
+            }
+            if (sw[1] == 't' || sw[1] == 'T')
+            {
+                Debug("Added KeyWordsIn20PercentArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNPercentArticleBodyFeature() { N = 20 }, true);
+            }
+            if (sw[2] == 't' || sw[2] == 'T')
+            {
+                Debug("Added KeyWordsIn50PercentArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNPercentArticleBodyFeature() { N = 50 }, true);
+            }
+            if (sw[3] == 't' || sw[3] == 'T')
+            {
+                Debug("Added KeyWordsIn20WordsArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 20 }, true);
+            }
+            if (sw[4] == 't' || sw[4] == 'T')
+            {
+                Debug("Added KeyWordsIn50WordsArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 50 }, true);
+            }
+            if (sw[5] == 't' || sw[5] == 'T')
+            {
+                Debug("Added KeyWordsIn70WordsArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 70 }, true);
+            }
+
+        }
+
+        public void setSettingsLast()
+        {
+            Console.WriteLine("setSettingsFirst");
+            var sw = options["f3"].ToCharArray();
+            if (sw[0] == 't' || sw[0] == 'T')
+            {
+                Debug("Added KeyWordsIn10LastPercentArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNLastPercentArticleBodyFeature() { N = 10 }, true);
+            }
+            if (sw[1] == 't' || sw[1] == 'T')
+            {
+                Debug("Added KeyWordsIn20LastPercentArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNLastPercentArticleBodyFeature() { N = 20 }, true);
+            }
+            if (sw[2] == 't' || sw[2] == 'T')
+            {
+                Debug("Added KeyWordsIn50LastPercentArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNLastPercentArticleBodyFeature() { N = 50 }, true);
+            }
+            if (sw[3] == 't' || sw[3] == 'T')
+            {
+                Debug("Added KeyWordsIn20LastWordsArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNLastWordsArticleBodyFeature() { N = 20 }, true);
+            }
+            if (sw[4] == 't' || sw[4] == 'T')
+            {
+                Debug("Added KeyWordsIn50LastWordsArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNLastWordsArticleBodyFeature() { N = 50 }, true);
+            }
+            if (sw[5] == 't' || sw[5] == 'T')
+            {
+                Debug("Added KeyWordsIn70LastWordsArticleBodyFeature");
+                Settings.featuresSettings.Add(new KeyWordsInNLastWordsArticleBodyFeature() { N = 70 }, true);
+            }
+
         }
 
         public void setSettingsSimilarityBodyFeature()
@@ -246,35 +341,34 @@ namespace KSR.Tools
             if (sw[0] == 't' || sw[0] == 'T')
             {
                 Debug("Added SimilarityBodyFeature->BinaryFunction");
-                Settings.featuresSettings.Add(new SimilarityBodyFeature() {SimilarityFunction = new BinaryFunction()},
+                Settings.featuresSettings.Add(new SimilarityBodyFeature() { SimilarityFunction = new BinaryFunction() },
                     true);
             }
 
             if (sw[1] == 't' || sw[1] == 'T')
             {
                 Debug("Added SimilarityBodyFeature->JaccardFunction");
-                Settings.featuresSettings.Add(new SimilarityBodyFeature() {SimilarityFunction = new JaccardFunction()},
+                Settings.featuresSettings.Add(new SimilarityBodyFeature() { SimilarityFunction = new JaccardFunction() },
                     true);
             }
 
             if (sw[2] == 't' || sw[2] == 'T')
             {
                 Debug("Added SimilarityBodyFeature->LCSFunction");
-                Settings.featuresSettings.Add(new SimilarityBodyFeature() {SimilarityFunction = new LCSFunction()},
+                Settings.featuresSettings.Add(new SimilarityBodyFeature() { SimilarityFunction = new LCSFunction() },
                     true);
             }
 
             if (sw[3] == 't' || sw[3] == 'T')
             {
                 Debug("Added SimilarityBodyFeature->LevenshteinFunction");
-                Settings.featuresSettings.Add(
-                    new SimilarityBodyFeature() {SimilarityFunction = new LevenshteinFunction()}, true);
+                Settings.featuresSettings.Add(new SimilarityBodyFeature() { SimilarityFunction = new LevenshteinFunction() }, true);
             }
 
             if (sw[4] == 't' || sw[4] == 'T')
             {
                 Debug("Added SimilarityBodyFeature->NGramFunction");
-                Settings.featuresSettings.Add(new SimilarityBodyFeature() {SimilarityFunction = new NGramFunction()},
+                Settings.featuresSettings.Add(new SimilarityBodyFeature() { SimilarityFunction = new NGramFunction() },
                     true);
             }
 
@@ -282,106 +376,82 @@ namespace KSR.Tools
             {
                 Debug("Added SimilarityBodyFeature->NiewiadomskiFunction");
                 Settings.featuresSettings.Add(
-                    new SimilarityBodyFeature() {SimilarityFunction = new NiewiadomskiFunction()}, true);
+                    new SimilarityBodyFeature() { SimilarityFunction = new NiewiadomskiFunction() }, true);
             }
         }
 
-        public void setSettingsFirstParagraph()
+        public void setSettingsWords()
         {
-            Debug("setSettingsFirstParagraph");
-            var sw = options["f3"].ToCharArray();
+            Debug("setSettingsWords");
+            var sw = options["f4"].ToCharArray();
             if (sw[0] == 't' || sw[0] == 'T')
             {
-                Debug("Added SimilarityFirstParagraph->BinaryFunction");
-                Settings.featuresSettings.Add(
-                    new SimliarityFirstParagraph() {SimilarityFunction = new BinaryFunction()}, true);
+                Debug("Added WordsCounter");
+                Settings.featuresSettings.Add(new WordsCounter(), true);
             }
 
             if (sw[1] == 't' || sw[1] == 'T')
             {
-                Debug("Added SimliarityFirstParagraph->BinaryFunction");
-                Settings.featuresSettings.Add(
-                    new SimliarityFirstParagraph() {SimilarityFunction = new JaccardFunction()}, true);
+                Debug("Added UniqueWordsCounter");
+                Settings.featuresSettings.Add(new UniqueWordsCounter(), true);
             }
 
             if (sw[2] == 't' || sw[2] == 'T')
             {
-                Debug("Added SimliarityFirstParagraph->BinaryFunction");
-                Settings.featuresSettings.Add(new SimliarityFirstParagraph() {SimilarityFunction = new LCSFunction()},
-                    true);
+                Debug("Added ShortWords");
+                Settings.featuresSettings.Add(new ShortWords(), true);
             }
 
             if (sw[3] == 't' || sw[3] == 'T')
             {
-                Debug("Added SimliarityFirstParagraph->BinaryFunction");
-                Settings.featuresSettings.Add(
-                    new SimliarityFirstParagraph() {SimilarityFunction = new LevenshteinFunction()}, true);
-            }
-
-            if (sw[4] == 't' || sw[4] == 'T')
-            {
-                Debug("Added SimliarityFirstParagraph->BinaryFunction");
-                Settings.featuresSettings.Add(new SimliarityFirstParagraph() {SimilarityFunction = new NGramFunction()},
-                    true);
-            }
-
-            if (sw[5] == 't' || sw[5] == 'T')
-            {
-                Debug("Added SimliarityFirstParagraph->BinaryFunction");
-                Settings.featuresSettings.Add(
-                    new SimliarityFirstParagraph() {SimilarityFunction = new NiewiadomskiFunction()}, true);
+                Debug("Added LongWords");
+                Settings.featuresSettings.Add(new LongWords(), true);
             }
         }
 
         public void setSettings30PercentBody()
         {
-            var sw = options["f4"].ToCharArray();
+            var sw = options["f5"].ToCharArray();
             if (sw[0] == 't' || sw[0] == 'T')
             {
                 Debug("Added Simliarity30PercentBody->BinaryFunction");
-                Settings.featuresSettings.Add(new Simliarity30PercentBody() {SimilarityFunction = new BinaryFunction()},
-                    true);
+                Settings.featuresSettings.Add(new Simliarity30PercentBody() { SimilarityFunction = new BinaryFunction() }, true);
             }
 
             if (sw[1] == 't' || sw[1] == 'T')
             {
                 Debug("Added Simliarity30PercentBody->BinaryFunction");
-                Settings.featuresSettings.Add(
-                    new Simliarity30PercentBody() {SimilarityFunction = new JaccardFunction()}, true);
+                Settings.featuresSettings.Add(new Simliarity30PercentBody() { SimilarityFunction = new JaccardFunction() }, true);
             }
 
             if (sw[2] == 't' || sw[2] == 'T')
             {
                 Debug("Added Simliarity30PercentBody->BinaryFunction");
-                Settings.featuresSettings.Add(new Simliarity30PercentBody() {SimilarityFunction = new LCSFunction()},
-                    true);
+                Settings.featuresSettings.Add(new Simliarity30PercentBody() { SimilarityFunction = new LCSFunction() }, true);
             }
 
             if (sw[3] == 't' || sw[3] == 'T')
             {
                 Debug("Added Simliarity30PercentBody->BinaryFunction");
-                Settings.featuresSettings.Add(
-                    new Simliarity30PercentBody() {SimilarityFunction = new LevenshteinFunction()}, true);
+                Settings.featuresSettings.Add(new Simliarity30PercentBody() { SimilarityFunction = new LevenshteinFunction() }, true);
             }
 
             if (sw[4] == 't' || sw[4] == 'T')
             {
                 Debug("Added Simliarity30PercentBody->BinaryFunction");
-                Settings.featuresSettings.Add(new Simliarity30PercentBody() {SimilarityFunction = new NGramFunction()},
-                    true);
+                Settings.featuresSettings.Add(new Simliarity30PercentBody() { SimilarityFunction = new NGramFunction() }, true);
             }
 
             if (sw[5] == 't' || sw[5] == 'T')
             {
                 Debug("Added Simliarity30PercentBody->BinaryFunction");
-                Settings.featuresSettings.Add(
-                    new Simliarity30PercentBody() {SimilarityFunction = new NiewiadomskiFunction()}, true);
+                Settings.featuresSettings.Add(new Simliarity30PercentBody() { SimilarityFunction = new NiewiadomskiFunction() }, true);
             }
         }
-        
+
 
         #endregion
-        
+
         static void Debug(string format, params object[] args)
         {
             if (verbosity > 0)
