@@ -10,12 +10,12 @@ using TwinFinder.Base.Extensions;
 
 namespace KSR.Tools
 {
-    public class argsParser
+    public class ArgsParser
     {
         static int verbosity;
         Dictionary<string, string> options = new Dictionary<string, string>();
 
-        public argsParser(string[] args)
+        public ArgsParser(string[] args)
         {
             bool show_help = false;
 
@@ -223,7 +223,7 @@ namespace KSR.Tools
             if (sw[1] == 't' || sw[1] == 'T')
             {
                 Debug("Added KeyWords20PercentArticleBodyFeature");
-                Settings.featuresSettings.Add(new KeyWords20PercentArticleBodyFeature(), true);
+                Settings.featuresSettings.Add(new KeyWordsInNPercentArticleBodyFeature(), true);
             }
 
             if (sw[2] == 't' || sw[2] == 'T')

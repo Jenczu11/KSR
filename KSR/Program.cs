@@ -34,7 +34,7 @@ namespace KSR
             // ArgsParser argsParser = new ArgsParser(args);
             // argsParser.setSettings();
 
-            new argsParser(args);
+            new ArgsParser(args);
 
             Console.WriteLine(DateTime.Now);
             Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
@@ -49,7 +49,7 @@ namespace KSR
             }
 
             Console.WriteLine(File.Exists(Settings.articleSerializerPath) ? "File with articles exists." : "File does not exist.");
-            if (File.Exists(Settings.articleSerializerPath))
+            if (File.Exists(Settings.articleSerializerPath) && !Settings.forceLoadArticles)
             {
                 articles = ArticleSerializer.deserialize();
                 Console.WriteLine(string.Format("Deserialized articles, number of articles: {0}", articles.Count()));
@@ -96,10 +96,17 @@ namespace KSR
             la.articles.ForEach(item =>
             {
                 count++;
-                FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
+                if (Settings.divideToLabels)
+                {
+                    FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
+                }
+                else
+                {
+                    FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
+                }
                 if (count % 100 == 0)
                 {
-                    Console.WriteLine(string.Format("Articles extracted {0}, Time = {1}", count, DateTime.Now));
+                    Console.WriteLine(string.Format("Learning articles extracted {0}, Time = {1}", count, DateTime.Now));
                 }
             });
             Console.WriteLine(string.Format("Learnig extracted, Time = {0}", DateTime.Now));
@@ -108,13 +115,26 @@ namespace KSR
             ta.articles.ForEach(item =>
             {
                 count++;
-                FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
+                if (Settings.divideToLabels)
+                {
+                    FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
+                }
+                else
+                {
+                    FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
+                }
                 if (count % 100 == 0)
                 {
-                    Console.WriteLine(string.Format("Articles extracted {0}, Time = {1}", count, DateTime.Now));
+                    Console.WriteLine(string.Format("Training articles extracted {0}, Time = {1}", count, DateTime.Now));
                 }
             });
             Console.WriteLine(string.Format("Training extracted, Time = {0}", DateTime.Now));
+            if (Settings.normalizeVertical)
+            {
+                Console.WriteLine(string.Format("Normalize fratures vertical start, Time = {0}", DateTime.Now));
+                NormalizeHelper.NormalizeVertical(ref la, ref ta);
+                Console.WriteLine(string.Format("Normalize fratures vertical end, Time = {0}", DateTime.Now));
+            }
             Console.WriteLine("Start clasify");
             var classifier = new KNNClassifier();
             var metric = new ManhattanMetric();

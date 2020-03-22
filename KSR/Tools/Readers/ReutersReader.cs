@@ -62,16 +62,33 @@ namespace KSR.Tools.Readers
                                 .Split(new string[] { "    " }, StringSplitOptions.RemoveEmptyEntries)
                                 .ToArray()
                                 .Select(
-                                    words => regex
-                                        .Replace(words, " ")
+                                    words =>
+                                    {
+                                        var temp1 = regex.Replace(words, " ");
+                                        temp1 = temp1.ToLower();
+                                        if (Settings.stopListLib)
+                                        {
+                                            temp1 = temp1.RemoveStopWords("en"); //Usign https://github.com/hklemp/dotnet-stop-words
+                                        }
+                                        var temp2 = temp1.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                                        var temp3 = temp2.Where(item => item.Length > 2);
+                                        temp3 = temp3.Where(item => StopListHelper.StopWord(item));
+                                        if (Settings.stemmization)
+                                        {
+                                            temp3 = temp3.Select(item => stemmer.GetSteamWord(item)); //Using https://github.com/annytab/a-stemmer
+                                        }
+                                        temp3 = temp3.Where(item => item.Length > 0);
+                                        return temp3.ToList();
+                                        /*regex.Replace(words, " ")
                                         .ToLower()
-                                        .RemoveStopWords("en") //Usign https://github.com/hklemp/dotnet-stop-words
+                                        //.RemoveStopWords("en") //Usign https://github.com/hklemp/dotnet-stop-words
                                         .Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries)
                                         .Where(item => item.Length > 2)
                                         .Where(item => StopListHelper.StopWord(item))
-                                        .Select(item => stemmer.GetSteamWord(item)) //Using https://github.com/annytab/a-stemmer
-                                        .Where(item => item.Length > 0)
-                                        .ToList()
+                                        //.Select(item => stemmer.GetSteamWord(item)) //Using https://github.com/annytab/a-stemmer
+                                        //.Where(item => item.Length > 0)
+                                        .ToList();*/
+                                    }
                                     )
                                 .ToList(),
                             Tags = tags,
@@ -83,3 +100,6 @@ namespace KSR.Tools.Readers
         }
     }
 }
+/*{
+    
+}*/

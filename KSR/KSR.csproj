@@ -83,7 +83,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Article.cs" />
-    <Compile Include="Tools\argsParser.cs" />
+    <Compile Include="Tools\ArgsParser.cs" />
+    <Compile Include="Tools\Features\KeyWordsInNLastPercentArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsPercentageArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsInNLastWordsArticleBodyFeature .cs" />
+    <Compile Include="Tools\Features\KeyWordsInNWordsArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsLastParagraphArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\Simliarity30PercentBody.cs" />
     <Compile Include="Tools\Features\SimliarityFirstParagraph.cs" />
     <Compile Include="Tools\Features\Words\LongWords.cs" />
@@ -94,6 +99,7 @@
     <Compile Include="Tools\Filter\LearningArticles.cs" />
     <Compile Include="Tools\Filter\TestingArticles.cs" />
     <Compile Include="Tools\Helpers\DictHelper.cs" />
+    <Compile Include="Tools\Helpers\NormalizeHelper.cs" />
     <Compile Include="Tools\Helpers\ResultHelper.cs" />
     <Compile Include="Tools\Helpers\StopListHelper.cs" />
     <Compile Include="Tools\Readers\IReader.cs" />
@@ -114,7 +120,7 @@
     <Compile Include="Tools\Features\IFeature.cs" />
     <Compile Include="Tools\Features\BinaryArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\KeyWordsArticleBodyFeature.cs" />
-    <Compile Include="Tools\Features\KeyWords20PercentArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsInNPercentArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\KeyWordsFirstParagraphArticleBodyFeature.cs" />
     <Compile Include="Tools\SimliarityFunctions\LevenshteinFunction.cs" />
     <Compile Include="Tools\SimliarityFunctions\NGramFunction.cs" />

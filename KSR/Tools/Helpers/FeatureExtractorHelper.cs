@@ -21,7 +21,10 @@ namespace KSR.Tools.Helpers
                 count++;
             }
             //var max = np.max(article.Features);
-            article.FeaturesD = article.FeaturesD.Select(item => item / max_value).ToArray();
+            if (Settings.normalize)
+            {
+                article.FeaturesD = article.FeaturesD.Select(item => item / max_value).ToArray();
+            }
         }
         public static void ExtractFeatureDict(List<IFeature> features, ref Article article, Dictionary<string, List<string>> keyWordsDict)
         {
@@ -30,16 +33,19 @@ namespace KSR.Tools.Helpers
             var max_value = 0d;
             foreach (var feature in features)
             {
-                foreach(var keyWords in keyWordsDict)
+                foreach (var keyWords in keyWordsDict)
                 {
                     article.FeaturesD[count] = feature.Calc(article, keyWords.Value);
                     max_value = Math.Max(max_value, article.FeaturesD[count]);
                     count++;
                 }
-                
+
             }
             //var max = np.max(article.Features);
-            article.FeaturesD = article.FeaturesD.Select(item => item / max_value).ToArray();
+            if (Settings.normalize)
+            {
+                article.FeaturesD = article.FeaturesD.Select(item => item / max_value).ToArray();
+            }
         }
     }
 }
