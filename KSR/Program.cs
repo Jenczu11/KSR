@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using TwinFinder.Base.Extensions;
 using KSR.Tools.Classifier;
 using KSR.Tools.Metrics;
+using System.Drawing;
 using NDesk.Options;
 
 namespace KSR
