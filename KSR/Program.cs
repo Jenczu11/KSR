@@ -138,7 +138,7 @@ namespace KSR
             Console.WriteLine("Start clasify");
             var classifier = new KNNClassifier();
             var metric = new ManhattanMetric();
-
+            classifier.Train(la.articles);
 
             var result = new Dictionary<string, Dictionary<string, int>>();
             foreach (var item in PLACES)
@@ -155,7 +155,7 @@ namespace KSR
 
             foreach (var item in ta.articles)
             {
-                item.GuessedLabel = classifier.Classify(la.articles, item, Settings.kNNNeighbours, metric);
+                item.GuessedLabel = classifier.Classify(item, Settings.kNNNeighbours, metric);
                 result[item.Label][item.GuessedLabel]++;
                 if (item.Label == item.GuessedLabel)
                 {

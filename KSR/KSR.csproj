@@ -78,6 +78,21 @@
     <Reference Include="TwinFinder">
       <HintPath>..\packages\TwinFinder.Nuget.1.0.0\lib\TwinFinder.dll</HintPath>
     </Reference>
+    <Reference Include="SharpLearning.Containers">
+      <HintPath>..\packages\SharpLearning.Containers.0.31.7\lib\net461\SharpLearning.Containers.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.Common.Interfaces">
+      <HintPath>..\packages\SharpLearning.Common.Interfaces.0.31.7\lib\net461\SharpLearning.Common.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.InputOutput">
+      <HintPath>..\packages\SharpLearning.InputOutput.0.31.7\lib\net461\SharpLearning.InputOutput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.DecisionTrees">
+      <HintPath>..\packages\SharpLearning.DecisionTrees.0.31.7\lib\net461\SharpLearning.DecisionTrees.dll</HintPath>
+    </Reference>
+    <Reference Include="DecisionTree">
+      <HintPath>..\packages\cs-decision-tree.1.0.1\lib\net461\Release\DecisionTree.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -132,6 +147,8 @@
     <Compile Include="Tools\Classifier\KNNClassifier.cs" />
     <Compile Include="Tools\Classifier\IClassifier.cs" />
     <Compile Include="Tools\Helpers\FeatureExtractorHelper.cs" />
+    <Compile Include="Tools\Classifier\DecisionTreeClassifier.cs" />
+    <Compile Include="Tools\Classifier\DecisionTreeClasifier2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\stoplist.txt" />

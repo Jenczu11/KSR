@@ -7,6 +7,7 @@ namespace KSR.Tools.Classifier
 {
     public interface IClassifier
     {
-        string Classify(List<Article> reference, Article article, int k, IMetric metric);
+        void Train(List<Article> reference);
+        string Classify(Article article, int k, IMetric metric);
     }
 }

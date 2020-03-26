@@ -8,7 +8,8 @@ namespace KSR.Tools.Classifier
 {
     public class KNNClassifier : IClassifier
     {
-        public string Classify(List<Article> reference, Article article, int k, IMetric metric)
+        List<Article> reference = new List<Article>();
+        public string Classify(Article article, int k, IMetric metric)
         {
             //var result = reference.Select(item => metric.GetDistance)
             var elements = new Dictionary<Article, double>();
@@ -39,6 +40,11 @@ namespace KSR.Tools.Classifier
             {
                 return labels.ElementAt(0).Key;
             }
+        }
+
+        public void Train(List<Article> reference)
+        {
+            this.reference = new List<Article>(reference);
         }
     }
 }
