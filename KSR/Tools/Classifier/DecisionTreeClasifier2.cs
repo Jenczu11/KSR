@@ -33,6 +33,7 @@ namespace KSR.Tools.Classifier
                 algorithm = new C45<DDataRecord>();
                 for (var i = 0; i < reference[0].FeaturesD.Length; i++)
                 {
+                    Console.WriteLine(string.Format("UpdateContinuousAttributes for i = {0}, Time = {1}", i, DateTime.Now));
                     algorithm.UpdateContinuousAttributes(records, string.Format("F{0}", i));
                 }
                 algorithm.Train(records);
@@ -50,6 +51,7 @@ namespace KSR.Tools.Classifier
                     rec[string.Format("F{0}", i)] = item.FeaturesD[i].ToString();
                 }
                 rec.Label = item.Label;
+                resutl.Add(rec);
             }
             return resutl;
         }

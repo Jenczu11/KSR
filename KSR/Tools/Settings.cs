@@ -57,8 +57,8 @@ namespace KSR.Tools
         public static int keyWords = 20;
         public static string stoplistfile = @"../../Data/stoplist.txt";
         public static IFrequency keyWordsExtractor = new TDFrequency();
-        public static bool normalize = false;
-        public static bool normalizeVertical = true;
+        public static bool normalize = true;
+        public static bool normalizeVertical = false;
         public static bool divideToLabels = true;
         public static bool stemmization = false;
         public static bool stopListLib = false;

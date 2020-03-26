@@ -136,7 +136,7 @@ namespace KSR
                 Console.WriteLine(string.Format("Normalize fratures vertical end, Time = {0}", DateTime.Now));
             }
             Console.WriteLine("Start clasify");
-            var classifier = new KNNClassifier();
+            var classifier = new DecisionTreeClasifier2();
             var metric = new ManhattanMetric();
             classifier.Train(la.articles);
 
