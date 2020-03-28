@@ -8,7 +8,7 @@ namespace KSR.Tools.Metrics
     {
         public double GetDistance(NDArray lhs, NDArray rhs)
         {
-            throw new System.NotImplementedException();
+            return np.sqrt(np.power(np.add(lhs, rhs), 2).sum());
         }
 
         public double GetDistance(double[] lhs, double[] rhs)
