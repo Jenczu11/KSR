@@ -18,7 +18,7 @@ namespace KSR.Tools.Helpers
             public int FN = 0;
         }
         public Dictionary<string, Dictionary<string, int>> result;
-        public Dictionary<string, ResultSet> resultSet { get; set; };
+        public Dictionary<string, ResultSet> resultSet { get; set; }
         private int NumberOfTest { get; set; } = 0;
         public ResultHelper(Dictionary<string, Dictionary<string, int>> result)
         {

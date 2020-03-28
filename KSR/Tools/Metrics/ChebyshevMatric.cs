@@ -19,5 +19,10 @@ namespace KSR.Tools.Metrics
             }
             return result;
         }
+
+        public override string ToString()
+        {
+            return "ChebyshevMatric";
+        }
     }
 }

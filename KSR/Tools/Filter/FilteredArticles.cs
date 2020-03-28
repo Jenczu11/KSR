@@ -8,20 +8,16 @@ namespace KSR.Tools.Filter
 
     public class FilteredArticles
     {
-        public static List<string> PLACES = new List<string>()
-            {"west-germany", "usa","france", "uk", "canada", "japan"};
-
-        public const string PLACES_TAG = "places";
         public List<Article> selectedArticles { get; set; }
 
-        public FilteredArticles(IEnumerable<Article> articles)
+        public FilteredArticles(IEnumerable<Article> articles, string TAG, List<string> categories)
         {
             selectedArticles = articles
-                .Where(item => item.Tags.ContainsKey(PLACES_TAG))
-                .Where(item => item.Tags[PLACES_TAG].Count == 1)
-                .Where(item => PLACES.Contains(item.Tags[PLACES_TAG][0]))
+                .Where(item => item.Tags.ContainsKey(TAG))
+                .Where(item => item.Tags[TAG].Count == 1)
+                .Where(item => categories.Contains(item.Tags[TAG][0]))
                 .ToList();
-            selectedArticles.ForEach(item => item.Label = item.Tags[PLACES_TAG][0]);
+            selectedArticles.ForEach(item => item.Label = item.Tags[TAG][0]);
         }
 
         public FilteredArticles()

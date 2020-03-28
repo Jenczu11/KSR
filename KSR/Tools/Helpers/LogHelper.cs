@@ -98,9 +98,9 @@ namespace KSR.Tools.Helpers
             precision = precision.Substring(0, precision.Length - 1);
             recall = recall.Substring(0, recall.Length - 1);
             var fs = new StreamWriter(logFilePathCsv, true);
-            fs.WriteLine(string.Format("{0}{1};", row, accuracy));
-            fs.WriteLine(string.Format("{0}{1};", row, precision));
-            fs.WriteLine(string.Format("{0}{1};", row, recall));
+            fs.WriteLine(string.Format("{0}{1}", row, accuracy));
+            fs.WriteLine(string.Format("{0}{1}", row, precision));
+            fs.WriteLine(string.Format("{0}{1}", row, recall));
             fs.Close();
 
         }

@@ -19,5 +19,10 @@ namespace KSR.Tools.Metrics
             }
             return Math.Sqrt(result);
         }
+
+        public override string ToString()
+        {
+            return "EuclidesMetric";
+        }
     }
 }

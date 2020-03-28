@@ -22,6 +22,7 @@ using NDesk.Options;
 using KSR.Tools.Features;
 using static KSR.Tools.Helpers.ResultHelper;
 using Settings = KSR.Tools.Settings;
+using KSR.Tools.SimliarityFunctions;
 
 namespace KSR
 {
@@ -32,186 +33,188 @@ namespace KSR
 
         public const string PLACES_TAG = "places";
 
-        public static List<string> columns = new List<string>() { "test number", "k", "train/test", "metric", "feature set", "result type"};
+        public static List<string> columns = new List<string>() { "test number", "k", "train/test", "metric", "feature set", "result type" };
 
         public static void Main(string[] args)
         {
-            StopListHelper.LoadStopWords();
-            // ArgsParser argsParser = new ArgsParser(args);
-            // argsParser.setSettings();
-            var scsv = new SettingsCSVReader();
-                scsv.readSettingsFromCSV();
-                scsv.parseToArgs(0);
-            new ArgsParser(scsv.parseToArgs(0));
+            /* StopListHelper.LoadStopWords();
+             // ArgsParser argsParser = new ArgsParser(args);
+             // argsParser.setSettings();
+             var scsv = new SettingsCSVReader();
+             scsv.readSettingsFromCSV();
+             scsv.parseToArgs(0);
+             new ArgsParser(scsv.parseToArgs(0));
 
-            new ArgsParser(args);
+             new ArgsParser(args);
 
-            Console.WriteLine(DateTime.Now);
-            Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
-            if (Directory.Exists(Settings.DirectoryForResults))
-            {
-                //TODO na resultaty coś i trzeba wynieść do innej klasy (moze jakis setup)   
-            }
-            else
-            {
-                Console.WriteLine("Creating directory....");
-                Directory.CreateDirectory(Settings.DirectoryForResults);
-            }
+             Console.WriteLine(DateTime.Now);
+             Console.WriteLine(Directory.Exists(Settings.DirectoryForResults) ? "Directory for results exists." : "Directory does not exist.");
+             if (Directory.Exists(Settings.DirectoryForResults))
+             {
+                 //TODO na resultaty coś i trzeba wynieść do innej klasy (moze jakis setup)   
+             }
+             else
+             {
+                 Console.WriteLine("Creating directory....");
+                 Directory.CreateDirectory(Settings.DirectoryForResults);
+             }
 
-            Console.WriteLine(File.Exists(Settings.articleSerializerPath) ? "File with articles exists." : "File does not exist.");
-            if (File.Exists(Settings.articleSerializerPath) && !Settings.forceLoadArticles)
-            {
-                articles = ArticleSerializer.deserialize();
-                Console.WriteLine(string.Format("Deserialized articles, number of articles: {0}", articles.Count()));
-            }
-            else
-            {
-                var reader = new ReutersReader();
-                articles = reader.GetArticles().ToList();
-                foreach (var article in articles)
-                {
-                    var words = new List<string>();
-                    article.Paragraphs.ForEach(item => words.AddRange(item));
-                    article.AllWords = words.ToArray();
-                }
-                ArticleSerializer.serialize(articles);
-                Console.WriteLine(string.Format("Serialized articles to {0}", Settings.articleSerializerPath));
-            }
-            var filteredArticles = new FilteredArticles(articles);
-            Console.WriteLine(string.Format("Filtered articles, number of filtered articles: {0}", filteredArticles.Count()));
+             Console.WriteLine(File.Exists(Settings.articleSerializerPath) ? "File with articles exists." : "File does not exist.");
+             if (File.Exists(Settings.articleSerializerPath) && !Settings.forceLoadArticles)
+             {
+                 articles = ArticleSerializer.deserialize();
+                 Console.WriteLine(string.Format("Deserialized articles, number of articles: {0}", articles.Count()));
+             }
+             else
+             {
+                 var reader = new ReutersReader();
+                 articles = reader.GetArticles().ToList();
+                 foreach (var article in articles)
+                 {
+                     var words = new List<string>();
+                     article.Paragraphs.ForEach(item => words.AddRange(item));
+                     article.AllWords = words.ToArray();
+                 }
+                 ArticleSerializer.serialize(articles);
+                 Console.WriteLine(string.Format("Serialized articles to {0}", Settings.articleSerializerPath));
+             }
+             var filteredArticles = new FilteredArticles(articles, PLACES_TAG, PLACES);
+             Console.WriteLine(string.Format("Filtered articles, number of filtered articles: {0}", filteredArticles.Count()));
 
-            LearningArticles la = new LearningArticles(Settings.learningPercentage, filteredArticles.selectedArticles);
-            TestingArticles ta = new TestingArticles(Settings.testingPercentage, filteredArticles.selectedArticles);
-            la.PrintNumberOfArticles();
-            ta.PrintNumberOfArticles();
-            Console.WriteLine(la.Count + ta.Count);
+             LearningArticles la = new LearningArticles(Settings.learningPercentage, filteredArticles.selectedArticles);
+             TestingArticles ta = new TestingArticles(Settings.testingPercentage, filteredArticles.selectedArticles);
+             la.PrintNumberOfArticles();
+             ta.PrintNumberOfArticles();
+             Console.WriteLine(la.Count + ta.Count);
 
-            Console.WriteLine(string.Format("Extrace keywords start, Time = {0}", DateTime.Now));
-            var keyWords = KeyWordsHelper.GetKeyWords(filteredArticles.selectedArticles, Settings.keyWords, Settings.keyWordsExtractor, PLACES_TAG, true);
-            var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(filteredArticles.selectedArticles, Settings.keyWords, Settings.keyWordsExtractor, PLACES_TAG, true);
-            Console.WriteLine(string.Format("Extrace keywords end, Time = {0}", DateTime.Now));
-            keyWords.ForEach(item => Console.WriteLine(item));
-            foreach (var keyWord in keyWordsDict)
-            {
-                Console.WriteLine(keyWord.Key);
-                keyWord.Value.ForEach(item => Console.Write(item + " "));
-                Console.WriteLine();
-            }
-            var features = Settings.featuresSettings
-                            .Where(item => item.Value)
-                            .Select(item => item.Key)
-                            .ToList();
-            Console.WriteLine(string.Format("Start learnig extraction, Time = {0}", DateTime.Now));
-            int count = 0;
-            la.articles.ForEach(item =>
-            {
-                count++;
-                if (Settings.divideToLabels)
-                {
-                    FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
-                }
-                else
-                {
-                    FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
-                }
-                if (count % 100 == 0)
-                {
-                    Console.WriteLine(string.Format("Learning articles extracted {0}, Time = {1}", count, DateTime.Now));
-                }
-            });
-            Console.WriteLine(string.Format("Learnig extracted, Time = {0}", DateTime.Now));
-            Console.WriteLine(string.Format("Start training extraction, Time = {0}", DateTime.Now));
-            count = 0;
-            ta.articles.ForEach(item =>
-            {
-                count++;
-                if (Settings.divideToLabels)
-                {
-                    FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
-                }
-                else
-                {
-                    FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
-                }
-                if (count % 100 == 0)
-                {
-                    Console.WriteLine(string.Format("Training articles extracted {0}, Time = {1}", count, DateTime.Now));
-                }
-            });
-            Console.WriteLine(string.Format("Training extracted, Time = {0}", DateTime.Now));
-            if (Settings.normalizeVertical)
-            {
-                Console.WriteLine(string.Format("Normalize fratures vertical start, Time = {0}", DateTime.Now));
-                NormalizeHelper.NormalizeVertical(ref la, ref ta);
-                Console.WriteLine(string.Format("Normalize fratures vertical end, Time = {0}", DateTime.Now));
-            }
-            Console.WriteLine("Start clasify");
-            var classifier = new KNNClassifier();
-            var metric = new ManhattanMetric();
-            classifier.Train(la.articles);
+             Console.WriteLine(string.Format("Extrace keywords start, Time = {0}", DateTime.Now));
+             var keyWords = KeyWordsHelper.GetKeyWords(filteredArticles.selectedArticles, Settings.keyWords, Settings.keyWordsExtractor, PLACES_TAG, true);
+             var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(filteredArticles.selectedArticles, Settings.keyWords, Settings.keyWordsExtractor, PLACES_TAG, true);
+             Console.WriteLine(string.Format("Extrace keywords end, Time = {0}", DateTime.Now));
+             keyWords.ForEach(item => Console.WriteLine(item));
+             foreach (var keyWord in keyWordsDict)
+             {
+                 Console.WriteLine(keyWord.Key);
+                 keyWord.Value.ForEach(item => Console.Write(item + " "));
+                 Console.WriteLine();
+             }
+             var features = Settings.featuresSettings
+                             .Where(item => item.Value)
+                             .Select(item => item.Key)
+                             .ToList();
+             Console.WriteLine(string.Format("Start learnig extraction, Time = {0}", DateTime.Now));
+             int count = 0;
+             la.articles.ForEach(item =>
+             {
+                 count++;
+                 if (Settings.divideToLabels)
+                 {
+                     FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
+                 }
+                 else
+                 {
+                     FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
+                 }
+                 if (count % 100 == 0)
+                 {
+                     Console.WriteLine(string.Format("Learning articles extracted {0}, Time = {1}", count, DateTime.Now));
+                 }
+             });
+             Console.WriteLine(string.Format("Learnig extracted, Time = {0}", DateTime.Now));
+             Console.WriteLine(string.Format("Start training extraction, Time = {0}", DateTime.Now));
+             count = 0;
+             ta.articles.ForEach(item =>
+             {
+                 count++;
+                 if (Settings.divideToLabels)
+                 {
+                     FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
+                 }
+                 else
+                 {
+                     FeatureExtractorHelper.ExtractFeature(features, ref item, keyWords);
+                 }
+                 if (count % 100 == 0)
+                 {
+                     Console.WriteLine(string.Format("Training articles extracted {0}, Time = {1}", count, DateTime.Now));
+                 }
+             });
+             Console.WriteLine(string.Format("Training extracted, Time = {0}", DateTime.Now));
+             if (Settings.normalizeVertical)
+             {
+                 Console.WriteLine(string.Format("Normalize fratures vertical start, Time = {0}", DateTime.Now));
+                 NormalizeHelper.NormalizeVertical(ref la, ref ta);
+                 Console.WriteLine(string.Format("Normalize fratures vertical end, Time = {0}", DateTime.Now));
+             }
+             Console.WriteLine("Start clasify");
+             var classifier = new KNNClassifier();
+             var metric = new ManhattanMetric();
+             classifier.Train(la.articles);
 
-            var result = new Dictionary<string, Dictionary<string, int>>();
-            foreach (var item in PLACES)
-            {
-                result.Add(item, new Dictionary<string, int>());
-                foreach (var item2 in PLACES)
-                {
-                    result[item].Add(item2, 0);
-                }
-            }
+             var result = new Dictionary<string, Dictionary<string, int>>();
+             foreach (var item in PLACES)
+             {
+                 result.Add(item, new Dictionary<string, int>());
+                 foreach (var item2 in PLACES)
+                 {
+                     result[item].Add(item2, 0);
+                 }
+             }
 
-            var positive = 0m;
-            var negative = 0m;
+             var positive = 0m;
+             var negative = 0m;
 
-            foreach (var item in ta.articles)
-            {
-                item.GuessedLabel = classifier.Classify(item, Settings.kNNNeighbours, metric);
-                result[item.Label][item.GuessedLabel]++;
-                if (item.Label == item.GuessedLabel)
-                {
-                    positive++;
-                }
-                else
-                {
-                    negative++;
-                }
-                if ((positive + negative) % 100 == 0)
-                {
-                    Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
-                }
-            }
+             foreach (var item in ta.articles)
+             {
+                 item.GuessedLabel = classifier.Classify(item, Settings.kNNNeighbours, metric);
+                 result[item.Label][item.GuessedLabel]++;
+                 if (item.Label == item.GuessedLabel)
+                 {
+                     positive++;
+                 }
+                 else
+                 {
+                     negative++;
+                 }
+                 if ((positive + negative) % 100 == 0)
+                 {
+                     Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
+                 }
+             }
 
-            Console.Write("         ");
-            foreach (var VARIABLE in result)
-            {
-                Console.Write(VARIABLE.Key.ToString());
-                Console.Write("    ");
-            }
-            Console.WriteLine();
-            foreach (var a in result)
-            {
-                Console.Write(a.Key.ToString()); Console.Write("        ");
-                foreach (var b in a.Value)
-                {
-                    Console.Write(b.Value); Console.Write("            ");
-                }
-                Console.WriteLine();
-            }
+             Console.Write("         ");
+             foreach (var VARIABLE in result)
+             {
+                 Console.Write(VARIABLE.Key.ToString());
+                 Console.Write("    ");
+             }
+             Console.WriteLine();
+             foreach (var a in result)
+             {
+                 Console.Write(a.Key.ToString()); Console.Write("        ");
+                 foreach (var b in a.Value)
+                 {
+                     Console.Write(b.Value); Console.Write("            ");
+                 }
+                 Console.WriteLine();
+             }
 
-            Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
-            Console.WriteLine("Finish");
+             Console.WriteLine(string.Format("Positive {0}, Negative {1}, Result {2:00.00}%, Time {3}", positive, negative, 100 * positive / (positive + negative), DateTime.Now));
+             Console.WriteLine("Finish");
 
-            var rh = new ResultHelper(result);
-            rh.CalculateResults();
-            rh.Print();
-            rh.PrintToCSV();
-            rh.PrintToLaTeX();
+             var rh = new ResultHelper(result);
+             rh.CalculateResults();
+             rh.Print();
+             rh.PrintToCSV();
+             rh.PrintToLaTeX();
+             Console.ReadLine();
+             */
+            RunApp();
             Console.ReadLine();
-
         }
 
 
-        private Dictionary<string, ResultSet> Run(int k, IMetric metric, List<Article> training, List<Article> testing, List<string> tags)
+        private static Dictionary<string, ResultSet> Run(int k, IMetric metric, List<Article> training, List<Article> testing, List<string> tags)
         {
             IClassifier classifier = new KNNClassifier();
             classifier.Train(training);
@@ -235,19 +238,28 @@ namespace KSR
             return rh.resultSet;
         }
 
-        public void RunApp()
+        public static void RunApp()
         {
+            var tags = new List<string>() { "west-germany", "usa", "france", "uk", "canada", "japan" };
+            var tag = "places";
             var articles = new List<Article>();
             var extractor = new TDFrequency();
             var manhattanMetric = new ManhattanMetric();
             var euclidesMetric = new EuclidesMetric();
             var chebyshevMatric = new ChebyshevMatric();
-
+            //var kList = new List<int>() { 6, 20 };
+            var kList = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
+            //var trainDivide = new List<int>() { 40, 60 };
+            var trainDivide = new List<int>() { 30, 40, 50, 60, 70 };
+            var featuresList = new List<List<IFeature>>();
             var keyWords = new Dictionary<string, List<string>>();
-
             var columnesLocal = new List<string>();
             columnesLocal.AddRange(columns);
-            columnesLocal.AddRange(PLACES);
+            columnesLocal.AddRange(tags);
+            featuresList.Add(GetFeatures1());
+            //featuresList.Add(GetFeatures2());
+            //featuresList.Add(GetFeatures3());
+            //featuresList.Add(GetFeatures4());
             StopListHelper.LoadStopWords();
             LogHelper.BeginLog();
             LogHelper.InitCSV(columnesLocal);
@@ -270,6 +282,89 @@ namespace KSR
                 Console.WriteLine(string.Format("Serialized articles to {0}", Settings.articleSerializerPath));
             }
 
+            var filteredPlaces = new FilteredArticles(articles, tag, tags);
+            Console.WriteLine("Extract keywords");
+            keyWords = KeyWordsHelper.GetKeyWordsDict(filteredPlaces.selectedArticles, 20, extractor, tag, true);
+            int testNumber = 0;
+            int featuresSet = 0;
+            foreach (var features in featuresList)
+            {
+                Console.WriteLine(string.Format("Start extracting features {0}", DateTime.Now));
+                filteredPlaces.selectedArticles.ForEach(item =>
+                {
+                    FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWords);
+                });
+                Console.WriteLine(string.Format("End extracting features {0}", DateTime.Now));
+                foreach (var testTraining in trainDivide)
+                {
+                    var learinig = new LearningArticles(testTraining, filteredPlaces.selectedArticles);
+                    var testing = new TestingArticles(100 - testTraining, filteredPlaces.selectedArticles);
+                    foreach (var kitem in kList)
+                    {
+                        testNumber++;
+                        Console.WriteLine(string.Format("Classification part 1 {0}", DateTime.Now));
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, chebyshevMatric.ToString(), string.Format("featuresSet{0}", featuresSet), Run(kitem, chebyshevMatric, learinig.articles, testing.articles, tags));
+                        Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, manhattanMetric.ToString(), string.Format("featuresSet{0}", featuresSet), Run(kitem, manhattanMetric, learinig.articles, testing.articles, tags));
+                        Console.WriteLine(string.Format("Classification part 3 {0}", DateTime.Now));
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, euclidesMetric.ToString(), string.Format("featuresSet{0}", featuresSet), Run(kitem, euclidesMetric, learinig.articles, testing.articles, tags));
+                    }
+                }
+                featuresSet++;
+            }
+
         }
+
+        public static List<IFeature> GetFeatures1()
+        {
+            var result = new List<IFeature>();
+            result.Add(new KeyWordsArticleBodyFeature());
+            result.Add(new KeyWordsLastParagraphArticleBodyFeature());
+            result.Add(new KeyWordsInNLastPercentArticleBodyFeature() { N = 10 });
+            result.Add(new KeyWordsInNLastPercentArticleBodyFeature() { N = 20 });
+            result.Add(new KeyWordsInNLastPercentArticleBodyFeature() { N = 50 });
+            result.Add(new KeyWordsInNLastWordsArticleBodyFeature() { N = 10 });
+            result.Add(new KeyWordsInNLastWordsArticleBodyFeature() { N = 20 });
+            result.Add(new KeyWordsInNLastWordsArticleBodyFeature() { N = 50 });
+            return result;
+        }
+
+        public static List<IFeature> GetFeatures2()
+        {
+            var result = new List<IFeature>();
+            result.Add(new KeyWordsArticleBodyFeature());
+            result.Add(new KeyWordsFirstParagraphArticleBodyFeature());
+            result.Add(new KeyWordsInNPercentArticleBodyFeature() { N = 10 });
+            result.Add(new KeyWordsInNPercentArticleBodyFeature() { N = 20 });
+            result.Add(new KeyWordsInNPercentArticleBodyFeature() { N = 50 });
+            result.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 10 });
+            result.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 20 });
+            result.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 50 });
+            return result;
+        }
+        public static List<IFeature> GetFeatures3()
+        {
+            var result = new List<IFeature>();
+            result.Add(new KeyWordsArticleBodyFeature());
+            result.Add(new BinaryArticleBodyFeature());
+            result.Add(new KeyWordsPercentageArticleBodyFeature());
+            result.Add(new WordsCounter());
+            result.Add(new UniqueWordsCounter());
+            result.Add(new ShortWords());
+            result.Add(new LongWords());
+            return result;
+        }
+        public static List<IFeature> GetFeatures4()
+        {
+            var result = new List<IFeature>();
+            result.Add(new KeyWordsArticleBodyFeature());
+            result.Add(new BinaryArticleBodyFeature());
+            result.Add(new KeyWordsPercentageArticleBodyFeature());
+            result.Add(new Simliarity30PercentBody() { SimilarityFunction = new NGramFunction() });
+            result.Add(new Simliarity30PercentBody() { SimilarityFunction = new NiewiadomskiFunction() });
+            result.Add(new Simliarity30PercentBody() { SimilarityFunction = new BinaryFunction() });
+            return result;
+        }
+
     }
 }
