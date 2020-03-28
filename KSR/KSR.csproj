@@ -133,6 +133,7 @@
     <Compile Include="Tools\Helpers\ResultHelper.cs" />
     <Compile Include="Tools\Helpers\StopListHelper.cs" />
     <Compile Include="Tools\Metrics\CustomMetric1.cs" />
+    <Compile Include="Tools\Metrics\CustomMetric2.cs" />
     <Compile Include="Tools\Readers\IReader.cs" />
     <Compile Include="Tools\Readers\ReutersReader.cs" />
     <Compile Include="Tools\Metrics\IMetric.cs" />
