@@ -10,6 +10,7 @@ namespace KSR.Tools.Features
     {
         public ISimilarityFunction SimilarityFunction { get; set; }
         public int N { get; set; } = 20;
+        public bool IsContinouse { get; set; } = true;
         public double Calc(Article article, List<string> keyWords)
         {
             var count = 0;

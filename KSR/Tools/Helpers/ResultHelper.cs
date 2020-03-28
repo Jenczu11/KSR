@@ -42,8 +42,14 @@ namespace KSR.Tools.Helpers
                     results.TN += item.Value[item.Key];
                 }
                 results.Accuracy = Convert.ToDecimal(results.TP + results.TN) * 100m / Convert.ToDecimal(results.TP + results.FP + results.FN + results.TN);
-                results.Precision = Convert.ToDecimal(results.TP) * 100m / Convert.ToDecimal(results.TP + results.FP);
-                results.Recall = Convert.ToDecimal(results.TP) * 100m / Convert.ToDecimal(results.TP + results.FN);
+                if (results.TP + results.FP > 0)
+                {
+                    results.Precision = Convert.ToDecimal(results.TP) * 100m / Convert.ToDecimal(results.TP + results.FP);
+                }
+                if (results.TP + results.FN > 0)
+                {
+                    results.Recall = Convert.ToDecimal(results.TP) * 100m / Convert.ToDecimal(results.TP + results.FN);
+                }
                 var info = string.Empty;
                 info += string.Format("Label = {0}{1}", label, Environment.NewLine);
                 info += string.Format("Accuracy = {0:00.00}{1}", results.Accuracy, Environment.NewLine);

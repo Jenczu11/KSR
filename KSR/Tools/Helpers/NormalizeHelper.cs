@@ -30,11 +30,11 @@ namespace KSR.Tools.Helpers
                 {
                     foreach (var item in learning.articles)
                     {
-                        item.FeaturesD[i] = item.FeaturesD[i] / max;
+                        item.FeaturesD[i] = item.FeaturesD[i] * 100.0 / max;
                     }
                     foreach (var item in testing.articles)
                     {
-                        item.FeaturesD[i] = item.FeaturesD[i] / max;
+                        item.FeaturesD[i] = item.FeaturesD[i] * 100.0 / max;
                     }
                 }
             }

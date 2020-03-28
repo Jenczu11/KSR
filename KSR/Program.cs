@@ -77,8 +77,8 @@ namespace KSR
             Console.WriteLine(la.Count + ta.Count);
 
             Console.WriteLine(string.Format("Extrace keywords start, Time = {0}", DateTime.Now));
-            var keyWords = KeyWordsHelper.GetKeyWords(filteredArticles.selectedArticles, 20, Settings.keyWordsExtractor, PLACES_TAG, true);
-            var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(filteredArticles.selectedArticles, 20, Settings.keyWordsExtractor, PLACES_TAG, true);
+            var keyWords = KeyWordsHelper.GetKeyWords(filteredArticles.selectedArticles, Settings.keyWords, Settings.keyWordsExtractor, PLACES_TAG, true);
+            var keyWordsDict = KeyWordsHelper.GetKeyWordsDict(filteredArticles.selectedArticles, Settings.keyWords, Settings.keyWordsExtractor, PLACES_TAG, true);
             Console.WriteLine(string.Format("Extrace keywords end, Time = {0}", DateTime.Now));
             keyWords.ForEach(item => Console.WriteLine(item));
             foreach (var keyWord in keyWordsDict)

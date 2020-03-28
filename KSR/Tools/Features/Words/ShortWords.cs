@@ -9,6 +9,7 @@ namespace KSR.Tools.Features
 
     {
         public ISimilarityFunction SimilarityFunction { get; set; }
+        public bool IsContinouse { get; set; } = true;
         public double Calc(Article article, List<string> keyWords)
         {
             return article.AllWords.ToList().Count(w => w.Length <= 3);

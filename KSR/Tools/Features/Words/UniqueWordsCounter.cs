@@ -7,6 +7,7 @@ namespace KSR.Tools.Features
     public class UniqueWordsCounter : IFeature
     {
         public ISimilarityFunction SimilarityFunction { get; set; }
+        public bool IsContinouse { get; set; } = true;
         public double Calc(Article article, List<string> keyWords)
         {
             var uniqueWords = new List<string>();
