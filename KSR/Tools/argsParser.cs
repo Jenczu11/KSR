@@ -33,7 +33,7 @@ namespace KSR.Tools
                         }
                         else
                         {
-                            throw new OptionException("Feature set 1 is not equal to 4 values", "-f1");
+                            throw new OptionException("Feature set 1 is not equal to 5 values", "-f1");
                         }
                     }
                 },
@@ -75,7 +75,7 @@ namespace KSR.Tools
                         }
                         else
                         {
-                            throw new OptionException("Feature set 4 is not equal to 6 values", "-f4");
+                            throw new OptionException("Feature set 4 is not equal to 4 values", "-f4");
                         }
                     }
                 },

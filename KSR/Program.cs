@@ -17,7 +17,9 @@ using TwinFinder.Base.Extensions;
 using KSR.Tools.Classifier;
 using KSR.Tools.Metrics;
 using System.Drawing;
+using KSR.Tools.CSVReader;
 using NDesk.Options;
+using Settings = KSR.Tools.Settings;
 
 namespace KSR
 {
@@ -33,6 +35,10 @@ namespace KSR
             StopListHelper.LoadStopWords();
             // ArgsParser argsParser = new ArgsParser(args);
             // argsParser.setSettings();
+            var scsv = new SettingsCSVReader();
+                scsv.readSettingsFromCSV();
+                scsv.parseToArgs(0);
+            new ArgsParser(scsv.parseToArgs(0));
 
             new ArgsParser(args);
 

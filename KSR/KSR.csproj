@@ -29,6 +29,15 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=15.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823">
+      <HintPath>..\packages\CsvHelper.15.0.3\lib\net47\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="NDesk.Options, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
       <Private>True</Private>
@@ -72,6 +81,10 @@
     <Reference Include="Fastenshtein">
       <HintPath>..\packages\Fastenshtein.1.0.0.5\lib\net40-client\Fastenshtein.dll</HintPath>
     </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="UnidecodeSharpFork">
       <HintPath>..\packages\UnidecodeSharpFork.1.0.0\lib\UnidecodeSharpFork.dll</HintPath>
     </Reference>
@@ -99,6 +112,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Article.cs" />
     <Compile Include="Tools\ArgsParser.cs" />
+    <Compile Include="Tools\CSVReader\SettingsCSVReader.cs" />
     <Compile Include="Tools\Features\KeyWordsInNLastPercentArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\KeyWordsPercentageArticleBodyFeature.cs" />
     <Compile Include="Tools\Features\KeyWordsInNLastWordsArticleBodyFeature .cs" />
@@ -152,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\stoplist.txt" />
+    <Content Include="Tools\Settings.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
