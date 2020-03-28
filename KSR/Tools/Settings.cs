@@ -59,7 +59,7 @@ namespace KSR.Tools
         public static IFrequency keyWordsExtractor = new TDFrequency();
         public static bool normalize = false;
         public static bool normalizeVertical = true;
-        public static bool divideToLabels = false;
+        public static bool divideToLabels = true;
         public static bool stemmization = false;
         public static bool stopListLib = false;
         public static bool forceLoadArticles = false;

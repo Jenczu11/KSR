@@ -19,6 +19,8 @@ using KSR.Tools.Metrics;
 using System.Drawing;
 using KSR.Tools.CSVReader;
 using NDesk.Options;
+using KSR.Tools.Features;
+using static KSR.Tools.Helpers.ResultHelper;
 using Settings = KSR.Tools.Settings;
 
 namespace KSR
@@ -29,6 +31,8 @@ namespace KSR
         private static List<Article> articles;     // Musiałem dodać jako pole, jak masz pomysł jak wykonać podeślij ;p
 
         public const string PLACES_TAG = "places";
+
+        public static List<string> columns = new List<string>() { "test number", "k", "train/test", "metric", "feature set", "result type"};
 
         public static void Main(string[] args)
         {
@@ -142,7 +146,7 @@ namespace KSR
                 Console.WriteLine(string.Format("Normalize fratures vertical end, Time = {0}", DateTime.Now));
             }
             Console.WriteLine("Start clasify");
-            var classifier = new DecisionTreeClasifier2();
+            var classifier = new KNNClassifier();
             var metric = new ManhattanMetric();
             classifier.Train(la.articles);
 
@@ -204,72 +208,68 @@ namespace KSR
             rh.PrintToLaTeX();
             Console.ReadLine();
 
-            // var reader = new ReutersReader();
-            // var articles = reader.GetArticles();
-            // Console.WriteLine(articles.Count());
-            // var articles = ArticleSerializer.deserialize();
-            // var filteredArticles = new FilteredArticles(articles);
-            // string input = "";
-            // Console.WriteLine(art.Count());
-
-            // var filteredArticles = new FilteredArticles(la._articles);
-            // Console.WriteLine(filteredArticles.Count());
-
-            // var selected = articles
-            //     .Where(item => item.Tags.ContainsKey(PLACES_TAG))
-            //     .Where(item => item.Tags[PLACES_TAG].Count == 1)
-            //     .Where(item => PLACES.Contains(item.Tags[PLACES_TAG][0]))
-            //     .ToList();
-            //
-            // selected.ForEach(item => Console.WriteLine(string.Format("Title: {0}, DateLine: {1}, Place: {2}", item.Title, item.DateLine, item.Tags[PLACES_TAG][0])));
-            //
+        }
 
 
-            // var reader = new ReutersReader();
-            // var articles = reader.GetArticles();
-
-            // var filteredArticles = new FilteredArticles(articles);
-            // Console.WriteLine(filteredArticles.Count());
-            // Console.ReadLine();
-            /*// Console.WriteLine("Po filtrowaniu");
-            // Console.WriteLine(filteredArticles.GetArticleSingleParagraph(0, 1));
-            // string ParagraphText = string.Join(" ", filteredArticles.GetArticleSingleParagraph(0, 1).ToArray());
-            // filteredArticles.printArticle(0);
-            // Console.WriteLine();
-            // filteredArticles.printSingleParagraph(0,0);
-            // selected[0].Paragraphs[0].ForEach(word => Console.WriteLine(word));
-            Console.Write(filteredArticles.getListOfAllWords().Count);
-            var tf = new TFFrequency();
-            //var KeyWords = KeyWordsHelper.GetKeyWords(filteredArticles.selectedArticles, 1, tf, PLACES_TAG);
-
-            var wordsInTags = new Dictionary<string, List<string>>();
-            foreach (var article in filteredArticles.selectedArticles)
+        private Dictionary<string, ResultSet> Run(int k, IMetric metric, List<Article> training, List<Article> testing, List<string> tags)
+        {
+            IClassifier classifier = new KNNClassifier();
+            classifier.Train(training);
+            var result = new Dictionary<string, Dictionary<string, int>>();
+            foreach (var item in tags)
             {
-                var tag = article.Tags[PLACES_TAG][0];
-                if (!wordsInTags.ContainsKey(tag))
+                result.Add(item, new Dictionary<string, int>());
+                foreach (var item2 in tags)
                 {
-                    wordsInTags.Add(tag, new List<string>());
+                    result[item].Add(item2, 0);
                 }
-                article.Paragraphs.ForEach(words => wordsInTags[tag].AddRange(words));
             }
-            var keys = wordsInTags.Keys;
-            // var result = new Dictionary<string, List<string>>();
-            //var resultFile = File.Open(@"Logs.csv", FileMode.OpenOrCreate);
-            var file = File.AppendText(@"Logs.csv");
-            foreach (var key in keys)
+
+            foreach (var item in testing)
             {
-                var wordsFrequency = tf.Calc(wordsInTags[key]);
-                foreach (var word in wordsFrequency)
-                {
-                    var line = string.Format("\"{0}\",\"{1}\",\"{2}\"{3}", key, word.Key, word.Value, Environment.NewLine);
-                    //Console.Write(line);
-                    file.Write(line);
-                }
-                //result.Add(key, wordsFrequency.Keys.Take(Convert.ToInt32(wordsFrequency.Count * 1)).ToList());
+                item.GuessedLabel = classifier.Classify(item, k, metric);
+                result[item.Label][item.GuessedLabel]++;
             }
-            file.Close();
-            //Console.Write(DictHelper.DictionaryToString(tf.Calc(filteredArticles.getListOfAllWords())));
-            Console.ReadLine();*/
+            var rh = new ResultHelper(result);
+            rh.CalculateResults();
+            return rh.resultSet;
+        }
+
+        public void RunApp()
+        {
+            var articles = new List<Article>();
+            var extractor = new TDFrequency();
+            var manhattanMetric = new ManhattanMetric();
+            var euclidesMetric = new EuclidesMetric();
+            var chebyshevMatric = new ChebyshevMatric();
+
+            var keyWords = new Dictionary<string, List<string>>();
+
+            var columnesLocal = new List<string>();
+            columnesLocal.AddRange(columns);
+            columnesLocal.AddRange(PLACES);
+            StopListHelper.LoadStopWords();
+            LogHelper.BeginLog();
+            LogHelper.InitCSV(columnesLocal);
+            if (File.Exists(Settings.articleSerializerPath) && !Settings.forceLoadArticles)
+            {
+                articles = ArticleSerializer.deserialize();
+                Console.WriteLine(string.Format("Deserialized articles, number of articles: {0}", articles.Count()));
+            }
+            else
+            {
+                var reader = new ReutersReader();
+                articles = reader.GetArticles().ToList();
+                foreach (var article in articles)
+                {
+                    var words = new List<string>();
+                    article.Paragraphs.ForEach(item => words.AddRange(item));
+                    article.AllWords = words.ToArray();
+                }
+                ArticleSerializer.serialize(articles);
+                Console.WriteLine(string.Format("Serialized articles to {0}", Settings.articleSerializerPath));
+            }
+
         }
     }
 }

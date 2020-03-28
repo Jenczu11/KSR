@@ -7,7 +7,7 @@ namespace KSR.Tools.Helpers
 {
     public class ResultHelper
     {
-        class ResultSet
+        public class ResultSet
         {
             public decimal Accuracy = 0m;
             public decimal Recall = 0m;
@@ -18,7 +18,8 @@ namespace KSR.Tools.Helpers
             public int FN = 0;
         }
         public Dictionary<string, Dictionary<string, int>> result;
-        private Dictionary<string, ResultSet> resultSet;
+        public Dictionary<string, ResultSet> resultSet { get; set; };
+        private int NumberOfTest { get; set; } = 0;
         public ResultHelper(Dictionary<string, Dictionary<string, int>> result)
         {
             this.result = result;
@@ -50,35 +51,36 @@ namespace KSR.Tools.Helpers
                 {
                     results.Recall = Convert.ToDecimal(results.TP) * 100m / Convert.ToDecimal(results.TP + results.FN);
                 }
-                var info = string.Empty;
+                resultSet.Add(label, results);
+                /*var info = string.Empty;
                 info += string.Format("Label = {0}{1}", label, Environment.NewLine);
                 info += string.Format("Accuracy = {0:00.00}{1}", results.Accuracy, Environment.NewLine);
                 info += string.Format("Precision = {0:00.00}{1}", results.Precision, Environment.NewLine);
                 info += string.Format("Recall = {0:00.00}{1}", results.Recall, Environment.NewLine);
-                Console.Write(info);
+                Console.Write(info);*/
             }
         }
 
         public void Print()
         {
-            var sb = new System.Text.StringBuilder();
-            sb.Append(String.Format("{0,13}", " "));
+            var sb = string.Empty;
+            sb += string.Format("{0,13}", " ");
             foreach (var VARIABLE in result)
             {
-                sb.Append(String.Format("{0,13}", VARIABLE.Key.ToString()));
+                sb += string.Format("{0,13}", VARIABLE.Key.ToString());
             }
 
-            sb.AppendLine();
+            sb += Environment.NewLine;
 
             foreach (var a in result)
             {
-                sb.Append(String.Format("{0,-13}", a.Key.ToString()));
+                sb += string.Format("{0,-13}", a.Key.ToString());
                 foreach (var b in a.Value)
                 {
-                    sb.Append(String.Format("{0,13}", b.Value));
+                    sb += string.Format("{0,13}", b.Value);
                 }
 
-                sb.AppendLine();
+                sb += Environment.NewLine;
             }
             Console.WriteLine(sb);
         }
@@ -105,39 +107,72 @@ namespace KSR.Tools.Helpers
 
         public void PrintToLaTeX()
         {
-            var sb = new System.Text.StringBuilder();
+            var sb = string.Empty;
             var tabularCount = result.Count + 1;
-            sb.Append("\\begin{table}[htb]\n");
-            sb.Append("\\begin{tabular}{");
+            sb += "\\begin{table}[htb]\n";
+            sb += "\\begin{tabular}{";
             for (int i = 0; i < tabularCount; i++)
             {
-                sb.Append("l");
+                sb += "l";
             }
-            sb.AppendLine("}");
-
-            sb.Append(String.Format("{0,13}&", " "));
-            foreach (var VARIABLE in result)
+            sb += "}";
+            sb += Environment.NewLine;
+            sb += string.Format("{0,13}&", " ");
+            foreach (var VARIABLE in resultSet)
             {
-                sb.Append(String.Format("{0,13}&", VARIABLE.Key.ToString()));
+                sb += string.Format("{0,13}&", VARIABLE.Key.ToString());
             }
-            sb.Remove(sb.Length - 1, 1);
-            sb.Append("\\\\");
-            sb.AppendLine();
+            sb = sb.Substring(0, sb.Length - 1);
+            sb += "\\\\";
+            sb += Environment.NewLine;
 
             foreach (var a in result)
             {
-                sb.Append(String.Format("{0,-13}&", a.Key.ToString()));
+                sb += string.Format("{0,-13}&", a.Key.ToString());
                 foreach (var b in a.Value)
                 {
-                    sb.Append(String.Format("{0,13}&", b.Value));
+                    sb += string.Format("{0,13}&", b.Value);
                 }
 
-                sb.Remove(sb.Length - 1, 1);
-                sb.Append("\\\\");
-                sb.AppendLine();
+                sb = sb.Substring(0, sb.Length - 1);
+                sb += "\\\\";
+                sb += Environment.NewLine;
             }
-            sb.AppendLine("\\end{tabular}");
-            sb.AppendLine("\\end{table}");
+            sb += "\\end{tabular}";
+            sb += Environment.NewLine;
+            sb += "\\caption{Macież pomyłek dla badania nr " + NumberOfTest.ToString() + "}";
+            sb += Environment.NewLine;
+            sb += "\\label{tab:tab-true-nr-" + NumberOfTest.ToString() + "}";
+            sb += Environment.NewLine;
+            sb += "\\end{table}";
+            sb += Environment.NewLine;
+
+            sb += "\\begin{table}[htb]\n";
+            sb += "\\begin{tabular}{llll}";
+            sb += Environment.NewLine;
+            sb += string.Format("{0,13}&", " ");
+            sb += string.Format("{0,13}&", "Accuracy");
+            sb += string.Format("{0,13}&", "Precission");
+            sb += string.Format("{0,13}", "Recall");
+            sb += "\\\\";
+            sb += Environment.NewLine;
+
+            foreach (var a in resultSet)
+            {
+                sb += string.Format("{0,-13}&", a.Key.ToString());
+                sb += string.Format("{0:00.000}&", a.Value.Accuracy);
+                sb += string.Format("{0:00.000}&", a.Value.Precision);
+                sb += string.Format("{0:00.000}", a.Value.Recall);
+                sb += "\\\\";
+                sb += Environment.NewLine;
+            }
+            sb += "\\end{tabular}";
+            sb += Environment.NewLine;
+            sb += "\\caption{Tabela wyników dla badania nr " + NumberOfTest.ToString() + "}";
+            sb += Environment.NewLine;
+            sb += "\\label{tab:tab-res-nr-" + NumberOfTest.ToString() + "}";
+            sb += Environment.NewLine;
+            sb += "\\end{table}";
             Console.WriteLine(sb);
         }
     }

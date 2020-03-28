@@ -128,6 +128,7 @@
     <Compile Include="Tools\Filter\LearningArticles.cs" />
     <Compile Include="Tools\Filter\TestingArticles.cs" />
     <Compile Include="Tools\Helpers\DictHelper.cs" />
+    <Compile Include="Tools\Helpers\LogHelper.cs" />
     <Compile Include="Tools\Helpers\NormalizeHelper.cs" />
     <Compile Include="Tools\Helpers\ResultHelper.cs" />
     <Compile Include="Tools\Helpers\StopListHelper.cs" />
