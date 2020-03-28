@@ -257,9 +257,9 @@ namespace KSR
             columnesLocal.AddRange(columns);
             columnesLocal.AddRange(tags);
             featuresList.Add(GetFeatures1());
-            //featuresList.Add(GetFeatures2());
-            //featuresList.Add(GetFeatures3());
-            //featuresList.Add(GetFeatures4());
+            featuresList.Add(GetFeatures2());
+            featuresList.Add(GetFeatures3());
+            featuresList.Add(GetFeatures4());
             StopListHelper.LoadStopWords();
             LogHelper.BeginLog();
             LogHelper.InitCSV(columnesLocal);
