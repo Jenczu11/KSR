@@ -90,9 +90,9 @@ namespace KSR.Tools.Helpers
             var recall = "\"recall\",";
             foreach(var item in resultSet)
             {
-                accuracy += string.Format("\"{0:00.000}\",", item.Value.Accuracy);
-                precision += string.Format("\"{0:00.000}\",", item.Value.Precision);
-                recall += string.Format("\"{0:00.000}\",", item.Value.Recall);
+                accuracy += string.Format("\"{0:0.000}\",", item.Value.Accuracy);
+                precision += string.Format("\"{0:0.000}\",", item.Value.Precision);
+                recall += string.Format("\"{0:0.000}\",", item.Value.Recall);
             }
             accuracy = accuracy.Substring(0, accuracy.Length - 1);
             precision = precision.Substring(0, precision.Length - 1);
