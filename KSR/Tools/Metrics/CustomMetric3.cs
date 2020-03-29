@@ -7,8 +7,9 @@ using NumSharp;
 
 namespace KSR.Tools.Metrics
 {
-    public class HammingMetric : IMetric
+    public class CustomMetric3 : IMetric
     {
+        public int Power { get; set; } = 3;
         public double GetDistance(NDArray lhs, NDArray rhs)
         {
             throw new NotImplementedException();
@@ -19,15 +20,13 @@ namespace KSR.Tools.Metrics
             var result = 0d;
             for (var i = 0; i < lhs.Length; i++)
             {
-                result += (Math.Abs(lhs[i] - rhs[i]) > 0.001 ? 1 : 0);
+                result += Math.Pow(Math.Abs(lhs[i] - rhs[i]), Power);
             }
-
-            return result;
+            return Math.Pow(result, 1 / Convert.ToDouble(Power));
         }
-
         public override string ToString()
         {
-            return "HammingMetric";
+            return "CustomMetric3 -> sigma(abs(a-b)^power)^(1/power)";
         }
     }
 }

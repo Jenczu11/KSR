@@ -175,6 +175,7 @@
     <Compile Include="Tools\Metrics\CanberraMetric.cs" />
     <Compile Include="Tools\Metrics\CustomMetric1.cs" />
     <Compile Include="Tools\Metrics\CustomMetric2.cs" />
+    <Compile Include="Tools\Metrics\CustomMetric3.cs" />
     <Compile Include="Tools\Metrics\HammingMetric.cs" />
     <Compile Include="Tools\Readers\IReader.cs" />
     <Compile Include="Tools\Readers\ReutersReader.cs" />

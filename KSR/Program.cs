@@ -227,10 +227,16 @@ namespace KSR
                     result[item].Add(item2, 0);
                 }
             }
+            //int count = 0;
             foreach (var item in testing)
             {
                 item.GuessedLabel = classifier.Classify(item, k, metric);
                 result[item.Label][item.GuessedLabel]++;
+                /*if(count % 100 == 0)
+                {
+                    Console.WriteLine(string.Format("Classify step for {0} {1}", count, DateTime.Now));
+                }
+                count++;*/
             }
             var rh = new ResultHelper(result);
             rh.CalculateResults();
@@ -248,6 +254,7 @@ namespace KSR
             var chebyshevMatric = new ChebyshevMatric();
             var customMetric1 = new CustomMetric1();
             var customMetric2 = new CustomMetric2();
+            var customMetric3 = new CustomMetric3();
             var canberraMetric = new CanBerraMetric();
             var hammingMetric = new HammingMetric();
             //var kList = new List<int>() { 6, 20 };
@@ -309,9 +316,9 @@ namespace KSR
                     {
                         testNumber++;
                         Console.WriteLine(string.Format("Classification part 1 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, hammingMetric.ToString(),
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, customMetric3.ToString(),
                             string.Format("featuresSet{0}", featuresSet),
-                            Run(kitem, hammingMetric, learning.articles, testing.articles, tags));
+                            Run(kitem, customMetric3, learning.articles, testing.articles, tags));
 
                         // Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
                         // LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, manhattanMetric.ToString(), 
