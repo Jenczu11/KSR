@@ -227,7 +227,6 @@ namespace KSR
                     result[item].Add(item2, 0);
                 }
             }
-
             foreach (var item in testing)
             {
                 item.GuessedLabel = classifier.Classify(item, k, metric);
@@ -250,13 +249,14 @@ namespace KSR
             var customMetric1 = new CustomMetric1();
             var customMetric2 = new CustomMetric2();
             var canberraMetric = new CanBerraMetric();
+            var hammingMetric = new HammingMetric();
             //var kList = new List<int>() { 6, 20 };
             // var kList = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
-            var kList = new List<int>() { 5, 10 ,15, 20 };
+            var kList = new List<int>() { 5, 10, 15, 20 };
             //var trainDivide = new List<int>() { 40, 60 };
             var trainDivide = new List<int>() { 30, 40, 50, 60, 70 };
             // var trainDivide = new List<int>() { 70 };
-            
+
             var featuresList = new List<List<IFeature>>();
             var keyWords = new Dictionary<string, List<string>>();
             var columnesLocal = new List<string>();
@@ -309,10 +309,10 @@ namespace KSR
                     {
                         testNumber++;
                         Console.WriteLine(string.Format("Classification part 1 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, canberraMetric.ToString(), 
-                            string.Format("featuresSet{0}", featuresSet), 
-                            Run(kitem, canberraMetric, learning.articles, testing.articles, tags));
-                        
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, hammingMetric.ToString(),
+                            string.Format("featuresSet{0}", featuresSet),
+                            Run(kitem, hammingMetric, learning.articles, testing.articles, tags));
+
                         // Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
                         // LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, manhattanMetric.ToString(), 
                         //     string.Format("featuresSet{0}", featuresSet), 
