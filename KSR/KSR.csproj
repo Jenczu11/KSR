@@ -28,6 +28,46 @@
     <ExternalConsole>true</ExternalConsole>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R1|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R1\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R2|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R3|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R3\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R4|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R4\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R5|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R5\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CsvHelper, Version=15.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823">
       <HintPath>..\packages\CsvHelper.15.0.3\lib\net47\CsvHelper.dll</HintPath>
@@ -132,6 +172,7 @@
     <Compile Include="Tools\Helpers\NormalizeHelper.cs" />
     <Compile Include="Tools\Helpers\ResultHelper.cs" />
     <Compile Include="Tools\Helpers\StopListHelper.cs" />
+    <Compile Include="Tools\Metrics\CanberraMetric.cs" />
     <Compile Include="Tools\Metrics\CustomMetric1.cs" />
     <Compile Include="Tools\Metrics\CustomMetric2.cs" />
     <Compile Include="Tools\Readers\IReader.cs" />

@@ -249,10 +249,14 @@ namespace KSR
             var chebyshevMatric = new ChebyshevMatric();
             var customMetric1 = new CustomMetric1();
             var customMetric2 = new CustomMetric2();
+            var canberraMetric = new CanBerraMetric();
             //var kList = new List<int>() { 6, 20 };
-            var kList = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
+            // var kList = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
+            var kList = new List<int>() { 5, 10 ,15, 20 };
             //var trainDivide = new List<int>() { 40, 60 };
             var trainDivide = new List<int>() { 30, 40, 50, 60, 70 };
+            // var trainDivide = new List<int>() { 70 };
+            
             var featuresList = new List<List<IFeature>>();
             var keyWords = new Dictionary<string, List<string>>();
             var columnesLocal = new List<string>();
@@ -305,29 +309,29 @@ namespace KSR
                     {
                         testNumber++;
                         Console.WriteLine(string.Format("Classification part 1 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, chebyshevMatric.ToString(), 
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, canberraMetric.ToString(), 
                             string.Format("featuresSet{0}", featuresSet), 
-                            Run(kitem, chebyshevMatric, learning.articles, testing.articles, tags));
+                            Run(kitem, canberraMetric, learning.articles, testing.articles, tags));
                         
-                        Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, manhattanMetric.ToString(), 
-                            string.Format("featuresSet{0}", featuresSet), 
-                            Run(kitem, manhattanMetric, learning.articles, testing.articles, tags));
-                        
-                        Console.WriteLine(string.Format("Classification part 3 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, euclidesMetric.ToString(), 
-                            string.Format("featuresSet{0}", featuresSet), 
-                            Run(kitem, euclidesMetric, learning.articles, testing.articles, tags));
-                        
-                        Console.WriteLine(string.Format("Classification part 4 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, customMetric1.ToString(), 
-                            string.Format("featuresSet{0}", featuresSet), 
-                            Run(kitem, customMetric1, learning.articles, testing.articles, tags));
-                        
-                        Console.WriteLine(string.Format("Classification part 5 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, customMetric2.ToString(), 
-                            string.Format("featuresSet{0}", featuresSet), 
-                            Run(kitem, customMetric2, learning.articles, testing.articles, tags));
+                        // Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
+                        // LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, manhattanMetric.ToString(), 
+                        //     string.Format("featuresSet{0}", featuresSet), 
+                        //     Run(kitem, manhattanMetric, learning.articles, testing.articles, tags));
+                        //
+                        // Console.WriteLine(string.Format("Classification part 3 {0}", DateTime.Now));
+                        // LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, euclidesMetric.ToString(), 
+                        //     string.Format("featuresSet{0}", featuresSet), 
+                        //     Run(kitem, euclidesMetric, learning.articles, testing.articles, tags));
+                        //
+                        // Console.WriteLine(string.Format("Classification part 4 {0}", DateTime.Now));
+                        // LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, customMetric1.ToString(), 
+                        //     string.Format("featuresSet{0}", featuresSet), 
+                        //     Run(kitem, customMetric1, learning.articles, testing.articles, tags));
+                        //
+                        // Console.WriteLine(string.Format("Classification part 5 {0}", DateTime.Now));
+                        // LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, customMetric2.ToString(), 
+                        //     string.Format("featuresSet{0}", featuresSet), 
+                        //     Run(kitem, customMetric2, learning.articles, testing.articles, tags));
                     }
                 }
                 featuresSet++;
