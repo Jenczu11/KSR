@@ -215,6 +215,7 @@
     <Content Include="Tools\Settings.csv" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Data\reut2-000.sgm" />
     <None Include="Data\reut2-001.sgm" />

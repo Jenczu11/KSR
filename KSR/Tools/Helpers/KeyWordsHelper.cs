@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace KSR.Tools.Helpers
 {
-    public class KeyWordsHelper
+    public static class KeyWordsHelper
     {
         public static List<string> GetKeyWords(List<Article> articles, double percentOfWords, IFrequency frequency, string category, bool number = false)
         {

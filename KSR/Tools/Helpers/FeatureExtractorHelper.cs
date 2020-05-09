@@ -7,7 +7,7 @@ using NumSharp;
 
 namespace KSR.Tools.Helpers
 {
-    public class FeatureExtractorHelper
+    public static class FeatureExtractorHelper
     {
         public static void ExtractFeature(List<IFeature> features, ref Article article, List<string> keyWords)
         {

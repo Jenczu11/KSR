@@ -105,5 +105,21 @@ namespace KSR.Tools.Helpers
 
         }
 
+        public static void WriteResultsCSV(int numberOfTest, int k, int train, string metric, string featuresSet, double accuracyValue)
+        {
+            var row = string.Empty;
+            row += string.Format("\"{0}\",", numberOfTest);
+            row += string.Format("\"{0}\",", k);
+            row += string.Format("\"{0} / {1}\",", train, 100 - train);
+            row += string.Format("\"{0}\",", metric);
+            row += string.Format("\"{0}\",", featuresSet);
+            var accuracy = "\"accuracy_all\",";
+            accuracy += string.Format("\"{0:0.000}\", \"\",\"\",\"\",\"\",\"\"", accuracyValue);
+            var fs = new StreamWriter(logFilePathCsv, true);
+            fs.WriteLine(string.Format("{0}{1}", row, accuracy));
+            fs.Close();
+
+        }
+
     }
 }

@@ -6,6 +6,7 @@ namespace KSR.Tools.Metrics
 {
     public class CustomMetric1 : IMetric
     {
+
         public double GetDistance(NDArray lhs, NDArray rhs)
         {
             return np.sqrt(np.power(np.add(lhs, rhs), 2).sum());

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KSR.Tools.Helpers
 {
-    public class NormalizeHelper
+    public static class NormalizeHelper
     {
         public static void NormalizeVertical(ref LearningArticles learning, ref TestingArticles testing)
         {

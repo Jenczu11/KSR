@@ -29,9 +29,11 @@ namespace KSR
     class Program
     {
         public static List<string> PLACES = new List<string>() { "west-germany", "usa", "france", "uk", "canada", "japan" };
+        public static List<string> TOPICS = new List<string>() { "earn", "trade", "money-supply", "acq" };
         private static List<Article> articles;     // Musiałem dodać jako pole, jak masz pomysł jak wykonać podeślij ;p
 
         public const string PLACES_TAG = "places";
+        public const string TOPIC_TAG = "topics";
 
         public static List<string> columns = new List<string>() { "test number", "k", "train/test", "metric", "feature set", "result type" };
 
@@ -246,7 +248,9 @@ namespace KSR
         public static void RunApp()
         {
             var tags = new List<string>() { "west-germany", "usa", "france", "uk", "canada", "japan" };
+            //var tags = new List<string>() { "earn", "trade", "money-supply", "acq" };
             var tag = "places";
+            //var tag = "topics";
             var articles = new List<Article>();
             var extractor = new TDFrequency();
             var manhattanMetric = new ManhattanMetric();
@@ -258,10 +262,10 @@ namespace KSR
             var canberraMetric = new CanBerraMetric();
             var hammingMetric = new HammingMetric();
             //var kList = new List<int>() { 6, 20 };
-            // var kList = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
-            var kList = new List<int>() { 5, 10, 15, 20 };
-            //var trainDivide = new List<int>() { 40, 60 };
-            var trainDivide = new List<int>() { 30, 40, 50, 60, 70 };
+            //var kList = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
+            var kList = new List<int>() { 12 };
+            var trainDivide = new List<int>() { 70 };
+            //var trainDivide = new List<int>() { 30, 40, 50, 60, 70 };
             // var trainDivide = new List<int>() { 70 };
 
             var featuresList = new List<List<IFeature>>();
@@ -269,10 +273,10 @@ namespace KSR
             var columnesLocal = new List<string>();
             columnesLocal.AddRange(columns);
             columnesLocal.AddRange(tags);
-            featuresList.Add(GetFeatures1());
+            //featuresList.Add(GetFeatures1());
             featuresList.Add(GetFeatures2());
-            featuresList.Add(GetFeatures3());
-            featuresList.Add(GetFeatures4());
+            //featuresList.Add(GetFeatures3());
+            //featuresList.Add(GetFeatures4());
             StopListHelper.LoadStopWords();
             LogHelper.BeginLog();
             LogHelper.InitCSV(columnesLocal);
@@ -296,6 +300,7 @@ namespace KSR
             }
 
             var filteredPlaces = new FilteredArticles(articles, tag, tags);
+            Console.WriteLine(string.Format("Filtered articles {0}", filteredPlaces.selectedArticles.Count));
             Console.WriteLine("Extract keywords");
             keyWords = KeyWordsHelper.GetKeyWordsDict(filteredPlaces.selectedArticles, 20, extractor, tag, true);
             int testNumber = 0;
@@ -315,11 +320,36 @@ namespace KSR
                     foreach (var kitem in kList)
                     {
                         testNumber++;
+                        IMetric metric = customMetric3;
                         Console.WriteLine(string.Format("Classification part 1 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, customMetric3.ToString(),
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
                             string.Format("featuresSet{0}", featuresSet),
-                            Run(kitem, customMetric3, learning.articles, testing.articles, tags));
-
+                            Run(kitem, metric, learning.articles, testing.articles, tags));
+                        SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);
+                        /*metric = chebyshevMatric;
+                        Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
+                            string.Format("featuresSet{0}", featuresSet),
+                            Run(kitem, metric, learning.articles, testing.articles, tags));
+                        SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);
+                        metric = manhattanMetric;
+                        Console.WriteLine(string.Format("Classification part 3 {0}", DateTime.Now));
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
+                            string.Format("featuresSet{0}", featuresSet),
+                            Run(kitem, metric, learning.articles, testing.articles, tags));
+                        SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);
+                        metric = customMetric3;
+                        Console.WriteLine(string.Format("Classification part 4 {0}", DateTime.Now));
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
+                            string.Format("featuresSet{0}", featuresSet),
+                            Run(kitem, metric, learning.articles, testing.articles, tags));
+                        SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);
+                        metric = hammingMetric;
+                        Console.WriteLine(string.Format("Classification part 5 {0}", DateTime.Now));
+                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
+                            string.Format("featuresSet{0}", featuresSet),
+                            Run(kitem, metric, learning.articles, testing.articles, tags));
+                        SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);*/
                         // Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
                         // LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, manhattanMetric.ToString(), 
                         //     string.Format("featuresSet{0}", featuresSet), 
@@ -343,9 +373,27 @@ namespace KSR
                 }
                 featuresSet++;
             }
+            Console.WriteLine("End!");
 
         }
-
+        private static void SaveGlobalAccuracy(int testNumber, int kitem, int testTraining, IMetric metric, int featuresSet, TestingArticles testing)
+        {
+            var positive = 0.0d;
+            var negetive = 0.0d;
+            foreach (var item in testing.articles)
+            {
+                if (item.Label.Equals(item.GuessedLabel))
+                {
+                    positive++;
+                }
+                else
+                {
+                    negetive++;
+                }
+            }
+            LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
+                string.Format("featuresSet{0}", featuresSet), positive * 100 / (positive + negetive));
+        }
         public static List<IFeature> GetFeatures1()
         {
             var result = new List<IFeature>();
