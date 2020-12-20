@@ -247,9 +247,11 @@ namespace KSR
 
         public static void RunApp()
         {
-            var tags = new List<string>() { "west-germany", "usa", "france", "uk", "canada", "japan" };
+            //var tags = new List<string>() { "west-germany", "usa", "france", "uk", "canada", "japan" };
+            var tags = new List<string>() { "1", "2", "3" };
             //var tags = new List<string>() { "earn", "trade", "money-supply", "acq" };
-            var tag = "places";
+            //var tag = "places";
+            var tag = "level";
             //var tag = "topics";
             var articles = new List<Article>();
             var extractor = new TDFrequency();
@@ -263,9 +265,10 @@ namespace KSR
             var hammingMetric = new HammingMetric();
             //var kList = new List<int>() { 6, 20 };
             //var kList = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
-            var kList = new List<int>() { 12 };
-            var trainDivide = new List<int>() { 70 };
-            //var trainDivide = new List<int>() { 30, 40, 50, 60, 70 };
+            var kList = new List<int>() { 16, 18, 20, 22, 24, 26, 28, 30};
+            //var kList = new List<int>() { 12 };
+            //var trainDivide = new List<int>() { 70 };
+            var trainDivide = new List<int>() { 30, 40, 50 };
             // var trainDivide = new List<int>() { 70 };
 
             var featuresList = new List<List<IFeature>>();
@@ -287,7 +290,7 @@ namespace KSR
             }
             else
             {
-                var reader = new ReutersReader();
+                var reader = new DatabaseReader();
                 articles = reader.GetArticles().ToList();
                 foreach (var article in articles)
                 {
@@ -326,7 +329,7 @@ namespace KSR
                             string.Format("featuresSet{0}", featuresSet),
                             Run(kitem, metric, learning.articles, testing.articles, tags));
                         SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);
-                        /*metric = chebyshevMatric;
+                        metric = chebyshevMatric;
                         Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
                         LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
                             string.Format("featuresSet{0}", featuresSet),
@@ -338,18 +341,18 @@ namespace KSR
                             string.Format("featuresSet{0}", featuresSet),
                             Run(kitem, metric, learning.articles, testing.articles, tags));
                         SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);
-                        metric = customMetric3;
+                        //metric = customMetric3;
+                        //Console.WriteLine(string.Format("Classification part 4 {0}", DateTime.Now));
+                        //LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
+                        //    string.Format("featuresSet{0}", featuresSet),
+                        //    Run(kitem, metric, learning.articles, testing.articles, tags));
+                        //SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);
+                        metric = hammingMetric;
                         Console.WriteLine(string.Format("Classification part 4 {0}", DateTime.Now));
                         LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
                             string.Format("featuresSet{0}", featuresSet),
                             Run(kitem, metric, learning.articles, testing.articles, tags));
                         SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);
-                        metric = hammingMetric;
-                        Console.WriteLine(string.Format("Classification part 5 {0}", DateTime.Now));
-                        LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, metric.ToString(),
-                            string.Format("featuresSet{0}", featuresSet),
-                            Run(kitem, metric, learning.articles, testing.articles, tags));
-                        SaveGlobalAccuracy(testNumber, kitem, testTraining, metric, featuresSet, testing);*/
                         // Console.WriteLine(string.Format("Classification part 2 {0}", DateTime.Now));
                         // LogHelper.WriteResultsCSV(testNumber, kitem, testTraining, manhattanMetric.ToString(), 
                         //     string.Format("featuresSet{0}", featuresSet), 

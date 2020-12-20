@@ -14,14 +14,15 @@ namespace KSR.Tools.Frequency
             {
                 var words = article.AllWords;
                 var temp = new List<string>();
-                foreach (var word in words)
+                var set = new SortedSet<string>(words);
+/*                foreach (var word in words)
                 {
                     if (!temp.Contains(word))
                     {
                         temp.Add(word);
                     }
-                }
-                foreach (var item in temp)
+                }*/
+                foreach (var item in set)
                 {
                     if (!result.ContainsKey(item))
                     {

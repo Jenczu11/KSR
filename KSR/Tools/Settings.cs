@@ -55,7 +55,7 @@ namespace KSR.Tools
             {new SimilarityBodyFeature(){ SimilarityFunction = new NGramFunction()}, false },
         };
         public static int keyWords = 40;
-        public static string stoplistfile = @"../../Data/stoplist.txt";
+        public static string stoplistfile = @"../../Data/stoplist_fs.txt";
         public static IFrequency keyWordsExtractor = new TDFrequency();
         public static bool normalize = false;
         public static bool normalizeVertical = true;

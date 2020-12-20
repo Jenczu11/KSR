@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace KSR.Tools.Helpers
 {
-    public static class ResultHelper
+    public class ResultHelper
     {
         public class ResultSet
         {
