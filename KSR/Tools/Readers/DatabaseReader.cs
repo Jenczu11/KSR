@@ -4,6 +4,7 @@ using KSR.Tools.Helpers;
 using StopWord;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace KSR.Tools.Readers
 
         public DatabaseReader()
         {
-            connection = new SqlConnection("Data Source=;Initial Catalog=;Persist Security Info=True;User ID=;Password=");
+            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
 
 
             
@@ -70,6 +71,7 @@ namespace KSR.Tools.Readers
                     article.AllWords = temp3.ToArray();
                     article.Paragraphs = new List<List<string>>();
                     article.Paragraphs.Add(temp3.ToList());
+                    article.HasAttachment = reader["HASATTACHMENT"].ToString() == "1";
                     result.Add(article);
                     counter++;
                 }

@@ -260,12 +260,12 @@ namespace KSR
             var chebyshevMatric = new ChebyshevMatric();
             var customMetric1 = new CustomMetric1();
             var customMetric2 = new CustomMetric2();
-            var customMetric3 = new CustomMetric3();
+            var customMetric3 = new MinkowskiMetric();
             var canberraMetric = new CanBerraMetric();
             var hammingMetric = new HammingMetric();
             //var kList = new List<int>() { 6, 20 };
             //var kList = new List<int>() { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
-            var kList = new List<int>() { 16, 18, 20, 22, 24, 26, 28, 30};
+            var kList = new List<int>() { 12, 14, 16, 18, 20, 22, 24, 26};
             //var kList = new List<int>() { 12 };
             //var trainDivide = new List<int>() { 70 };
             var trainDivide = new List<int>() { 30, 40, 50 };
@@ -414,6 +414,7 @@ namespace KSR
         public static List<IFeature> GetFeatures2()
         {
             var result = new List<IFeature>();
+            result.Add(new BinaryArticleBodyFeature());
             result.Add(new KeyWordsArticleBodyFeature());
             result.Add(new KeyWordsFirstParagraphArticleBodyFeature());
             result.Add(new KeyWordsInNPercentArticleBodyFeature() { N = 10 });
@@ -422,6 +423,7 @@ namespace KSR
             result.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 10 });
             result.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 20 });
             result.Add(new KeyWordsInNWordsArticleBodyFeature() { N = 50 });
+            result.Add(new ArticleHasAttachment());
             return result;
         }
         public static List<IFeature> GetFeatures3()

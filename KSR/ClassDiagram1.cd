@@ -8,30 +8,6 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="KSR.Tools.Features.BinaryArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="2.75" Y="2.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Tools\Features\BinaryArticleBodyFeature.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="KSR.Tools.Features.KeyWordsArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="2.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Tools\Features\KeyWordsArticleBodyFeature.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="KSR.Tools.Features.KeyWordsFirstParagraphArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5" Y="0.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Tools\Features\KeyWordsFirstParagraphArticleBodyFeature.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="KSR.Tools.Features.KeyWordsInNLastPercentArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="2.75" Y="2" Width="2" />
     <TypeIdentifier>
@@ -45,22 +21,6 @@
     <TypeIdentifier>
       <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>Tools\Features\KeyWordsInNLastWordsArticleBodyFeature .cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="KSR.Tools.Features.KeyWordsInNPercentArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5" Y="2" Width="2" />
-    <TypeIdentifier>
-      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
-      <FileName>Tools\Features\KeyWordsInNPercentArticleBodyFeature.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="KSR.Tools.Features.KeyWordsInNWordsArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="5" Y="1.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
-      <FileName>Tools\Features\KeyWordsInNWordsArticleBodyFeature.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -197,7 +157,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="KSR.Tools.Metrics.CustomMetric1" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="22.25" Y="3.5" Width="2" />
+    <Position X="25" Y="1.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tools\Metrics\CustomMetric1.cs</FileName>
@@ -205,23 +165,23 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="KSR.Tools.Metrics.CustomMetric2" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="22.25" Y="4.25" Width="2" />
+    <Position X="25" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tools\Metrics\CustomMetric2.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="KSR.Tools.Metrics.CustomMetric3" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="22.25" Y="5" Width="2" />
+  <Class Name="KSR.Tools.Metrics.MinkowskiMetric" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="4.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAEAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
-      <FileName>Tools\Metrics\CustomMetric3.cs</FileName>
+      <FileName>Tools\Metrics\MinkowskiMetric.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="KSR.Tools.Metrics.EuclidesMetric" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="20" Y="5.75" Width="2" />
+    <Position X="22.25" Y="3.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tools\Metrics\EuclidesMetric.cs</FileName>
@@ -237,7 +197,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="KSR.Tools.Metrics.ManhattanMetric" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="22.25" Y="5.75" Width="2" />
+    <Position X="22.25" Y="5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tools\Metrics\ManhattanMetric.cs</FileName>
@@ -295,7 +255,7 @@
   <Class Name="KSR.Model.Article">
     <Position X="16.75" Y="3.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAEAAAAEAAAAABAAAAAAAgAEAAAAAAAAEAEAA=</HashCode>
+      <HashCode>AAIAAAAAEAAEAEAAAAABAAAAAAAgAEAAAAAAAAEAEAA=</HashCode>
       <FileName>Model\Article.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -320,6 +280,54 @@
       <HashCode>CAAAAAAAAEAAAAAABAAEAAAAAAAAEAAAAAAAAAQEAAA=</HashCode>
       <FileName>Tools\Helpers\ResultHelper.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="KSR.Tools.Features.ArticleHasAttachment" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Features\ArticleHasAttachment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KSR.Tools.Features.BinaryArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Features\BinaryArticleBodyFeature.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KSR.Tools.Features.KeyWordsArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Features\KeyWordsArticleBodyFeature.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KSR.Tools.Features.KeyWordsFirstParagraphArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\Features\KeyWordsFirstParagraphArticleBodyFeature.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KSR.Tools.Features.KeyWordsInNPercentArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Tools\Features\KeyWordsInNPercentArticleBodyFeature.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KSR.Tools.Features.KeyWordsInNWordsArticleBodyFeature" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgABAAAAAAAEAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Tools\Features\KeyWordsInNWordsArticleBodyFeature.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Interface Name="KSR.Tools.Classifier.IClassifier">
     <Position X="25.25" Y="7.5" Width="2" />

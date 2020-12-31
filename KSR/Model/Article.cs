@@ -15,6 +15,8 @@ namespace KSR.Model
         public NDArray Features { get; set; }
         public double[] FeaturesD { get; set; }
         public bool[] IsFeaturesContinoused { get; set; }
+
+        public bool HasAttachment { get; set; }
     }
 
 }
