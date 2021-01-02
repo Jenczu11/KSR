@@ -35,7 +35,7 @@ namespace KSR.Tools.Readers
             var regex = new Regex("[^a-zA-Z]");
             var result = new List<Article>();
             connection.Open();
-            SqlCommand command = new SqlCommand("Select TITLE, DESCRIPTION, LEVELID, HASATTACHMENT from [WorkOrderVNew]", connection);
+            SqlCommand command = new SqlCommand("Select WORKORDERID, TITLE, DESCRIPTION, LEVELID, HASATTACHMENT from [WorkOrderVNew]", connection);
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 var counter = 0;
@@ -48,7 +48,7 @@ namespace KSR.Tools.Readers
                     }
 #endif
                     var article = new Article();
-                    article.Id = Convert.ToInt64(reader["WORKORDERID"]);
+                    article.Id = Convert.ToInt64(reader["WORKORDERID"].ToString());
                     article.Label = "guess";
                     article.Title = reader["TITLE"].ToString();
                     article.Tags = new Dictionary<string, List<string>>();

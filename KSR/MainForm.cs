@@ -28,6 +28,8 @@ namespace KSR
             XmlSerializer xs = new XmlSerializer(typeof(ServiceSettings));
             TextWriter tw = new StreamWriter(path);
             xs.Serialize(tw, settings);
+            tw.Dispose();
+            tw.Close();
         }
 
         private ServiceSettings loadXML(string path)
@@ -44,10 +46,10 @@ namespace KSR
         private void loadSettings(ServiceSettings settings)
         {
             SetServiceStatus("ServiceDesk_Classification");
-            cmbClassifer.SelectedItem = settings.classifiers.ToString();
-            cmbFrequeny.SelectedItem = settings.frequency.ToString();
-            cmbMetrics.SelectedItem = settings.metrics.ToString();
-            cmbParts.SelectedItem = settings.parts.ToString();
+            cmbClassifer.SelectedIndex = cmbClassifer.FindStringExact(settings.classifiers.ToString());
+            cmbFrequeny.SelectedIndex = cmbFrequeny.FindStringExact(settings.frequency.ToString());
+            cmbMetrics.SelectedIndex = cmbMetrics.FindStringExact(settings.metrics.ToString());
+            cmbParts.SelectedIndex = cmbParts.FindStringExact(settings.parts.ToString());
             chSets.Checked = settings.onwSets;
             chStoplist.Checked = settings.stoplist;
             chStemmization.Checked = settings.stemmize;

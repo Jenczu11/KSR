@@ -38,9 +38,11 @@ namespace KSR
         {
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var settingsPath = Path.Combine(path, "settings.xml");
+            BaseLogs.WriteLog("Load settings");
             settings = loadXML(settingsPath);
             if (settings.stoplist)
             {
+                BaseLogs.WriteLog("Init stoplist");
                 StopListHelper.LoadStopWords(settings.stoplistPath);
             }
             IReader reader = new DatabaseReader();
@@ -57,9 +59,12 @@ namespace KSR
             var tag = "level";
             var kList = new List<int>() { 12, 14, 16, 18, 20, 22, 24, 26 };
             var trainDivide = new List<int>() { parts.Item1 };
+            BaseLogs.WriteLog("Load articles");
             articles = reader.GetArticles(true, false).ToList();
+            BaseLogs.WriteLog("Get keywords");
             keyWordsDict = KeyWordsHelper.GetKeyWordsDict(articles, 20, frequency, tag, true);
             keyWordsSingle = KeyWordsHelper.GetKeyWords(articles, 20, frequency, tag, true);
+            BaseLogs.WriteLog("Extract features");
             if (ownSets)
             {
                 articles.ForEach(item =>
@@ -74,6 +79,7 @@ namespace KSR
                     FeatureExtractorHelper.ExtractFeature(features, ref item, keyWordsSingle);
                 });
             }
+            BaseLogs.WriteLog("Begin train");
             foreach (var testTraining in trainDivide)
             {
                 var learning = new LearningArticles(testTraining, articles);
@@ -92,10 +98,12 @@ namespace KSR
                         k = kitem;
                         max_accuracy = globalResult;
                     }
+                    BaseLogs.WriteLog(string.Format("Accuracy = {0} for k = {1}", globalResult, kitem));
                 }
                 BaseLogs.WriteLog(string.Format("Max accuracy = {0} for k = {1}", max_accuracy, k));
             }
 
+            BaseLogs.WriteLog("End train");
 
         }
         private static Dictionary<string, ResultSet> Run(IClassifier classifier, int k, IMetric metric, List<Article> training, List<Article> testing, List<string> tags)
@@ -159,6 +167,20 @@ namespace KSR
             {
                 IReader reader = new DatabaseOnlyNewReader();
                 var articlesToClassify = reader.GetArticles(isStemmization, isStopList).ToList();
+                if (ownSets)
+                {
+                    articlesToClassify.ForEach(item =>
+                    {
+                        FeatureExtractorHelper.ExtractFeatureDict(features, ref item, keyWordsDict);
+                    });
+                }
+                else
+                {
+                    articlesToClassify.ForEach(item =>
+                    {
+                        FeatureExtractorHelper.ExtractFeature(features, ref item, keyWordsSingle);
+                    });
+                }
                 foreach (var item in articlesToClassify)
                 {
                     item.GuessedLabel = classifier.Classify(item, k, metric);

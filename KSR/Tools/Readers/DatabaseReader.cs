@@ -47,7 +47,7 @@ namespace KSR.Tools.Readers
 #if DEBUG
                     if (counter % 100 == 0)
                     {
-                        Console.WriteLine(string.Format("Articles readed {0}", counter));
+                        BaseLogs.WriteLog(string.Format("Articles readed {0}", counter));
                     }
 #endif
                     var article = new Article();
