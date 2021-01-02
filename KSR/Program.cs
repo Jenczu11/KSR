@@ -23,6 +23,7 @@ using KSR.Tools.Features;
 using static KSR.Tools.Helpers.ResultHelper;
 using Settings = KSR.Tools.Settings;
 using KSR.Tools.SimliarityFunctions;
+using System.Windows.Forms;
 
 namespace KSR
 {
@@ -37,6 +38,7 @@ namespace KSR
 
         public static List<string> columns = new List<string>() { "test number", "k", "train/test", "metric", "feature set", "result type" };
 
+        [STAThread]
         public static void Main(string[] args)
         {
             /* StopListHelper.LoadStopWords();
@@ -211,8 +213,10 @@ namespace KSR
              rh.PrintToLaTeX();
              Console.ReadLine();
              */
-            RunApp();
-            Console.ReadLine();
+            //RunApp();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
         }
 
 
