@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -21,7 +23,11 @@ namespace KSR.Tools.Readers
 
         public DatabaseReader()
         {
-            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            Assembly executingAssembly = Assembly.GetAssembly(typeof(ServiceThread));
+            string targetDir = executingAssembly.Location;
+            Configuration config = ConfigurationManager.OpenExeConfiguration(targetDir);
+            var connectionString = config.ConnectionStrings.ConnectionStrings["KSR.Properties.Settings.ConnectionString"].ConnectionString.ToString();
+            connection = new SqlConnection(connectionString);
 
 
 
