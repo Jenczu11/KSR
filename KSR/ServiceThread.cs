@@ -139,6 +139,10 @@ namespace KSR
 
         private ServiceSettings loadXML(string path)
         {
+            if (!File.Exists(path))
+            {
+                throw new Exception("Settings file not found");
+            }
             var result = new ServiceSettings();
             XmlSerializer xs = new XmlSerializer(typeof(ServiceSettings));
             using (var sr = new StreamReader(path))

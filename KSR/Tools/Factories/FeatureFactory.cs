@@ -10,7 +10,7 @@ namespace KSR.Tools.Factories
 {
     public class FeatureFactory
     {
-        public static List<IFeature> GetFeatures(List<FeaturesEnum> features)
+        public static List<IFeature> GetFeatures(HashSet<FeaturesEnum> features)
         {
             var result = new List<IFeature>();
             if (features.Contains(FeaturesEnum.feature_1))

@@ -109,8 +109,10 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -176,7 +178,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Tools\Helpers\WinServiceUtlis.cs" />
+    <Compile Include="WindowsServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WindowsServiceInstaller.Designer.cs">
+      <DependentUpon>WindowsServiceInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServiceSettings.cs" />
+    <Compile Include="ServiceThread.cs" />
     <Compile Include="Tools\ArgsParser.cs" />
     <Compile Include="Tools\CSVReader\SettingsCSVReader.cs" />
     <Compile Include="Tools\Enums\ClassifiersEnum.cs" />
@@ -184,7 +194,6 @@
     <Compile Include="Tools\Enums\FrequencyEnum.cs" />
     <Compile Include="Tools\Enums\MetricsEnum.cs" />
     <Compile Include="Tools\Enums\PartsEnum.cs" />
-    <Compile Include="Tools\Enums\WordsExtractionTypesEnum.cs" />
     <Compile Include="Tools\Factories\ClassifierFactory.cs" />
     <Compile Include="Tools\Factories\FeatureFactory.cs" />
     <Compile Include="Tools\Factories\FrequencyFactory.cs" />
@@ -216,6 +225,7 @@
     <Compile Include="Tools\Metrics\CustomMetric2.cs" />
     <Compile Include="Tools\Metrics\MinkowskiMetric.cs" />
     <Compile Include="Tools\Metrics\HammingMetric.cs" />
+    <Compile Include="Tools\Readers\DataBaseOnlyNewReader.cs" />
     <Compile Include="Tools\Readers\DatabaseReader.cs" />
     <Compile Include="Tools\Readers\IReader.cs" />
     <Compile Include="Tools\Readers\ReutersReader.cs" />

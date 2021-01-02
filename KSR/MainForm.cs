@@ -1,4 +1,5 @@
 ﻿using KSR.Tools.Enums;
+using KSR.Tools.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -18,7 +20,7 @@ namespace KSR
         public MainForm()
         {
             InitializeComponent();
-           
+            
         }
 
         private void saveXML(string path, ServiceSettings settings)
@@ -41,6 +43,7 @@ namespace KSR
 
         private void loadSettings(ServiceSettings settings)
         {
+            SetServiceStatus("ServiceDesk_Classification");
             cmbClassifer.SelectedItem = settings.classifiers.ToString();
             cmbFrequeny.SelectedItem = settings.frequency.ToString();
             cmbMetrics.SelectedItem = settings.metrics.ToString();
@@ -100,17 +103,45 @@ namespace KSR
 
         private void btnInstall_Click(object sender, EventArgs e)
         {
-
+            if(serviceStatusLabel.Text == "Odinstalowana")
+            {
+                WinServiceUtlis.InstallService(Application.ExecutablePath);
+                WinServiceUtlis.RunService("ServiceDesk_Classification");
+                MessageBox.Show("Usługa zainstalowana");
+            }
+            else
+            {
+                WinServiceUtlis.StopService("ServiceDesk_Classification");
+                WinServiceUtlis.DeleteService("ServiceDesk_Classification");
+                MessageBox.Show("Usługa odinstalowana");
+            }
+            Thread.Sleep(1000);
+            SetServiceStatus("ServiceDesk_Classification");
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-
+            if(serviceStatusLabel.Text == "Uruchomiona")
+            {
+                WinServiceUtlis.StopService("ServiceDesk_Classification");
+                MessageBox.Show("Usługa zatrzymana");
+            }
+            else
+            {
+                WinServiceUtlis.RunService("ServiceDesk_Classification");
+                MessageBox.Show("Usługa uruchomiona");
+            }
+            Thread.Sleep(1000);
+            SetServiceStatus("ServiceDesk_Classification");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            if (!WinServiceUtlis.IsAnAdministrator())
+            {
+                MessageBox.Show("Aplikacja do prawidłowego działania wymaga uprawnień administratora");
+                Close();
+            }
             SetCombobox(cmbClassifer, typeof(ClassifiersEnum));
             SetCombobox(cmbFrequeny, typeof(FrequencyEnum));
             SetCombobox(cmbMetrics, typeof(MetricsEnum));
@@ -179,6 +210,41 @@ namespace KSR
             var settingsPath = Path.Combine(path, "settings.xml");
             saveXML(settingsPath, settings);
             MessageBox.Show("Ustawienia aplikacji zapisane");
+        }
+
+        private void SetServiceStatus(string serwis)
+        {
+            switch (WinServiceUtlis.GetServiceStatus(serwis))
+            {
+                case WinServiceUtlis.ServiceStatus.NotInstaled:
+                    {
+                        //MessageBox.Show("Usługa ServiceDesk_Classification nie jest zainstalowana");
+                        serviceStatusLabel.Text = "Odinstalowana";
+                        btnInstall.Text = "Zainstaluj";
+                        btnStart.Text = "Uruchom";
+                        btnStart.Enabled = false;
+                        break;
+                    }
+                case WinServiceUtlis.ServiceStatus.Running:
+                    {
+                        //MessageBox.Show("Usługa ServiceDesk_Classification jest uruchomiona");
+                        serviceStatusLabel.Text = "Uruchomiona";
+                        btnInstall.Text = "Odinstaluj";
+                        btnStart.Text = "Zatrzymaj";
+                        btnStart.Enabled = true;
+                        break;
+                    }
+                default:
+                    {
+                        //MessageBox.Show("Usługa ServiceDesk_Classification nie jest uruchomiona");
+                        serviceStatusLabel.Text = "Zatrzymana";
+                        btnInstall.Text = "Odinstaluj";
+                        btnStart.Text = "Uruchom";
+                        btnStart.Enabled = true;
+                        break;
+                    }
+
+            }
         }
     }
 }

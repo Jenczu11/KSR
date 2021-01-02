@@ -24,6 +24,7 @@ using static KSR.Tools.Helpers.ResultHelper;
 using Settings = KSR.Tools.Settings;
 using KSR.Tools.SimliarityFunctions;
 using System.Windows.Forms;
+using System.ServiceProcess;
 
 namespace KSR
 {
@@ -214,9 +215,17 @@ namespace KSR
              Console.ReadLine();
              */
             //RunApp();
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            if (Environment.UserInteractive)
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
+            }
+            else
+            {
+                ServiceBase.Run(new ClassificationService());
+            }
+
         }
 
 

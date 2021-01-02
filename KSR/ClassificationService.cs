@@ -1,16 +1,7 @@
-﻿using KSR.Tools.Factories;
-using KSR.Tools.Helpers;
+﻿using KSR.Tools.Helpers;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+using System.Threading;
 
 namespace KSR
 {
@@ -23,18 +14,23 @@ namespace KSR
 
         protected override void OnStart(string[] args)
         {
-            while (Thread.CurrentThread.ThreadState != ThreadState.AbortRequested)
+            System.Threading.Tasks.Task.Run(() =>
             {
-                try
+                while (Thread.CurrentThread.ThreadState != ThreadState.AbortRequested)
                 {
-                    var serviceThread = new ServiceThread();
-                    serviceThread.classify();
+                    try
+                    {
+                        var serviceThread = new ServiceThread();
+                        serviceThread.classify();
+                    }
+                    catch (Exception ex)
+                    {
+                        BaseLogs.WriteLog(ex);
+                        Thread.Sleep(60000);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    BaseLogs.WriteLog(ex);
-                }
-            }
+            });
+            
             
 
         }
