@@ -6,6 +6,6 @@ namespace KSR.Tools.Readers
 {
     public interface IReader
     {
-        IEnumerable<Article> GetArticles();
+        IEnumerable<Article> GetArticles(bool stemmization, bool stoplist);
     }
 }

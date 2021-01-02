@@ -156,7 +156,25 @@ namespace KSR
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
+            if ((string.IsNullOrWhiteSpace(teStoplistPath.Text) && chStoplist.Checked))
+            {
+                MessageBox.Show("Brak wybranego pliku ze stoplistą");
+                return;
+            }
+            if (!File.Exists(teStoplistPath.Text) && chStoplist.Checked)
+            {
+                MessageBox.Show("Plik stoplisty nie istnieje");
+                return;
+            }
+
+
+
             var settings = saveSettings();
+            if(settings.features.Count == 0)
+            {
+                MessageBox.Show("Brak wybranych cech do ekstrakcji");
+                return;
+            }
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var settingsPath = Path.Combine(path, "settings.xml");
             saveXML(settingsPath, settings);

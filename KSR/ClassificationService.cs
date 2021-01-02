@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KSR.Tools.Factories;
+using KSR.Tools.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +16,6 @@ namespace KSR
 {
     partial class ClassificationService : ServiceBase
     {
-        private ServiceSettings settings { get; set; }
         public ClassificationService()
         {
             InitializeComponent();
@@ -22,10 +23,20 @@ namespace KSR
 
         protected override void OnStart(string[] args)
         {
-            // TODO: Add code here to start your service.
-            var path = AppDomain.CurrentDomain.BaseDirectory;
-            var settingsPath = Path.Combine(path, "settings.xml");
-            settings = loadXML(settingsPath);
+            while (Thread.CurrentThread.ThreadState != ThreadState.AbortRequested)
+            {
+                try
+                {
+                    var serviceThread = new ServiceThread();
+                    serviceThread.classify();
+                }
+                catch (Exception ex)
+                {
+                    BaseLogs.WriteLog(ex);
+                }
+            }
+            
+
         }
 
         protected override void OnStop()
@@ -35,15 +46,5 @@ namespace KSR
 
 
 
-        private ServiceSettings loadXML(string path)
-        {
-            var result = new ServiceSettings();
-            XmlSerializer xs = new XmlSerializer(typeof(ServiceSettings));
-            using (var sr = new StreamReader(path))
-            {
-                result = (ServiceSettings)xs.Deserialize(sr);
-            }
-            return result;
-        }
     }
 }

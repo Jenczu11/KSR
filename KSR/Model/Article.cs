@@ -6,6 +6,7 @@ namespace KSR.Model
 {
     public class Article
     {
+        public long Id { get; set; }
         public string Title { get; set; }
         public Dictionary<string, List<string>> Tags { get; set; }
         public List<List<string>> Paragraphs { get; set; }

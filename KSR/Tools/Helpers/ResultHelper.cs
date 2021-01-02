@@ -52,12 +52,6 @@ namespace KSR.Tools.Helpers
                     results.Recall = Convert.ToDecimal(results.TP) * 100m / Convert.ToDecimal(results.TP + results.FN);
                 }
                 resultSet.Add(label, results);
-                /*var info = string.Empty;
-                info += string.Format("Label = {0}{1}", label, Environment.NewLine);
-                info += string.Format("Accuracy = {0:00.00}{1}", results.Accuracy, Environment.NewLine);
-                info += string.Format("Precision = {0:00.00}{1}", results.Precision, Environment.NewLine);
-                info += string.Format("Recall = {0:00.00}{1}", results.Recall, Environment.NewLine);
-                Console.Write(info);*/
             }
         }
 

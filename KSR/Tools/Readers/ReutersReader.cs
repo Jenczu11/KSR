@@ -16,7 +16,7 @@ namespace KSR.Tools.Readers
         private static Stemmer stemmer = new EnglishStemmer();
         private List<string> sources { get; set; }
         public int filesCount { get; set; } = 21;
-        public ReutersReader()
+        public ReutersReader(bool stemmization, bool stoplist, string stoplistPath)
         {
             sources = new List<string>();
             for (int i = 0; i < filesCount; i++)
@@ -25,7 +25,7 @@ namespace KSR.Tools.Readers
             }
         }
 
-        public IEnumerable<Article> GetArticles()
+        public IEnumerable<Article> GetArticles(bool stemmization, bool stoplist)
         {
             var regex = new Regex("[^a-zA-Z]");
 #if DEBUG

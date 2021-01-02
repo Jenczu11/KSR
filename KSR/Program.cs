@@ -295,7 +295,7 @@ namespace KSR
             else
             {
                 var reader = new DatabaseReader();
-                articles = reader.GetArticles().ToList();
+                articles = reader.GetArticles(true, false).ToList();
                 foreach (var article in articles)
                 {
                     var words = new List<string>();
