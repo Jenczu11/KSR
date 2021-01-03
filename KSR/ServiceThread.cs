@@ -165,6 +165,7 @@ namespace KSR
             var startDate = DateTime.Now;
             while (startDate.AddHours(24) > DateTime.Now && Thread.CurrentThread.ThreadState != ThreadState.AbortRequested)
             {
+                BaseLogs.WriteLog("Begin classification");
                 IReader reader = new DatabaseOnlyNewReader();
                 var articlesToClassify = reader.GetArticles(isStemmization, isStopList).ToList();
                 if (ownSets)
@@ -185,6 +186,7 @@ namespace KSR
                 {
                     item.GuessedLabel = classifier.Classify(item, k, metric);
                 }
+                BaseLogs.WriteLog("End classification");
                 Thread.Sleep(1000 * 60 * 5);
             }
 
