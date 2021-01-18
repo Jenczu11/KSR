@@ -8,8 +8,11 @@ using SDC.Tools.Metrics;
 using SDC.Tools.Readers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
 using static SDC.Tools.Helpers.ResultHelper;
@@ -185,6 +188,26 @@ namespace SDC
                 foreach (var item in articlesToClassify)
                 {
                     item.GuessedLabel = classifier.Classify(item, k, metric);
+                    Assembly executingAssembly = Assembly.GetAssembly(typeof(ServiceThread));
+                    string targetDir = executingAssembly.Location;
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(targetDir);
+                    var connectionString = config.ConnectionStrings.ConnectionStrings["SDC.Properties.Settings.ConnectionString"].ConnectionString.ToString();
+                    var connection = new SqlConnection(connectionString);
+                    connection.Open();
+                    var label = string.Empty;
+                    if (item.GuessedLabel == "1")
+                    {
+                        label = "1";
+                    }
+                    else if (item.GuessedLabel == "2")
+                    {
+                        label = "301";
+                    }
+                    else if (item.GuessedLabel == "3")
+                    {
+                        label = "302";
+                    }
+                    SqlCommand command = new SqlCommand(string.Format("Update WorkOrderStates set LEVELID = '{0}' where WORKORDERID = '{1}'", label, item.Id), connection);
                 }
                 BaseLogs.WriteLog("End classification");
                 Thread.Sleep(1000 * 60 * 5);
