@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">anycpu</Platform>
+    <ProjectGuid>{92F41E0A-DF62-45A8-A718-21FE0FFD364E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SDC</RootNamespace>
+    <AssemblyName>SDC</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|anycpu' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|anycpu' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R1|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R1\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R2|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R3|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R3\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R4|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R4\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'R5|anycpu' ">
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExternalConsole>true</ExternalConsole>
+    <LangVersion>8.0</LangVersion>
+    <OutputPath>bin\R5\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CsvHelper, Version=19.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.19.0.0\lib\net47\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.29.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.29\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.0\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NDesk.Options, Version=0.2.1.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpLearning.Common.Interfaces, Version=0.31.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLearning.Common.Interfaces.0.31.8\lib\net461\SharpLearning.Common.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.Containers, Version=0.31.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLearning.Containers.0.31.8\lib\net461\SharpLearning.Containers.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.DecisionTrees, Version=0.31.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLearning.DecisionTrees.0.31.8\lib\net461\SharpLearning.DecisionTrees.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpLearning.InputOutput, Version=0.31.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpLearning.InputOutput.0.31.8\lib\net461\SharpLearning.InputOutput.dll</HintPath>
+    </Reference>
+    <Reference Include="src, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dotnet-stop-words.1.1.0\lib\netstandard2.0\src.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="NumSharp.Core">
+      <HintPath>..\packages\NumSharp.0.20.5\lib\netstandard2.0\NumSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Annytab.Stemmer">
+      <HintPath>..\packages\Annytab.Stemmer.1.2.4\lib\netstandard2.0\Annytab.Stemmer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="Fastenshtein">
+      <HintPath>..\packages\Fastenshtein.1.0.0.5\lib\net40-client\Fastenshtein.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnidecodeSharpFork">
+      <HintPath>..\packages\UnidecodeSharpFork.1.0.0\lib\UnidecodeSharpFork.dll</HintPath>
+    </Reference>
+    <Reference Include="TwinFinder">
+      <HintPath>..\packages\TwinFinder.Nuget.1.0.0\lib\TwinFinder.dll</HintPath>
+    </Reference>
+    <Reference Include="DecisionTree">
+      <HintPath>..\packages\cs-decision-tree.1.0.1\lib\net461\Release\DecisionTree.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClassificationService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ClassificationService.Designer.cs">
+      <DependentUpon>ClassificationService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Article.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Helpers\WinServiceUtlis.cs" />
+    <Compile Include="Service\WindowsServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service\WindowsServiceInstaller.Designer.cs">
+      <DependentUpon>WindowsServiceInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service\ServiceSettings.cs" />
+    <Compile Include="Service\ServiceThread.cs" />
+    <Compile Include="Tools\ArgsParser.cs" />
+    <Compile Include="Tools\CSVReader\SettingsCSVReader.cs" />
+    <Compile Include="Tools\Enums\ClassifiersEnum.cs" />
+    <Compile Include="Tools\Enums\FeaturesEnum.cs" />
+    <Compile Include="Tools\Enums\FrequencyEnum.cs" />
+    <Compile Include="Tools\Enums\MetricsEnum.cs" />
+    <Compile Include="Tools\Enums\PartsEnum.cs" />
+    <Compile Include="Tools\Factories\ClassifierFactory.cs" />
+    <Compile Include="Tools\Factories\FeatureFactory.cs" />
+    <Compile Include="Tools\Factories\FrequencyFactory.cs" />
+    <Compile Include="Tools\Factories\MetricsFactory.cs" />
+    <Compile Include="Tools\Factories\PartsFactory.cs" />
+    <Compile Include="Tools\Features\ArticleHasAttachment.cs" />
+    <Compile Include="Tools\Features\KeyWordsInNLastPercentArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsPercentageArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsInNLastWordsArticleBodyFeature .cs" />
+    <Compile Include="Tools\Features\KeyWordsInNWordsArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsLastParagraphArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\Simliarity30PercentBody.cs" />
+    <Compile Include="Tools\Features\SimliarityFirstParagraph.cs" />
+    <Compile Include="Tools\Features\Words\LongWords.cs" />
+    <Compile Include="Tools\Features\Words\ShortWords.cs" />
+    <Compile Include="Tools\Features\Words\UniqueWordsCounter.cs" />
+    <Compile Include="Tools\Features\Words\WordsCounter.cs" />
+    <Compile Include="Tools\Filter\FilteredArticles.cs" />
+    <Compile Include="Tools\Filter\LearningArticles.cs" />
+    <Compile Include="Tools\Filter\TestingArticles.cs" />
+    <Compile Include="Tools\Helpers\BaseLogs.cs" />
+    <Compile Include="Tools\Helpers\DictHelper.cs" />
+    <Compile Include="Tools\Helpers\LogHelper.cs" />
+    <Compile Include="Tools\Helpers\NormalizeHelper.cs" />
+    <Compile Include="Tools\Helpers\ResultHelper.cs" />
+    <Compile Include="Tools\Helpers\StopListHelper.cs" />
+    <Compile Include="Tools\Metrics\CanberraMetric.cs" />
+    <Compile Include="Tools\Metrics\CustomMetric1.cs" />
+    <Compile Include="Tools\Metrics\CustomMetric2.cs" />
+    <Compile Include="Tools\Metrics\MinkowskiMetric.cs" />
+    <Compile Include="Tools\Metrics\HammingMetric.cs" />
+    <Compile Include="Tools\Readers\DataBaseOnlyNewReader.cs" />
+    <Compile Include="Tools\Readers\DatabaseReader.cs" />
+    <Compile Include="Tools\Readers\IReader.cs" />
+    <Compile Include="Tools\Readers\ReutersReader.cs" />
+    <Compile Include="Tools\Metrics\IMetric.cs" />
+    <Compile Include="Tools\Metrics\EuclidesMetric.cs" />
+    <Compile Include="Tools\Metrics\ManhattanMetric.cs" />
+    <Compile Include="Tools\Metrics\ChebyshevMatric.cs" />
+    <Compile Include="Tools\Serializer\ArticleSerializer.cs" />
+    <Compile Include="Tools\Serializer\FilteredSerializer.cs" />
+    <Compile Include="Tools\Settings.cs" />
+    <Compile Include="Tools\SimliarityFunctions\BinaryFunction.cs" />
+    <Compile Include="Tools\SimliarityFunctions\ISimilarityFunction.cs" />
+    <Compile Include="Tools\Frequency\IFrequency.cs" />
+    <Compile Include="Tools\Frequency\TFFrequency.cs" />
+    <Compile Include="Tools\Frequency\IDFFrequency.cs" />
+    <Compile Include="Tools\Helpers\KeyWordsHelper.cs" />
+    <Compile Include="Tools\Features\IFeature.cs" />
+    <Compile Include="Tools\Features\BinaryArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsInNPercentArticleBodyFeature.cs" />
+    <Compile Include="Tools\Features\KeyWordsFirstParagraphArticleBodyFeature.cs" />
+    <Compile Include="Tools\SimliarityFunctions\LevenshteinFunction.cs" />
+    <Compile Include="Tools\SimliarityFunctions\NGramFunction.cs" />
+    <Compile Include="Tools\SimliarityFunctions\NiewiadomskiFunction.cs" />
+    <Compile Include="Tools\Frequency\TDFrequency.cs" />
+    <Compile Include="Tools\SimliarityFunctions\JaccardFunction.cs" />
+    <Compile Include="Tools\SimliarityFunctions\LCSFunction.cs" />
+    <Compile Include="Tools\Features\SimilarityBodyFeature.cs" />
+    <Compile Include="Tools\Classifier\KNNClassifier.cs" />
+    <Compile Include="Tools\Classifier\IClassifier.cs" />
+    <Compile Include="Tools\Helpers\FeatureExtractorHelper.cs" />
+    <Compile Include="Tools\Classifier\DecisionTreeClassifier.cs" />
+    <Compile Include="Tools\Classifier\DecisionTreeClasifier2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\stoplist.txt" />
+    <Content Include="Data\stoplist_fs.txt" />
+    <Content Include="Tools\Settings.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
+    <None Include="Data\reut2-000.sgm" />
+    <None Include="Data\reut2-001.sgm" />
+    <None Include="Data\reut2-002.sgm" />
+    <None Include="Data\reut2-003.sgm" />
+    <None Include="Data\reut2-004.sgm" />
+    <None Include="Data\reut2-005.sgm" />
+    <None Include="Data\reut2-006.sgm" />
+    <None Include="Data\reut2-007.sgm" />
+    <None Include="Data\reut2-008.sgm" />
+    <None Include="Data\reut2-009.sgm" />
+    <None Include="Data\reut2-010.sgm" />
+    <None Include="Data\reut2-011.sgm" />
+    <None Include="Data\reut2-012.sgm" />
+    <None Include="Data\reut2-013.sgm" />
+    <None Include="Data\reut2-014.sgm" />
+    <None Include="Data\reut2-015.sgm" />
+    <None Include="Data\reut2-016.sgm" />
+    <None Include="Data\reut2-017.sgm" />
+    <None Include="Data\reut2-018.sgm" />
+    <None Include="Data\reut2-019.sgm" />
+    <None Include="Data\reut2-020.sgm" />
+    <None Include="Data\reut2-021.sgm" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
